@@ -1,0 +1,683 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type UserModel {
+  id: String!
+  name: String!
+  description: String!
+  lastName: String!
+  email: String!
+  phone: String!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  deletedAt: DateTime
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type UserQuery {
+  findAll(options: UserFindAll): [UserModel!]!
+  findOne(options: UserFindOne): UserModel
+}
+
+input UserFindAll {
+  filters: [UserFilterInput!]
+  orders: [UserOrderInput!]
+  pagination: UserPaginationInput
+}
+
+input UserFilterInput {
+  id: UserFilterInput_Id
+  name: UserFilterInput_Id
+  description: UserFilterInput_Id
+  lastName: UserFilterInput_Id
+  email: UserFilterInput_Id
+  phone: UserFilterInput_Id
+  createdAt: UserFilterInput_CreatedAt
+  updatedAt: UserFilterInput_CreatedAt
+  deletedAt: UserFilterInput_CreatedAt
+  or: [UserFilterInput_Or!]
+}
+
+input UserFilterInput_Id {
+  eq: String
+  notEq: String
+  contains: String
+  notContains: String
+  startsWith: String
+  notStartsWith: String
+  endsWith: String
+  notEndsWith: String
+  in: [String!]
+  notIn: [String!]
+  isNull: Boolean
+  isNotNull: Boolean
+}
+
+input UserFilterInput_CreatedAt {
+  eq: DateTime
+  notEq: DateTime
+  lt: DateTime
+  lte: DateTime
+  gt: DateTime
+  gte: DateTime
+  between: UserFilterInput_CreatedAt_Between
+  notBetween: UserFilterInput_CreatedAt_Between
+  isNull: Boolean
+  isNotNull: Boolean
+}
+
+input UserFilterInput_CreatedAt_Between {
+  start: DateTime!
+  end: DateTime!
+}
+
+input UserFilterInput_Or {
+  id: UserFilterInput_Id
+  name: UserFilterInput_Id
+  description: UserFilterInput_Id
+  lastName: UserFilterInput_Id
+  email: UserFilterInput_Id
+  phone: UserFilterInput_Id
+  createdAt: UserFilterInput_CreatedAt
+  updatedAt: UserFilterInput_CreatedAt
+  deletedAt: UserFilterInput_CreatedAt
+}
+
+input UserOrderInput {
+  column: UserOrderInput_ColumnEnum_0!
+
+  """Order"""
+  order: Order!
+}
+
+"""Enum values for UserOrderInput.column"""
+enum UserOrderInput_ColumnEnum_0 {
+  createdAt
+  description
+  id
+  name
+  lastName
+}
+
+"""
+Enum values for TeamMatePaginationInput_Cursor_StartFrom_DeletedAt.order
+"""
+enum Order {
+  ASC
+  DESC
+}
+
+input UserPaginationInput {
+  limit: Float!
+  offset: Float
+  cursor: UserPaginationInput_Cursor
+}
+
+input UserPaginationInput_Cursor {
+  id: String!
+  startFrom: UserPaginationInput_Cursor_StartFrom!
+}
+
+input UserPaginationInput_Cursor_StartFrom {
+  id: UserPaginationInput_Cursor_StartFrom_Id!
+  name: UserPaginationInput_Cursor_StartFrom_Name!
+  description: UserPaginationInput_Cursor_StartFrom_Description!
+  lastName: UserPaginationInput_Cursor_StartFrom_LastName!
+  email: UserPaginationInput_Cursor_StartFrom_Email!
+  phone: UserPaginationInput_Cursor_StartFrom_Phone!
+  createdAt: UserPaginationInput_Cursor_StartFrom_CreatedAt!
+  updatedAt: UserPaginationInput_Cursor_StartFrom_UpdatedAt!
+  deletedAt: UserPaginationInput_Cursor_StartFrom_DeletedAt!
+}
+
+input UserPaginationInput_Cursor_StartFrom_Id {
+  value: String!
+  order: Order!
+}
+
+input UserPaginationInput_Cursor_StartFrom_Name {
+  value: String!
+  order: Order!
+}
+
+input UserPaginationInput_Cursor_StartFrom_Description {
+  value: String!
+  order: Order!
+}
+
+input UserPaginationInput_Cursor_StartFrom_LastName {
+  value: String!
+  order: Order!
+}
+
+input UserPaginationInput_Cursor_StartFrom_Email {
+  value: String!
+  order: Order!
+}
+
+input UserPaginationInput_Cursor_StartFrom_Phone {
+  value: String!
+  order: Order!
+}
+
+input UserPaginationInput_Cursor_StartFrom_CreatedAt {
+  value: DateTime!
+  order: Order!
+}
+
+input UserPaginationInput_Cursor_StartFrom_UpdatedAt {
+  value: DateTime
+  order: Order!
+}
+
+input UserPaginationInput_Cursor_StartFrom_DeletedAt {
+  value: DateTime
+  order: Order!
+}
+
+input UserFindOne {
+  filters: [UserFilterInput!]
+}
+
+type UserMutation {
+  create(input: UserCreateInput!): UserModel!
+  update(input: UserUpdateInput!): UserModel!
+  delete(id: ID!): Boolean!
+}
+
+input UserCreateInput {
+  name: String!
+  description: String!
+  lastName: String!
+  email: String!
+  phone: String!
+}
+
+input UserUpdateInput {
+  name: String
+  description: String
+  lastName: String
+  email: String
+  phone: String
+  id: String!
+}
+
+type CurrencyModel {
+  id: String!
+  name: String!
+  description: String!
+  code: Int!
+  shortName: String!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  deletedAt: DateTime
+}
+
+type CurrencyQuery {
+  findAll(options: CurrencyFindAll): [CurrencyModel!]!
+  findOne(options: CurrencyFindOne): CurrencyModel
+}
+
+input CurrencyFindAll {
+  filters: [CurrencyFilterInput!]
+  orders: [CurrencyOrderInput!]
+  pagination: CurrencyPaginationInput
+}
+
+input CurrencyFilterInput {
+  id: UserFilterInput_Id
+  name: UserFilterInput_Id
+  description: UserFilterInput_Id
+  code: CurrencyFilterInput_Code
+  shortName: UserFilterInput_Id
+  createdAt: UserFilterInput_CreatedAt
+  updatedAt: UserFilterInput_CreatedAt
+  deletedAt: UserFilterInput_CreatedAt
+  or: [CurrencyFilterInput_Or!]
+}
+
+input CurrencyFilterInput_Code {
+  eq: Float
+  notEq: Float
+  lt: Float
+  lte: Float
+  gt: Float
+  gte: Float
+  in: [Float!]
+  notIn: [Float!]
+  between: CurrencyFilterInput_Code_Between
+  notBetween: CurrencyFilterInput_Code_Between
+  isNull: Boolean
+  isNotNull: Boolean
+}
+
+input CurrencyFilterInput_Code_Between {
+  start: Float!
+  end: Float!
+}
+
+input CurrencyFilterInput_Or {
+  id: UserFilterInput_Id
+  name: UserFilterInput_Id
+  description: UserFilterInput_Id
+  code: CurrencyFilterInput_Code
+  shortName: UserFilterInput_Id
+  createdAt: UserFilterInput_CreatedAt
+  updatedAt: UserFilterInput_CreatedAt
+  deletedAt: UserFilterInput_CreatedAt
+}
+
+input CurrencyOrderInput {
+  column: CurrencyOrderInput_ColumnEnum_0!
+
+  """Order"""
+  order: Order!
+}
+
+"""Enum values for CurrencyOrderInput.column"""
+enum CurrencyOrderInput_ColumnEnum_0 {
+  createdAt
+  description
+  id
+  name
+}
+
+input CurrencyPaginationInput {
+  limit: Float!
+  offset: Float
+  cursor: CurrencyPaginationInput_Cursor
+}
+
+input CurrencyPaginationInput_Cursor {
+  id: String!
+  startFrom: CurrencyPaginationInput_Cursor_StartFrom!
+}
+
+input CurrencyPaginationInput_Cursor_StartFrom {
+  id: CurrencyPaginationInput_Cursor_StartFrom_Id!
+  name: CurrencyPaginationInput_Cursor_StartFrom_Name!
+  description: CurrencyPaginationInput_Cursor_StartFrom_Description!
+  code: CurrencyPaginationInput_Cursor_StartFrom_Code!
+  shortName: CurrencyPaginationInput_Cursor_StartFrom_ShortName!
+  createdAt: CurrencyPaginationInput_Cursor_StartFrom_CreatedAt!
+  updatedAt: CurrencyPaginationInput_Cursor_StartFrom_UpdatedAt!
+  deletedAt: CurrencyPaginationInput_Cursor_StartFrom_DeletedAt!
+}
+
+input CurrencyPaginationInput_Cursor_StartFrom_Id {
+  value: String!
+  order: Order!
+}
+
+input CurrencyPaginationInput_Cursor_StartFrom_Name {
+  value: String!
+  order: Order!
+}
+
+input CurrencyPaginationInput_Cursor_StartFrom_Description {
+  value: String!
+  order: Order!
+}
+
+input CurrencyPaginationInput_Cursor_StartFrom_Code {
+  value: Int!
+  order: Order!
+}
+
+input CurrencyPaginationInput_Cursor_StartFrom_ShortName {
+  value: String!
+  order: Order!
+}
+
+input CurrencyPaginationInput_Cursor_StartFrom_CreatedAt {
+  value: DateTime!
+  order: Order!
+}
+
+input CurrencyPaginationInput_Cursor_StartFrom_UpdatedAt {
+  value: DateTime
+  order: Order!
+}
+
+input CurrencyPaginationInput_Cursor_StartFrom_DeletedAt {
+  value: DateTime
+  order: Order!
+}
+
+input CurrencyFindOne {
+  filters: [CurrencyFilterInput!]
+}
+
+type CurrencyMutation {
+  create(input: CurrencyCreateInput!): CurrencyModel!
+  update(input: CurrencyUpdateInput!): CurrencyModel!
+  delete(id: ID!): Boolean!
+}
+
+input CurrencyCreateInput {
+  name: String!
+  description: String!
+  code: Int!
+  shortName: String!
+}
+
+input CurrencyUpdateInput {
+  name: String
+  description: String
+  code: Int
+  shortName: String
+  id: String!
+}
+
+type TeamModel {
+  id: String!
+  name: String!
+  description: String!
+  referralId: String!
+  currencyId: String!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  deletedAt: DateTime
+}
+
+type TeamQuery {
+  findAll(options: TeamFindAll): [TeamModel!]!
+  findOne(options: TeamFindOne): TeamModel
+}
+
+input TeamFindAll {
+  filters: [TeamFilterInput!]
+  orders: [TeamOrderInput!]
+  pagination: TeamPaginationInput
+}
+
+input TeamFilterInput {
+  id: UserFilterInput_Id
+  name: UserFilterInput_Id
+  description: UserFilterInput_Id
+  referralId: UserFilterInput_Id
+  currencyId: UserFilterInput_Id
+  createdAt: UserFilterInput_CreatedAt
+  updatedAt: UserFilterInput_CreatedAt
+  deletedAt: UserFilterInput_CreatedAt
+  or: [TeamFilterInput_Or!]
+}
+
+input TeamFilterInput_Or {
+  id: UserFilterInput_Id
+  name: UserFilterInput_Id
+  description: UserFilterInput_Id
+  referralId: UserFilterInput_Id
+  currencyId: UserFilterInput_Id
+  createdAt: UserFilterInput_CreatedAt
+  updatedAt: UserFilterInput_CreatedAt
+  deletedAt: UserFilterInput_CreatedAt
+}
+
+input TeamOrderInput {
+  column: TeamOrderInput_ColumnEnum_0!
+
+  """Order"""
+  order: Order!
+}
+
+"""Enum values for TeamOrderInput.column"""
+enum TeamOrderInput_ColumnEnum_0 {
+  createdAt
+  description
+  id
+  name
+}
+
+input TeamPaginationInput {
+  limit: Float!
+  offset: Float
+  cursor: TeamPaginationInput_Cursor
+}
+
+input TeamPaginationInput_Cursor {
+  id: String!
+  startFrom: TeamPaginationInput_Cursor_StartFrom!
+}
+
+input TeamPaginationInput_Cursor_StartFrom {
+  id: TeamPaginationInput_Cursor_StartFrom_Id!
+  name: TeamPaginationInput_Cursor_StartFrom_Name!
+  description: TeamPaginationInput_Cursor_StartFrom_Description!
+  referralId: TeamPaginationInput_Cursor_StartFrom_ReferralId!
+  currencyId: TeamPaginationInput_Cursor_StartFrom_CurrencyId!
+  createdAt: TeamPaginationInput_Cursor_StartFrom_CreatedAt!
+  updatedAt: TeamPaginationInput_Cursor_StartFrom_UpdatedAt!
+  deletedAt: TeamPaginationInput_Cursor_StartFrom_DeletedAt!
+}
+
+input TeamPaginationInput_Cursor_StartFrom_Id {
+  value: String!
+  order: Order!
+}
+
+input TeamPaginationInput_Cursor_StartFrom_Name {
+  value: String!
+  order: Order!
+}
+
+input TeamPaginationInput_Cursor_StartFrom_Description {
+  value: String!
+  order: Order!
+}
+
+input TeamPaginationInput_Cursor_StartFrom_ReferralId {
+  value: String!
+  order: Order!
+}
+
+input TeamPaginationInput_Cursor_StartFrom_CurrencyId {
+  value: String!
+  order: Order!
+}
+
+input TeamPaginationInput_Cursor_StartFrom_CreatedAt {
+  value: DateTime!
+  order: Order!
+}
+
+input TeamPaginationInput_Cursor_StartFrom_UpdatedAt {
+  value: DateTime
+  order: Order!
+}
+
+input TeamPaginationInput_Cursor_StartFrom_DeletedAt {
+  value: DateTime
+  order: Order!
+}
+
+input TeamFindOne {
+  filters: [TeamFilterInput!]
+}
+
+type TeamMutation {
+  create(input: TeamCreateInput!): TeamModel!
+  update(input: TeamUpdateInput!): TeamModel!
+  delete(id: ID!): Boolean!
+}
+
+input TeamCreateInput {
+  name: String!
+  description: String!
+  referralId: String!
+  currencyId: String!
+}
+
+input TeamUpdateInput {
+  name: String
+  description: String
+  referralId: String
+  currencyId: String
+  id: String!
+}
+
+type TeamMateModel {
+  id: String!
+  name: String!
+  description: String!
+  referralId: String!
+  currencyId: String!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  deletedAt: DateTime
+}
+
+type TeamMateQuery {
+  findAll(options: TeamMateFindAll): [TeamMateModel!]!
+  findOne(options: TeamMateFindOne): TeamMateModel
+}
+
+input TeamMateFindAll {
+  filters: [TeamMateFilterInput!]
+  orders: [TeamMateOrderInput!]
+  pagination: TeamMatePaginationInput
+}
+
+input TeamMateFilterInput {
+  id: UserFilterInput_Id
+  name: UserFilterInput_Id
+  description: UserFilterInput_Id
+  referralId: UserFilterInput_Id
+  currencyId: UserFilterInput_Id
+  createdAt: UserFilterInput_CreatedAt
+  updatedAt: UserFilterInput_CreatedAt
+  deletedAt: UserFilterInput_CreatedAt
+  or: [TeamMateFilterInput_Or!]
+}
+
+input TeamMateFilterInput_Or {
+  id: UserFilterInput_Id
+  name: UserFilterInput_Id
+  description: UserFilterInput_Id
+  referralId: UserFilterInput_Id
+  currencyId: UserFilterInput_Id
+  createdAt: UserFilterInput_CreatedAt
+  updatedAt: UserFilterInput_CreatedAt
+  deletedAt: UserFilterInput_CreatedAt
+}
+
+input TeamMateOrderInput {
+  column: TeamMateOrderInput_ColumnEnum_0!
+
+  """Order"""
+  order: Order!
+}
+
+"""Enum values for TeamMateOrderInput.column"""
+enum TeamMateOrderInput_ColumnEnum_0 {
+  createdAt
+  description
+  id
+  name
+}
+
+input TeamMatePaginationInput {
+  limit: Float!
+  offset: Float
+  cursor: TeamMatePaginationInput_Cursor
+}
+
+input TeamMatePaginationInput_Cursor {
+  id: String!
+  startFrom: TeamMatePaginationInput_Cursor_StartFrom!
+}
+
+input TeamMatePaginationInput_Cursor_StartFrom {
+  id: TeamMatePaginationInput_Cursor_StartFrom_Id!
+  name: TeamMatePaginationInput_Cursor_StartFrom_Name!
+  description: TeamMatePaginationInput_Cursor_StartFrom_Description!
+  referralId: TeamMatePaginationInput_Cursor_StartFrom_ReferralId!
+  currencyId: TeamMatePaginationInput_Cursor_StartFrom_CurrencyId!
+  createdAt: TeamMatePaginationInput_Cursor_StartFrom_CreatedAt!
+  updatedAt: TeamMatePaginationInput_Cursor_StartFrom_UpdatedAt!
+  deletedAt: TeamMatePaginationInput_Cursor_StartFrom_DeletedAt!
+}
+
+input TeamMatePaginationInput_Cursor_StartFrom_Id {
+  value: String!
+  order: Order!
+}
+
+input TeamMatePaginationInput_Cursor_StartFrom_Name {
+  value: String!
+  order: Order!
+}
+
+input TeamMatePaginationInput_Cursor_StartFrom_Description {
+  value: String!
+  order: Order!
+}
+
+input TeamMatePaginationInput_Cursor_StartFrom_ReferralId {
+  value: String!
+  order: Order!
+}
+
+input TeamMatePaginationInput_Cursor_StartFrom_CurrencyId {
+  value: String!
+  order: Order!
+}
+
+input TeamMatePaginationInput_Cursor_StartFrom_CreatedAt {
+  value: DateTime!
+  order: Order!
+}
+
+input TeamMatePaginationInput_Cursor_StartFrom_UpdatedAt {
+  value: DateTime
+  order: Order!
+}
+
+input TeamMatePaginationInput_Cursor_StartFrom_DeletedAt {
+  value: DateTime
+  order: Order!
+}
+
+input TeamMateFindOne {
+  filters: [TeamMateFilterInput!]
+}
+
+type TeamMateMutation {
+  create(input: TeamMateCreateInput!): TeamMateModel!
+  update(input: TeamMateUpdateInput!): TeamMateModel!
+  delete(id: ID!): Boolean!
+}
+
+input TeamMateCreateInput {
+  name: String!
+  description: String!
+  referralId: String!
+  currencyId: String!
+}
+
+input TeamMateUpdateInput {
+  name: String
+  description: String
+  referralId: String
+  currencyId: String
+  id: String!
+}
+
+type Query {
+  user: UserQuery!
+  currency: CurrencyQuery!
+  team: TeamQuery!
+  teamMate: TeamMateQuery!
+}
+
+type Mutation {
+  user: UserMutation!
+  currency: CurrencyMutation!
+  team: TeamMutation!
+  teamMate: TeamMateMutation!
+}

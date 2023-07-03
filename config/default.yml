@@ -1,0 +1,17 @@
+secrets:
+  db:
+    host: localhost
+    port: 5432
+    db: ls
+    user: icfcusr
+    password: password
+    logging: true
+params:
+  gql:
+    playground: true
+  application:
+    port: 3100
+  logger:
+    level: info
+    transport:
+      target: pino-pretty
