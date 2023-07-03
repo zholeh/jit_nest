@@ -46,6 +46,8 @@ export async function up(knex: Knex): Promise<void> {
       CONSTRAINT team_referral_id_fk FOREIGN KEY (referral_id) REFERENCES "user"(id),
       CONSTRAINT team_currency_id_fk FOREIGN KEY (currency_id) REFERENCES currency(id)
     );
+
+    CREATE INDEX team_referral_id_idx ON team (referral_id);
   `);
 
   await knex.raw(`
@@ -68,6 +70,8 @@ export async function up(knex: Knex): Promise<void> {
       CONSTRAINT team_mate_user_id_fk FOREIGN KEY (user_id) REFERENCES "user"(id),
       CONSTRAINT team_mate_team_id_fk FOREIGN KEY (team_id) REFERENCES team(id)
     );
+
+    CREATE INDEX team_mate_user_id_idx ON team_mate (user_id);
   `);
 
   await knex.raw(`
@@ -83,6 +87,8 @@ export async function up(knex: Knex): Promise<void> {
       PRIMARY KEY ("id"),
       CONSTRAINT channel_team_id_fk FOREIGN KEY (team_id) REFERENCES team(id)
     );
+
+    CREATE INDEX channel_team_id_idx ON channel (team_id);
   `);
 
   await knex.raw(`
@@ -101,6 +107,9 @@ export async function up(knex: Knex): Promise<void> {
       CONSTRAINT member_user_id_fk FOREIGN KEY (user_id) REFERENCES "user"(id),
       CONSTRAINT member_channel_id_fk FOREIGN KEY (channel_id) REFERENCES channel(id)
     );
+
+    CREATE INDEX member_user_id_idx ON member (user_id);
+    CREATE INDEX member_channel_id_idx ON member (channel_id);
   `);
 
   await knex.raw(`
@@ -119,6 +128,10 @@ export async function up(knex: Knex): Promise<void> {
       CONSTRAINT member_notice_team_mate_id_fk FOREIGN KEY (mate_id) REFERENCES team_mate(id),
       CONSTRAINT member_notice_member_id_fk FOREIGN KEY (member_id) REFERENCES member(id)
     );
+
+    CREATE INDEX member_notice_channel_id_idx ON member_notice (channel_id);
+    CREATE INDEX member_notice_member_id_idx ON member_notice (member_id);
+    CREATE INDEX member_notice_mate_id_idx ON member_notice (mate_id);
   `);
 
   await knex.raw(`
@@ -136,6 +149,9 @@ export async function up(knex: Knex): Promise<void> {
       CONSTRAINT message_channel_id_fk FOREIGN KEY (channel_id) REFERENCES channel(id),
       CONSTRAINT message_team_mate_id_fk FOREIGN KEY (mate_id) REFERENCES team_mate(id)
     );
+
+    CREATE INDEX message_channel_id_idx ON message (channel_id);
+    CREATE INDEX message_mate_id_idx ON message (mate_id);
   `);
 }
 
