@@ -7,8 +7,8 @@ import { FindAllOptions, FindOneOptions } from '../../../helper/types';
 @Injectable()
 export class TeamMateService {
   private storage: TeamMateStorage;
-  constructor(@InjectKnex() private knex: Knex) {
-    this.storage = new TeamMateStorage(knex);
+  constructor(@InjectKnex() private readonly knex: Knex) {
+    this.storage = new TeamMateStorage(this.knex);
   }
 
   async findAll(input: FindAllOptions<TeamMateType>) {

@@ -7,8 +7,8 @@ import { FindAllOptions, FindOneOptions } from '../../../helper/types';
 @Injectable()
 export class CurrencyService {
   private storage: CurrencyStorage;
-  constructor(@InjectKnex() private knex: Knex) {
-    this.storage = new CurrencyStorage(knex);
+  constructor(@InjectKnex() private readonly knex: Knex) {
+    this.storage = new CurrencyStorage(this.knex);
   }
 
   async findAll(input: FindAllOptions<CurrencyType>) {

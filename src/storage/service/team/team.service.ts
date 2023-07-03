@@ -7,8 +7,8 @@ import { FindAllOptions, FindOneOptions } from '../../../helper/types';
 @Injectable()
 export class TeamService {
   private storage: TeamStorage;
-  constructor(@InjectKnex() private knex: Knex) {
-    this.storage = new TeamStorage(knex);
+  constructor(@InjectKnex() private readonly knex: Knex) {
+    this.storage = new TeamStorage(this.knex);
   }
 
   async findAll(input: FindAllOptions<TeamType>) {

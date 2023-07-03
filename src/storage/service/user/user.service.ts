@@ -7,8 +7,8 @@ import { FindAllOptions, FindOneOptions } from '../../../helper/types';
 @Injectable()
 export class UserService {
   private storage: UserStorage;
-  constructor(@InjectKnex() private knex: Knex) {
-    this.storage = new UserStorage(knex);
+  constructor(@InjectKnex() private readonly knex: Knex) {
+    this.storage = new UserStorage(this.knex);
   }
 
   async findAll(input: FindAllOptions<UserType>) {
