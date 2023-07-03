@@ -7,7 +7,7 @@ export const memberNoticeColumns = {
   db: objectToSnakeCaseKeyMap(MemberNotice.shape),
   entity: objectToSnakeCaseValueMap(MemberNotice.shape),
 };
-export const memberNoticeTable = 'memberNotice';
+export const memberNoticeTable = 'member_notice';
 
 export class MemberNoticeEntity extends Entity<typeof MemberNotice> {
   protected columns = memberNoticeColumnMap;

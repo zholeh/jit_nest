@@ -117,12 +117,30 @@ export async function up(knex: Knex): Promise<void> {
       PRIMARY KEY ("id"),
       CONSTRAINT member_notice_channel_id_fk FOREIGN KEY (channel_id) REFERENCES "channel"(id),
       CONSTRAINT member_notice_team_mate_id_fk FOREIGN KEY (mate_id) REFERENCES team_mate(id),
-      CONSTRAINT member_notice_member_id_fk FOREIGN KEY (member_id) REFERENCES member   (id)
+      CONSTRAINT member_notice_member_id_fk FOREIGN KEY (member_id) REFERENCES member(id)
+    );
+  `);
+
+  await knex.raw(`
+    CREATE TABLE "message" (
+      id uuid NOT NULL DEFAULT uuid_generate_v4(),
+      created_at timestamp NOT NULL DEFAULT now(),
+      updated_at timestamp NULL,
+      deleted_at timestamp NULL,
+      text varchar(2048) NOT NULL,
+      channel_id uuid NOT NULL,
+      mate_id uuid NOT NULL,
+      date timestamp NOT NULL,
+      sent boolean NOT NULL,
+      PRIMARY KEY ("id"),
+      CONSTRAINT message_channel_id_fk FOREIGN KEY (channel_id) REFERENCES channel(id),
+      CONSTRAINT message_team_mate_id_fk FOREIGN KEY (mate_id) REFERENCES team_mate(id)
     );
   `);
 }
 
 export async function down(knex: Knex): Promise<void> {
+  await knex.raw(`DROP TABLE IF EXISTS "message";`);
   await knex.raw(`DROP TABLE IF EXISTS "member_notice";`);
   await knex.raw(`DROP TABLE IF EXISTS "member";`);
   await knex.raw(`DROP TABLE IF EXISTS "channel";`);

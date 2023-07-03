@@ -5,3 +5,4 @@ export * from './teamMate';
 export * from './channel';
 export * from './member';
 export * from './memberNotice';
+export * from './message';
