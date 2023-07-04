@@ -10,8 +10,8 @@ type UserModel {
   email: String!
   phone: String!
   createdAt: DateTime!
-  updatedAt: DateTime
-  deletedAt: DateTime
+  updatedAt: DateTime!
+  deletedAt: DateTime!
 }
 
 """
@@ -171,12 +171,12 @@ input UserPaginationInput_Cursor_StartFrom_CreatedAt {
 }
 
 input UserPaginationInput_Cursor_StartFrom_UpdatedAt {
-  value: DateTime
+  value: DateTime!
   order: Order!
 }
 
 input UserPaginationInput_Cursor_StartFrom_DeletedAt {
-  value: DateTime
+  value: DateTime!
   order: Order!
 }
 
@@ -214,8 +214,8 @@ type CurrencyModel {
   code: Int!
   shortName: String!
   createdAt: DateTime!
-  updatedAt: DateTime
-  deletedAt: DateTime
+  updatedAt: DateTime!
+  deletedAt: DateTime!
 }
 
 type CurrencyQuery {
@@ -340,12 +340,12 @@ input CurrencyPaginationInput_Cursor_StartFrom_CreatedAt {
 }
 
 input CurrencyPaginationInput_Cursor_StartFrom_UpdatedAt {
-  value: DateTime
+  value: DateTime!
   order: Order!
 }
 
 input CurrencyPaginationInput_Cursor_StartFrom_DeletedAt {
-  value: DateTime
+  value: DateTime!
   order: Order!
 }
 
@@ -381,8 +381,8 @@ type TeamModel {
   referralId: String!
   currencyId: String!
   createdAt: DateTime!
-  updatedAt: DateTime
-  deletedAt: DateTime
+  updatedAt: DateTime!
+  deletedAt: DateTime!
 }
 
 type TeamQuery {
@@ -487,12 +487,12 @@ input TeamPaginationInput_Cursor_StartFrom_CreatedAt {
 }
 
 input TeamPaginationInput_Cursor_StartFrom_UpdatedAt {
-  value: DateTime
+  value: DateTime!
   order: Order!
 }
 
 input TeamPaginationInput_Cursor_StartFrom_DeletedAt {
-  value: DateTime
+  value: DateTime!
   order: Order!
 }
 
@@ -528,8 +528,8 @@ type TeamMateModel {
   referralId: String!
   currencyId: String!
   createdAt: DateTime!
-  updatedAt: DateTime
-  deletedAt: DateTime
+  updatedAt: DateTime!
+  deletedAt: DateTime!
 }
 
 type TeamMateQuery {
@@ -634,12 +634,12 @@ input TeamMatePaginationInput_Cursor_StartFrom_CreatedAt {
 }
 
 input TeamMatePaginationInput_Cursor_StartFrom_UpdatedAt {
-  value: DateTime
+  value: DateTime!
   order: Order!
 }
 
 input TeamMatePaginationInput_Cursor_StartFrom_DeletedAt {
-  value: DateTime
+  value: DateTime!
   order: Order!
 }
 

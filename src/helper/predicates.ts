@@ -39,7 +39,7 @@ function isId<T extends string & BRAND<string>>(val: unknown): val is T {
   return typeof val === 'string' ? true : false;
 }
 
-export function assertToId<T extends string & BRAND<string>>(val: unknown): T {
+export function coerceId<T extends string & BRAND<string>>(val: unknown): T {
   if (isId<T>(val)) return val;
   throw new UnprocessableEntityServiceError(`Can't assert value ${val}`);
 }

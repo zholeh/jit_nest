@@ -1,0 +1,133 @@
+diff --git a/dist/helpers/build-enum-type.js b/dist/helpers/build-enum-type.js
+index ca40df3c275a80b87cad274bc8e395e63e7b4fe1..73bb5d0135312a3c7dc162a2f1473123d16df303 100644
+--- a/dist/helpers/build-enum-type.js
++++ b/dist/helpers/build-enum-type.js
+@@ -49,6 +49,35 @@ function buildEnumType(key, typeInfo, options) {
+         });
+         return typeInfo.type = Enum;
+     }
++    // TODO: Fix
++    else if ((0, is_zod_instance_1.isZodInstance)(zod_1.ZodNativeEnum, type)) {
++        const { enum: Enum } = type;
++        let enumProvider = (_a = options.getEnumType) !== null && _a !== void 0 ? _a : (0, common_1.getDefaultEnumProvider)();
++        if (typeof enumProvider === 'function') {
++            const replacement = enumProvider(Enum, {
++                name: String(key),
++                parentName: options.name,
++                description: type.description,
++            });
++            if (typeof replacement === 'object' && Enum !== replacement) {
++                return typeInfo.type = replacement;
++            }
++        }
++        const incompatibleKey = getFirstIncompatibleEnumKey(Enum);
++        if (incompatibleKey) {
++            throw new Error(`The value of the Key("${incompatibleKey}") of ${options.name}.${String(key)} Enum was not valid`);
++        }
++        // const parentName = options.name;
++        // const enumName = (0, with_suffix_1.withSuffix)('Enum')((0, to_title_case_1.toTitleCase)(key));
++        const enumName = (0, to_title_case_1.toTitleCase)(key);
++        // const registerCount = (0, constants_1.getRegisterCount)();
++        (0, graphql_1.registerEnumType)(Enum, {
++            // name: (0, to_title_case_1.toTitleCase)(`${parentName}_${enumName}_${registerCount}`),
++            name: (0, to_title_case_1.toTitleCase)(`${enumName}`),
++            description: (_b = type.description) !== null && _b !== void 0 ? _b : `Enum values for ${options.name}.${String(key)}`,
++        });
++        return typeInfo.type = Enum;
++    }
+     else if (Array.isArray(type)) {
+         const dynamicEnumClass = buildEnumType(key, {
+             type: type[0],
+diff --git a/dist/helpers/get-field-info-from-zod.js b/dist/helpers/get-field-info-from-zod.js
+index e45c13578824a13fb5b7c3e8706a2e5aeed07f71..92e281a3416c0f6f3d97831509786c80b7168882 100644
+--- a/dist/helpers/get-field-info-from-zod.js
++++ b/dist/helpers/get-field-info-from-zod.js
+@@ -69,6 +69,18 @@ function getFieldInfoFromZod(key, prop, options) {
+             isNullable: prop.isNullable(),
+         };
+     }
++    else if ((0, is_zod_instance_1.isZodInstance)(zod_1.ZodBranded, prop)) { // TODO: Fix
++        const { type, isEnum, isOfArray, isItemNullable, isItemOptional, } = getFieldInfoFromZod(key, prop.unwrap(), options);
++        return {
++            type,
++            isEnum,
++            isOfArray,
++            isItemNullable,
++            isItemOptional,
++            isOptional: prop.isOptional(),
++            isNullable: prop.isNullable(),
++        };
++    }
+     else if ((0, is_zod_instance_1.isZodInstance)(zod_1.ZodObject, prop)) {
+         const isNullable = prop.isNullable() || prop.isOptional();
+         const { provideNameForNestedClass = defaultNestedClassNameProvider, } = options;
+@@ -103,11 +115,22 @@ function getFieldInfoFromZod(key, prop, options) {
+             isEnum: true,
+         };
+     }
++    else if ((0, is_zod_instance_1.isZodInstance)(zod_1.ZodNativeEnum, prop)) { // TODO: Fix
++        return {
++            type: prop,
++            isNullable: prop.isNullable(),
++            isOptional: prop.isOptional(),
++            isEnum: true,
++        };
++    }
+     else if ((0, is_zod_instance_1.isZodInstance)(zod_1.ZodDefault, prop)) {
+         return getFieldInfoFromZod(key, prop._def.innerType, options);
+     }
+     else if ((0, is_zod_instance_1.isZodInstance)(zod_1.ZodTransformer, prop)) {
+-        return getFieldInfoFromZod(key, prop.innerType(), options);
++        // TODO: Fix
++        const res = getFieldInfoFromZod(key, prop.innerType(), options);
++
++        return {...res, isOptional: res.isOptional, isNullable: res.isNullable}
+     }
+     else if ((0, is_zod_instance_1.isZodInstance)(zod_1.ZodNullable, prop)) {
+         return getFieldInfoFromZod(key, prop._def.innerType, options);
+@@ -145,6 +168,8 @@ exports.getFieldInfoFromZod = getFieldInfoFromZod;
+      * The types that are parseable by the {@link getFieldInfoFromZod} function.
+      */
+     getFieldInfoFromZod.PARSED_TYPES = [
++        zod_1.ZodBranded, // TODO: Fix
++        zod_1.ZodNativeEnum, // TODO: Fix
+         zod_1.ZodArray,
+         zod_1.ZodBoolean,
+         zod_1.ZodDefault,
+diff --git a/dist/helpers/get-zod-object-name.js b/dist/helpers/get-zod-object-name.js
+index 4d1fbfa4ff2e06d20304fdbaf041b56f1dd35c7f..7b37c810ad6a2d0a78de6b879e33be26ae4ea5d6 100644
+--- a/dist/helpers/get-zod-object-name.js
++++ b/dist/helpers/get-zod-object-name.js
+@@ -22,6 +22,11 @@ function getZodObjectName(instance) {
+         const innerName = getZodObjectName(instance.unwrap());
+         return `Optional<${innerName}>`;
+     }
++    // TODO: Fix
++    if ((0, is_zod_instance_1.isZodInstance)(zod_1.ZodBranded, instance)) {
++        const innerName = getZodObjectName(instance.unwrap());
++        return `Branded<${innerName}>`;
++    }
+     if ((0, is_zod_instance_1.isZodInstance)(zod_1.ZodTransformer, instance)) {
+         return getZodObjectName(instance.innerType());
+     }
+@@ -41,6 +46,20 @@ function getZodObjectName(instance) {
+             return `Enum<${name}>`;
+         }
+     }
++    // TODO: Fix
++    if ((0, is_zod_instance_1.isZodInstance)(zod_1.ZodNativeEnum, instance)) {
++        const { description = '', Enum } = instance;
++        const nameSeparatorIndex = description.indexOf(':');
++        if (nameSeparatorIndex > 0) {
++            const name = description.slice(0, nameSeparatorIndex);
++            return `NativeEnum<${name}>`;
++        }
++        else {
++            const values = Object.values(Enum);
++            const name = values.join(',');
++            return `NativeEnum<${name}>`;
++        }
++    }
+     if ((0, is_zod_instance_1.isZodInstance)(zod_1.ZodObject, instance)) {
+         const { description = '' } = instance;
+         const nameSeparatorIndex = description.indexOf(':');
