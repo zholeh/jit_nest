@@ -3,7 +3,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { HealthCheck, HealthCheckService, HealthIndicatorResult } from '@nestjs/terminus';
 import { InjectKnex, Knex } from 'nestjs-knex';
 
-@Controller({ version: '1', path: 'health' })
+@Controller({ path: 'health' })
 @ApiTags('Health check')
 export class HealthCheckController {
   constructor(private health: HealthCheckService, @InjectKnex() private readonly knex: Knex) {}
