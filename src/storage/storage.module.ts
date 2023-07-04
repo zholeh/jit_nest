@@ -6,8 +6,19 @@ import { TeamService } from './service/team/team.service';
 import { TeamMateService } from './service/teamMate/teamMate.service';
 import { ChannelService } from './service/channel/channel.service';
 import { MemberService } from './service/member/member.service';
+import { MemberNoticeService } from './service/memberNotice/memberNotice.service';
+import { MessageService } from './service/message/message.service';
 
-const providers = [UserService, CurrencyService, TeamService, TeamMateService, ChannelService, MemberService] as const;
+const providers = [
+  UserService,
+  CurrencyService,
+  TeamService,
+  TeamMateService,
+  ChannelService,
+  MemberService,
+  MemberNoticeService,
+  MessageService,
+] as const;
 
 @Module({
   imports: [DatabaseModule],

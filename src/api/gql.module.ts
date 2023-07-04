@@ -6,6 +6,10 @@ import { UserModule } from './user/user.module';
 import { CurrencyModule } from './currency/currency.module';
 import { TeamModule } from './team/team.module';
 import { TeamMateModule } from './teamMate/teamMate.module';
+import { ChannelModule } from './channel/channel.module';
+import { MemberModule } from './member/member.module';
+import { MessageModule } from './message/message.module';
+import { MemberNoticeModule } from './memberNotice/memberNotice.module';
 
 @Module({
   imports: [
@@ -18,6 +22,10 @@ import { TeamMateModule } from './teamMate/teamMate.module';
     CurrencyModule,
     TeamModule,
     TeamMateModule,
+    ChannelModule,
+    MemberModule,
+    MessageModule,
+    MemberNoticeModule,
   ],
 })
 export class GqlModule {}
