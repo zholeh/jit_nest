@@ -3,11 +3,13 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { LoggerModule } from 'nestjs-pino';
 import { configuration } from './infrastructure/configuration';
-import { GqlModule } from './api/gql.module';
+import { GqlModule } from './api/gql/gql.module';
+import { RestModule } from './api/rest/rest.module';
 
 @Module({
   imports: [
     GqlModule,
+    RestModule,
     LoggerModule.forRoot({
       pinoHttp: {
         name: 'main',

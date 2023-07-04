@@ -3,6 +3,8 @@ import { z } from 'zod';
 
 const application = z.object({
   port: z.number().positive(),
+  origin: z.string().default('*'),
+  address: z.string().default('0.0.0.0'),
 });
 const transport = z.object({
   target: z.string().nonempty(),
@@ -37,4 +39,7 @@ const schema = z.object({
   secrets,
 });
 
-export const configuration = schema.parse(config);
+const parsed = schema.safeParse(config);
+
+if (!parsed.success) throw new Error('Cannot parse initial server parameters to start service');
+export const configuration = parsed.data;
