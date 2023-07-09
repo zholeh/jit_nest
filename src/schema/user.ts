@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { EntitySchema } from './entity';
+import { EntitySchema } from './base/entity';
 import { buildCursorZodSchema, buildFilterZodSchema, buildOrderZodSchema } from './helper';
 
 export const UserId = z.string().uuid().brand<'UserId'>('UserId');

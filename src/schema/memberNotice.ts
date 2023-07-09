@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { ChannelId } from './channel';
-import { EntitySchema } from './entity';
+import { EntitySchema } from './base/entity';
 import { buildCursorZodSchema, buildFilterZodSchema, buildOrderZodSchema } from './helper';
 import { MemberId } from './member';
 import { TeamMateId } from './teamMate';
