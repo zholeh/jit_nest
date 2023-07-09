@@ -10,6 +10,7 @@ import { ChannelModule } from './channel/channel.module';
 import { MemberModule } from './member/member.module';
 import { MessageModule } from './message/message.module';
 import { MemberNoticeModule } from './memberNotice/memberNotice.module';
+import { SupplyCategoryModule } from './supplyCategory/supplyCategory.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { MemberNoticeModule } from './memberNotice/memberNotice.module';
     MemberModule,
     MessageModule,
     MemberNoticeModule,
+    SupplyCategoryModule,
   ],
 })
 export class GqlModule {}

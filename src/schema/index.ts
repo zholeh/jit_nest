@@ -6,3 +6,4 @@ export * from './channel';
 export * from './member';
 export * from './memberNotice';
 export * from './message';
+export * from './supplyCategory';

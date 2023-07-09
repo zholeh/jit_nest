@@ -8,6 +8,7 @@ import { ChannelService } from './service/channel/channel.service';
 import { MemberService } from './service/member/member.service';
 import { MemberNoticeService } from './service/memberNotice/memberNotice.service';
 import { MessageService } from './service/message/message.service';
+import { SupplyCategoryService } from './service/supplyCategory/supplyCategory.service';
 
 const providers = [
   UserService,
@@ -18,6 +19,7 @@ const providers = [
   MemberService,
   MemberNoticeService,
   MessageService,
+  SupplyCategoryService,
 ] as const;
 
 @Module({

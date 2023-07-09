@@ -22,10 +22,10 @@ async function bootstrap() {
   app.enableShutdownHooks();
 
   const config = new DocumentBuilder()
-    .setTitle('Bid-marketplace API')
-    .setDescription('Bid-marketplace API')
+    .setTitle('JIT API')
+    .setDescription('JIT API')
     .setVersion('1.0')
-    .addTag('Bid-marketplace')
+    .addTag('JIT')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

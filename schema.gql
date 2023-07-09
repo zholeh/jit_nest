@@ -105,7 +105,7 @@ enum UserOrderInput_ColumnEnum_0 {
 }
 
 """
-Enum values for MemberNoticePaginationInput_Cursor_StartFrom_DeletedAt.order
+Enum values for SupplyCategoryPaginationInput_Cursor_StartFrom_DeletedAt.order
 """
 enum Order {
   ASC
@@ -1289,6 +1289,163 @@ input MemberNoticeUpdateInput {
   id: String!
 }
 
+type SupplyCategoryModel {
+  id: String!
+  name: String!
+  teamId: String!
+  timeAfterService: Int!
+  nextVisit: Int!
+  timeRange: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime!
+}
+
+type SupplyCategoryQuery {
+  findAll(options: SupplyCategoryFindAll): [SupplyCategoryModel!]!
+  findOne(options: SupplyCategoryFindOne): SupplyCategoryModel
+}
+
+input SupplyCategoryFindAll {
+  filters: [SupplyCategoryFilterInput!]
+  orders: [SupplyCategoryOrderInput!]
+  pagination: SupplyCategoryPaginationInput
+}
+
+input SupplyCategoryFilterInput {
+  id: UserFilterInput_Id
+  name: UserFilterInput_Id
+  teamId: UserFilterInput_Id
+  timeAfterService: CurrencyFilterInput_Code
+  nextVisit: CurrencyFilterInput_Code
+  timeRange: CurrencyFilterInput_Code
+  createdAt: UserFilterInput_CreatedAt
+  updatedAt: UserFilterInput_CreatedAt
+  deletedAt: UserFilterInput_CreatedAt
+  or: [SupplyCategoryFilterInput_Or!]
+}
+
+input SupplyCategoryFilterInput_Or {
+  id: UserFilterInput_Id
+  name: UserFilterInput_Id
+  teamId: UserFilterInput_Id
+  timeAfterService: CurrencyFilterInput_Code
+  nextVisit: CurrencyFilterInput_Code
+  timeRange: CurrencyFilterInput_Code
+  createdAt: UserFilterInput_CreatedAt
+  updatedAt: UserFilterInput_CreatedAt
+  deletedAt: UserFilterInput_CreatedAt
+}
+
+input SupplyCategoryOrderInput {
+  column: SupplyCategoryOrderInput_ColumnEnum_0!
+
+  """Order"""
+  order: Order!
+}
+
+"""Enum values for SupplyCategoryOrderInput.column"""
+enum SupplyCategoryOrderInput_ColumnEnum_0 {
+  createdAt
+  teamId
+  name
+}
+
+input SupplyCategoryPaginationInput {
+  limit: Float!
+  offset: Float
+  cursor: SupplyCategoryPaginationInput_Cursor
+}
+
+input SupplyCategoryPaginationInput_Cursor {
+  id: String!
+  startFrom: SupplyCategoryPaginationInput_Cursor_StartFrom!
+}
+
+input SupplyCategoryPaginationInput_Cursor_StartFrom {
+  id: SupplyCategoryPaginationInput_Cursor_StartFrom_Id!
+  name: SupplyCategoryPaginationInput_Cursor_StartFrom_Name!
+  teamId: SupplyCategoryPaginationInput_Cursor_StartFrom_TeamId!
+  timeAfterService: SupplyCategoryPaginationInput_Cursor_StartFrom_TimeAfterService!
+  nextVisit: SupplyCategoryPaginationInput_Cursor_StartFrom_NextVisit!
+  timeRange: SupplyCategoryPaginationInput_Cursor_StartFrom_TimeRange!
+  createdAt: SupplyCategoryPaginationInput_Cursor_StartFrom_CreatedAt!
+  updatedAt: SupplyCategoryPaginationInput_Cursor_StartFrom_UpdatedAt!
+  deletedAt: SupplyCategoryPaginationInput_Cursor_StartFrom_DeletedAt!
+}
+
+input SupplyCategoryPaginationInput_Cursor_StartFrom_Id {
+  value: String!
+  order: Order!
+}
+
+input SupplyCategoryPaginationInput_Cursor_StartFrom_Name {
+  value: String!
+  order: Order!
+}
+
+input SupplyCategoryPaginationInput_Cursor_StartFrom_TeamId {
+  value: String!
+  order: Order!
+}
+
+input SupplyCategoryPaginationInput_Cursor_StartFrom_TimeAfterService {
+  value: Int!
+  order: Order!
+}
+
+input SupplyCategoryPaginationInput_Cursor_StartFrom_NextVisit {
+  value: Int!
+  order: Order!
+}
+
+input SupplyCategoryPaginationInput_Cursor_StartFrom_TimeRange {
+  value: Int!
+  order: Order!
+}
+
+input SupplyCategoryPaginationInput_Cursor_StartFrom_CreatedAt {
+  value: DateTime!
+  order: Order!
+}
+
+input SupplyCategoryPaginationInput_Cursor_StartFrom_UpdatedAt {
+  value: DateTime!
+  order: Order!
+}
+
+input SupplyCategoryPaginationInput_Cursor_StartFrom_DeletedAt {
+  value: DateTime!
+  order: Order!
+}
+
+input SupplyCategoryFindOne {
+  filters: [SupplyCategoryFilterInput!]
+}
+
+type SupplyCategoryMutation {
+  create(input: SupplyCategoryCreateInput!): SupplyCategoryModel!
+  update(input: SupplyCategoryUpdateInput!): SupplyCategoryModel!
+  delete(id: ID!): Boolean!
+}
+
+input SupplyCategoryCreateInput {
+  name: String!
+  teamId: String!
+  timeAfterService: Int!
+  nextVisit: Int!
+  timeRange: Int!
+}
+
+input SupplyCategoryUpdateInput {
+  name: String
+  teamId: String
+  timeAfterService: Int
+  nextVisit: Int
+  timeRange: Int
+  id: String!
+}
+
 type Query {
   user: UserQuery!
   currency: CurrencyQuery!
@@ -1298,6 +1455,7 @@ type Query {
   member: MemberQuery!
   message: MessageQuery!
   memberNotice: MemberNoticeQuery!
+  supplyCategory: SupplyCategoryQuery!
 }
 
 type Mutation {
@@ -1309,4 +1467,5 @@ type Mutation {
   member: MemberMutation!
   message: MessageMutation!
   memberNotice: MemberNoticeMutation!
+  supplyCategory: SupplyCategoryMutation!
 }
