@@ -2,7 +2,8 @@ import { z } from 'zod';
 import { EntitySchema } from './entity';
 import { buildCursorZodSchema, buildFilterZodSchema, buildOrderZodSchema } from './helper';
 import { UserId } from './user';
-import { CurrencyId } from './currency';
+import { TeamId } from './team';
+import { TeamMateRole } from './teamMateRole';
 
 export const TeamMateId = z.string().uuid().brand<'TeamMateId'>('TeamMateId');
 
@@ -11,8 +12,9 @@ export const TeamMate = z
     id: TeamMateId,
     name: z.string().max(255).nonempty(),
     description: z.string().max(1024),
-    referralId: UserId,
-    currencyId: CurrencyId,
+    userId: UserId,
+    teamId: TeamId,
+    role: z.nativeEnum(TeamMateRole),
   })
   .extend(EntitySchema.shape);
 

@@ -523,11 +523,18 @@ type TeamMateModel {
   id: String!
   name: String!
   description: String!
-  referralId: String!
-  currencyId: String!
+  userId: String!
+  teamId: String!
+  role: Role!
   createdAt: DateTime!
   updatedAt: DateTime!
   deletedAt: DateTime!
+}
+
+"""Enum values for TeamMateModel.role"""
+enum Role {
+  superMate
+  mate
 }
 
 type TeamMateQuery {
@@ -545,20 +552,31 @@ input TeamMateFilterInput {
   id: UserFilterInput_Id
   name: UserFilterInput_Id
   description: UserFilterInput_Id
-  referralId: UserFilterInput_Id
-  currencyId: UserFilterInput_Id
+  userId: UserFilterInput_Id
+  teamId: UserFilterInput_Id
+  role: TeamMateFilterInput_Role
   createdAt: UserFilterInput_CreatedAt
   updatedAt: UserFilterInput_CreatedAt
   deletedAt: UserFilterInput_CreatedAt
   or: [TeamMateFilterInput_Or!]
 }
 
+input TeamMateFilterInput_Role {
+  eq: Role
+  notEq: Role
+  in: [Role!]
+  notIn: [Role!]
+  isNull: Boolean
+  isNotNull: Boolean
+}
+
 input TeamMateFilterInput_Or {
   id: UserFilterInput_Id
   name: UserFilterInput_Id
   description: UserFilterInput_Id
-  referralId: UserFilterInput_Id
-  currencyId: UserFilterInput_Id
+  userId: UserFilterInput_Id
+  teamId: UserFilterInput_Id
+  role: TeamMateFilterInput_Role
   createdAt: UserFilterInput_CreatedAt
   updatedAt: UserFilterInput_CreatedAt
   deletedAt: UserFilterInput_CreatedAt
@@ -594,8 +612,9 @@ input TeamMatePaginationInput_Cursor_StartFrom {
   id: TeamMatePaginationInput_Cursor_StartFrom_Id!
   name: TeamMatePaginationInput_Cursor_StartFrom_Name!
   description: TeamMatePaginationInput_Cursor_StartFrom_Description!
-  referralId: TeamMatePaginationInput_Cursor_StartFrom_ReferralId!
-  currencyId: TeamMatePaginationInput_Cursor_StartFrom_CurrencyId!
+  userId: TeamMatePaginationInput_Cursor_StartFrom_UserId!
+  teamId: TeamMatePaginationInput_Cursor_StartFrom_TeamId!
+  role: TeamMatePaginationInput_Cursor_StartFrom_Role!
   createdAt: TeamMatePaginationInput_Cursor_StartFrom_CreatedAt!
   updatedAt: TeamMatePaginationInput_Cursor_StartFrom_UpdatedAt!
   deletedAt: TeamMatePaginationInput_Cursor_StartFrom_DeletedAt!
@@ -616,13 +635,18 @@ input TeamMatePaginationInput_Cursor_StartFrom_Description {
   order: Order!
 }
 
-input TeamMatePaginationInput_Cursor_StartFrom_ReferralId {
+input TeamMatePaginationInput_Cursor_StartFrom_UserId {
   value: String!
   order: Order!
 }
 
-input TeamMatePaginationInput_Cursor_StartFrom_CurrencyId {
+input TeamMatePaginationInput_Cursor_StartFrom_TeamId {
   value: String!
+  order: Order!
+}
+
+input TeamMatePaginationInput_Cursor_StartFrom_Role {
+  value: Role!
   order: Order!
 }
 
@@ -654,15 +678,17 @@ type TeamMateMutation {
 input TeamMateCreateInput {
   name: String!
   description: String!
-  referralId: String!
-  currencyId: String!
+  userId: String!
+  teamId: String!
+  role: Role!
 }
 
 input TeamMateUpdateInput {
   name: String
   description: String
-  referralId: String
-  currencyId: String
+  userId: String
+  teamId: String
+  role: Role
   id: String!
 }
 

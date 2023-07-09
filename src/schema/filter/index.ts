@@ -4,3 +4,4 @@ export * from './date.input';
 export * from './number-range.input';
 export * from './number.input';
 export * from './string.input';
+export * from './enum.input';

@@ -14,6 +14,7 @@ import {
   ZodTypeAny,
   object,
   z,
+  ZodNativeEnum,
 } from 'zod';
 import {
   BooleanInput,
@@ -22,6 +23,8 @@ import {
   NumberInput,
   NumberRangeInput,
   StringInput,
+  buildEnumInput,
+  EnumInput,
 } from '../../schema/filter';
 
 type ZodTypes =
@@ -35,6 +38,7 @@ type InputTypes =
   | typeof NumberInput
   | typeof NumberRangeInput
   | typeof StringInput
+  | typeof EnumInput
   | typeof BooleanInput
   | typeof DateRangeInput
   | typeof DateInput;
@@ -42,6 +46,7 @@ type InputTypes =
 function getFilterType(value: ZodTypes): ZodType {
   if (value instanceof ZodNumber) return NumberInput;
   if (value instanceof ZodString) return StringInput;
+  if (value instanceof ZodNativeEnum) return buildEnumInput(value);
   if (value instanceof ZodDate) return DateInput;
   if (value instanceof ZodBoolean) return BooleanInput;
 
@@ -59,6 +64,8 @@ function getFilterType(value: ZodTypes): ZodType {
 type FilterFieldsType<Entity extends ZodObject<ZodRawShape>> = {
   [P in keyof z.infer<Entity>]: Entity[P] extends string
     ? typeof StringInput
+    : Entity[P] extends Record<string, string>
+    ? typeof EnumInput
     : Entity[P] extends boolean
     ? typeof BooleanInput
     : Entity[P] extends Date
@@ -73,6 +80,8 @@ type FilterOrType<Entity extends ZodObject<ZodRawShape>> = {
     ZodObject<{
       [P in keyof z.infer<Entity>]: Entity[P] extends string
         ? typeof StringInput
+        : Entity[P] extends Record<string, string>
+        ? typeof EnumInput
         : Entity[P] extends boolean
         ? typeof BooleanInput
         : Entity[P] extends Date
