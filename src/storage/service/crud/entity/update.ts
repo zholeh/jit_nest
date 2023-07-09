@@ -1,12 +1,12 @@
 import { UnprocessableEntityServiceError } from '../../../../exception';
 import { DictionaryUnknown } from '../../../../helper/types';
-import { BaseCrud } from './base';
+import { BaseEntityCrud } from './base';
 import { EntityId, EntitySchema, EntityType } from './types';
 
 export abstract class Update<
   Entity extends EntitySchema,
   EntityUpdate extends DictionaryUnknown & { id: EntityId },
-> extends BaseCrud<Entity> {
+> extends BaseEntityCrud<Entity> {
   async update(
     input: EntityUpdate & {
       id: EntityId;

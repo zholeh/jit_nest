@@ -2,7 +2,7 @@ import { Knex } from 'nestjs-knex';
 import { DictionaryUnknown } from '../../../../helper/types';
 import { ColumnsType, EntitySchema, EntityType, KeyofEntity } from './types';
 
-export abstract class BaseCrud<Entity extends EntitySchema> {
+export abstract class BaseEntityCrud<Entity extends EntitySchema> {
   protected abstract readonly table: string;
   protected abstract readonly schema: Entity;
   protected abstract readonly columns: ColumnsType<Entity>;

@@ -2,10 +2,10 @@ import { NotFoundServiceError } from '../../../../exception';
 import { FindAllOptions, FindOneOptions, FindReturn } from '../../../../helper/types';
 import { buildCursor, buildFilters } from '../../../helper/filter';
 import { buildOrders } from '../../../helper/order';
-import { BaseCrud } from './base';
+import { BaseEntityCrud } from './base';
 import { EntitySchema, EntityType } from './types';
 
-export abstract class Read<Entity extends EntitySchema> extends BaseCrud<Entity> {
+export abstract class Read<Entity extends EntitySchema> extends BaseEntityCrud<Entity> {
   async findAll(options?: FindAllOptions<EntityType<Entity>>): Promise<readonly FindReturn<EntityType<Entity>>[]> {
     const result = await this.buildQuery(options);
     return result.map((entity) => this.entity(entity, options?.fields));

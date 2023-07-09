@@ -5,7 +5,7 @@ import { Delete } from './delete';
 import { Read } from './read';
 import { EntitySchema } from './types';
 import { Update } from './update';
-import { BaseCrud } from './base';
+import { BaseEntityCrud } from './base';
 
 // TODO: transactions
 
@@ -164,9 +164,9 @@ type FactoryType<
   EntityDelete extends ZodObject<{ id: ZodBranded<ZodString, string> }> | false,
 > = GConstructor<
   Read<Entity> &
-    (EntityCreate extends false ? BaseCrud<Entity> : Create<Entity, z.infer<Exclude<EntityCreate, false>>>) &
-    (EntityUpdate extends false ? BaseCrud<Entity> : Update<Entity, z.infer<Exclude<EntityUpdate, false>>>) &
-    (EntityDelete extends false ? BaseCrud<Entity> : Exclude<Delete<Entity>, false>)
+    (EntityCreate extends false ? BaseEntityCrud<Entity> : Create<Entity, z.infer<Exclude<EntityCreate, false>>>) &
+    (EntityUpdate extends false ? BaseEntityCrud<Entity> : Update<Entity, z.infer<Exclude<EntityUpdate, false>>>) &
+    (EntityDelete extends false ? BaseEntityCrud<Entity> : Exclude<Delete<Entity>, false>)
 >;
 
 export function crudEntityFactory<
@@ -181,7 +181,7 @@ export function crudEntityFactory<
   delete: EntityDelete | false;
 }): FactoryType<Entity, EntityCreate, EntityUpdate, EntityDelete> {
   class Empty {}
-  const arr: unknown[] = [BaseCrud, Read];
+  const arr: unknown[] = [BaseEntityCrud, Read];
   if (options.create) arr.push(Create);
   if (options.update) arr.push(Update);
   if (options.delete) arr.push(Delete);
