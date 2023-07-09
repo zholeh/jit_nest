@@ -11,6 +11,7 @@ import { MemberModule } from './member/member.module';
 import { MessageModule } from './message/message.module';
 import { MemberNoticeModule } from './memberNotice/memberNotice.module';
 import { SupplyCategoryModule } from './supplyCategory/supplyCategory.module';
+import { SupplyModule } from './supply/supply.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { SupplyCategoryModule } from './supplyCategory/supplyCategory.module';
     MessageModule,
     MemberNoticeModule,
     SupplyCategoryModule,
+    SupplyModule,
   ],
 })
 export class GqlModule {}

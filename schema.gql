@@ -104,9 +104,7 @@ enum UserOrderInput_ColumnEnum_0 {
   lastName
 }
 
-"""
-Enum values for SupplyCategoryPaginationInput_Cursor_StartFrom_DeletedAt.order
-"""
+"""Enum values for SupplyPaginationInput_Cursor_StartFrom_DeletedAt.order"""
 enum Order {
   ASC
   DESC
@@ -1446,6 +1444,153 @@ input SupplyCategoryUpdateInput {
   id: String!
 }
 
+type SupplyModel {
+  id: String!
+  name: String!
+  description: String!
+  referralId: String!
+  currencyId: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime!
+}
+
+type SupplyQuery {
+  findAll(options: SupplyFindAll): [SupplyModel!]!
+  findOne(options: SupplyFindOne): SupplyModel
+}
+
+input SupplyFindAll {
+  filters: [SupplyFilterInput!]
+  orders: [SupplyOrderInput!]
+  pagination: SupplyPaginationInput
+}
+
+input SupplyFilterInput {
+  id: UserFilterInput_Id
+  name: UserFilterInput_Id
+  description: UserFilterInput_Id
+  referralId: UserFilterInput_Id
+  currencyId: UserFilterInput_Id
+  createdAt: UserFilterInput_CreatedAt
+  updatedAt: UserFilterInput_CreatedAt
+  deletedAt: UserFilterInput_CreatedAt
+  or: [SupplyFilterInput_Or!]
+}
+
+input SupplyFilterInput_Or {
+  id: UserFilterInput_Id
+  name: UserFilterInput_Id
+  description: UserFilterInput_Id
+  referralId: UserFilterInput_Id
+  currencyId: UserFilterInput_Id
+  createdAt: UserFilterInput_CreatedAt
+  updatedAt: UserFilterInput_CreatedAt
+  deletedAt: UserFilterInput_CreatedAt
+}
+
+input SupplyOrderInput {
+  column: SupplyOrderInput_ColumnEnum_0!
+
+  """Order"""
+  order: Order!
+}
+
+"""Enum values for SupplyOrderInput.column"""
+enum SupplyOrderInput_ColumnEnum_0 {
+  createdAt
+  description
+  id
+  name
+}
+
+input SupplyPaginationInput {
+  limit: Float!
+  offset: Float
+  cursor: SupplyPaginationInput_Cursor
+}
+
+input SupplyPaginationInput_Cursor {
+  id: String!
+  startFrom: SupplyPaginationInput_Cursor_StartFrom!
+}
+
+input SupplyPaginationInput_Cursor_StartFrom {
+  id: SupplyPaginationInput_Cursor_StartFrom_Id!
+  name: SupplyPaginationInput_Cursor_StartFrom_Name!
+  description: SupplyPaginationInput_Cursor_StartFrom_Description!
+  referralId: SupplyPaginationInput_Cursor_StartFrom_ReferralId!
+  currencyId: SupplyPaginationInput_Cursor_StartFrom_CurrencyId!
+  createdAt: SupplyPaginationInput_Cursor_StartFrom_CreatedAt!
+  updatedAt: SupplyPaginationInput_Cursor_StartFrom_UpdatedAt!
+  deletedAt: SupplyPaginationInput_Cursor_StartFrom_DeletedAt!
+}
+
+input SupplyPaginationInput_Cursor_StartFrom_Id {
+  value: String!
+  order: Order!
+}
+
+input SupplyPaginationInput_Cursor_StartFrom_Name {
+  value: String!
+  order: Order!
+}
+
+input SupplyPaginationInput_Cursor_StartFrom_Description {
+  value: String!
+  order: Order!
+}
+
+input SupplyPaginationInput_Cursor_StartFrom_ReferralId {
+  value: String!
+  order: Order!
+}
+
+input SupplyPaginationInput_Cursor_StartFrom_CurrencyId {
+  value: String!
+  order: Order!
+}
+
+input SupplyPaginationInput_Cursor_StartFrom_CreatedAt {
+  value: DateTime!
+  order: Order!
+}
+
+input SupplyPaginationInput_Cursor_StartFrom_UpdatedAt {
+  value: DateTime!
+  order: Order!
+}
+
+input SupplyPaginationInput_Cursor_StartFrom_DeletedAt {
+  value: DateTime!
+  order: Order!
+}
+
+input SupplyFindOne {
+  filters: [SupplyFilterInput!]
+}
+
+type SupplyMutation {
+  create(input: SupplyCreateInput!): SupplyModel!
+  update(input: SupplyUpdateInput!): SupplyModel!
+  delete(id: ID!): Boolean!
+}
+
+input SupplyCreateInput {
+  name: String!
+  description: String!
+  referralId: String!
+  currencyId: String!
+}
+
+input SupplyUpdateInput {
+  name: String
+  description: String
+  referralId: String
+  currencyId: String
+  id: String!
+}
+
 type Query {
   user: UserQuery!
   currency: CurrencyQuery!
@@ -1456,6 +1601,7 @@ type Query {
   message: MessageQuery!
   memberNotice: MemberNoticeQuery!
   supplyCategory: SupplyCategoryQuery!
+  supply: SupplyQuery!
 }
 
 type Mutation {
@@ -1468,4 +1614,5 @@ type Mutation {
   message: MessageMutation!
   memberNotice: MemberNoticeMutation!
   supplyCategory: SupplyCategoryMutation!
+  supply: SupplyMutation!
 }
