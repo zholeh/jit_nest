@@ -104,7 +104,7 @@ enum UserOrderInput_ColumnEnum_0 {
   lastName
 }
 
-"""Enum values for SupplyPaginationInput_Cursor_StartFrom_DeletedAt.order"""
+"""Enum values for OrderPaginationInput_Cursor_StartFrom_DeletedAt.order"""
 enum Order {
   ASC
   DESC
@@ -1628,6 +1628,209 @@ input SupplyUpdateInput {
   id: String!
 }
 
+type OrderSupplyModel {
+  supply: String!
+  amount: Float!
+  price: Float!
+  time: Int!
+  sum: Float!
+}
+
+type OrderModel {
+  id: String!
+  memberId: String!
+  completed: Boolean!
+  startTime: DateTime!
+  endTime: DateTime!
+  teamMateId: String!
+  completedTime: DateTime!
+  date: DateTime!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime!
+  supplies: [OrderSupplyModel!]!
+}
+
+type OrderQuery {
+  findAll(options: OrderFindAll): [OrderModel!]!
+  findOne(options: OrderFindOne): OrderModel
+}
+
+input OrderFindAll {
+  filters: [OrderFilterInput!]
+  orders: [OrderOrderInput!]
+  pagination: OrderPaginationInput
+}
+
+input OrderFilterInput {
+  id: UserFilterInput_Id
+  memberId: UserFilterInput_Id
+  completed: OrderFilterInput_Completed
+  startTime: UserFilterInput_CreatedAt
+  endTime: UserFilterInput_CreatedAt
+  teamMateId: UserFilterInput_Id
+  completedTime: UserFilterInput_CreatedAt
+  date: UserFilterInput_CreatedAt
+  createdAt: UserFilterInput_CreatedAt
+  updatedAt: UserFilterInput_CreatedAt
+  deletedAt: UserFilterInput_CreatedAt
+  or: [OrderFilterInput_Or!]
+}
+
+input OrderFilterInput_Completed {
+  eq: Boolean!
+}
+
+input OrderFilterInput_Or {
+  id: UserFilterInput_Id
+  memberId: UserFilterInput_Id
+  completed: OrderFilterInput_Completed
+  startTime: UserFilterInput_CreatedAt
+  endTime: UserFilterInput_CreatedAt
+  teamMateId: UserFilterInput_Id
+  completedTime: UserFilterInput_CreatedAt
+  date: UserFilterInput_CreatedAt
+  createdAt: UserFilterInput_CreatedAt
+  updatedAt: UserFilterInput_CreatedAt
+  deletedAt: UserFilterInput_CreatedAt
+}
+
+input OrderOrderInput {
+  column: OrderOrderInput_ColumnEnum_0!
+
+  """Order"""
+  order: Order!
+}
+
+"""Enum values for OrderOrderInput.column"""
+enum OrderOrderInput_ColumnEnum_0 {
+  createdAt
+  startTime
+  endTime
+  date
+}
+
+input OrderPaginationInput {
+  limit: Float!
+  offset: Float
+  cursor: OrderPaginationInput_Cursor
+}
+
+input OrderPaginationInput_Cursor {
+  id: String!
+  startFrom: OrderPaginationInput_Cursor_StartFrom!
+}
+
+input OrderPaginationInput_Cursor_StartFrom {
+  id: OrderPaginationInput_Cursor_StartFrom_Id!
+  memberId: OrderPaginationInput_Cursor_StartFrom_MemberId!
+  completed: OrderPaginationInput_Cursor_StartFrom_Completed!
+  startTime: OrderPaginationInput_Cursor_StartFrom_StartTime!
+  endTime: OrderPaginationInput_Cursor_StartFrom_EndTime!
+  teamMateId: OrderPaginationInput_Cursor_StartFrom_TeamMateId!
+  completedTime: OrderPaginationInput_Cursor_StartFrom_CompletedTime!
+  date: OrderPaginationInput_Cursor_StartFrom_Date!
+  createdAt: OrderPaginationInput_Cursor_StartFrom_CreatedAt!
+  updatedAt: OrderPaginationInput_Cursor_StartFrom_UpdatedAt!
+  deletedAt: OrderPaginationInput_Cursor_StartFrom_DeletedAt!
+}
+
+input OrderPaginationInput_Cursor_StartFrom_Id {
+  value: String!
+  order: Order!
+}
+
+input OrderPaginationInput_Cursor_StartFrom_MemberId {
+  value: String!
+  order: Order!
+}
+
+input OrderPaginationInput_Cursor_StartFrom_Completed {
+  value: Boolean!
+  order: Order!
+}
+
+input OrderPaginationInput_Cursor_StartFrom_StartTime {
+  value: DateTime!
+  order: Order!
+}
+
+input OrderPaginationInput_Cursor_StartFrom_EndTime {
+  value: DateTime!
+  order: Order!
+}
+
+input OrderPaginationInput_Cursor_StartFrom_TeamMateId {
+  value: String!
+  order: Order!
+}
+
+input OrderPaginationInput_Cursor_StartFrom_CompletedTime {
+  value: DateTime!
+  order: Order!
+}
+
+input OrderPaginationInput_Cursor_StartFrom_Date {
+  value: DateTime!
+  order: Order!
+}
+
+input OrderPaginationInput_Cursor_StartFrom_CreatedAt {
+  value: DateTime!
+  order: Order!
+}
+
+input OrderPaginationInput_Cursor_StartFrom_UpdatedAt {
+  value: DateTime!
+  order: Order!
+}
+
+input OrderPaginationInput_Cursor_StartFrom_DeletedAt {
+  value: DateTime!
+  order: Order!
+}
+
+input OrderFindOne {
+  filters: [OrderFilterInput!]
+}
+
+type OrderMutation {
+  create(input: OrderCreateInput!): OrderModel!
+  update(input: OrderUpdateInput!): OrderModel!
+  delete(id: ID!): Boolean!
+}
+
+input OrderCreateInput {
+  memberId: String!
+  completed: Boolean!
+  startTime: DateTime!
+  endTime: DateTime!
+  teamMateId: String!
+  supplies: [OrderCreateInput_Supplies!]!
+  completedTime: DateTime!
+  date: DateTime!
+}
+
+input OrderCreateInput_Supplies {
+  supply: String!
+  amount: Float!
+  price: Float!
+  time: Int!
+  sum: Float!
+}
+
+input OrderUpdateInput {
+  memberId: String
+  completed: Boolean
+  startTime: DateTime
+  endTime: DateTime
+  teamMateId: String
+  supplies: [OrderCreateInput_Supplies!]
+  completedTime: DateTime
+  date: DateTime
+  id: String!
+}
+
 type Query {
   user: UserQuery!
   currency: CurrencyQuery!
@@ -1639,6 +1842,7 @@ type Query {
   memberNotice: MemberNoticeQuery!
   supplyCategory: SupplyCategoryQuery!
   supply: SupplyQuery!
+  order: OrderQuery!
 }
 
 type Mutation {
@@ -1652,4 +1856,5 @@ type Mutation {
   memberNotice: MemberNoticeMutation!
   supplyCategory: SupplyCategoryMutation!
   supply: SupplyMutation!
+  order: OrderMutation!
 }

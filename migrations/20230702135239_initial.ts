@@ -210,9 +210,33 @@ export async function up(knex: Knex): Promise<void> {
       CONSTRAINT calendar_team_mate_id_fk FOREIGN KEY (team_mate_id) REFERENCES team_mate(id)
     );
   `);
+
+  await knex.raw(`
+    CREATE TABLE "order" (
+      id uuid NOT NULL DEFAULT uuid_generate_v4(),
+      created_at timestamp NOT NULL DEFAULT now(),
+      updated_at timestamp NULL,
+      deleted_at timestamp NULL,
+      member_id uuid NOT NULL,
+      completed boolean NOT NULL,
+      "date" timestamp with time zone NOT NULL,
+      start_time timestamp with time zone NOT NULL,
+      end_time timestamp with time zone NOT NULL,
+      team_mate_id uuid NOT NULL,
+      supplies jsonb NOT NULL DEFAULT '{}'::jsonb,
+      completed_time timestamp with time zone NOT NULL,
+      PRIMARY KEY ("id"),
+      CONSTRAINT order_member_id_fk FOREIGN KEY (member_id) REFERENCES member(id),
+      CONSTRAINT order_team_mate_id_fk FOREIGN KEY (team_mate_id) REFERENCES team_mate(id)
+    );
+
+    CREATE INDEX order_member_id_idx ON "order" (member_id);
+    CREATE INDEX order_team_mate_id_idx ON "order" (team_mate_id);
+  `);
 }
 
 export async function down(knex: Knex): Promise<void> {
+  await knex.raw(`DROP TABLE IF EXISTS "order";`);
   await knex.raw(`DROP TABLE IF EXISTS "calendar";`);
   await knex.raw(`DROP TABLE IF EXISTS "supply";`);
   await knex.raw(`DROP TABLE IF EXISTS "supply_category";`);

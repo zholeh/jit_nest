@@ -1,6 +1,6 @@
 import { ObjectType } from '@nestjs/graphql';
 import { modelFromZod } from 'nestjs-graphql-zod';
-import { Member } from 'src/schema';
+import { Member } from '../../../../schema';
 import { prepareModelFromZodOptions } from '../../helper/scalar';
 
 @ObjectType()

@@ -33,10 +33,12 @@ async function bootstrap() {
 
   process.on('unhandledRejection', (reason: unknown, p: unknown) => {
     logger.error(`Unhandled Rejection at: Promise: ${p}, reason: ${reason}`);
+    console.error(`Unhandled Rejection at: Promise: ${p}, reason: ${reason}`);
     // process.abort();
   });
   process.on('uncaughtException', (err: unknown, origin: unknown) => {
     logger.error(`Unhandled Exception at: ${err}: err, origin: ${origin}`);
+    console.error(`Unhandled Exception at: ${err}: err, origin: ${origin}`);
     // process.abort();
   });
   await app.listen(configuration.params.application.port, configuration.params.application.address);

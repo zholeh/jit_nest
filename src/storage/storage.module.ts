@@ -10,6 +10,7 @@ import { MemberNoticeService } from './service/memberNotice/memberNotice.service
 import { MessageService } from './service/message/message.service';
 import { SupplyCategoryService } from './service/supplyCategory/supplyCategory.service';
 import { SupplyService } from './service/supply/supply.service';
+import { OrderService } from './service/order/order.service';
 
 const providers = [
   UserService,
@@ -22,6 +23,7 @@ const providers = [
   MessageService,
   SupplyCategoryService,
   SupplyService,
+  OrderService,
 ] as const;
 
 @Module({

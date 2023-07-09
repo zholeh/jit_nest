@@ -1,6 +1,6 @@
 import { ObjectType } from '@nestjs/graphql';
 import { modelFromZod } from 'nestjs-graphql-zod';
-import { Channel } from 'src/schema';
+import { Channel } from '../../../../schema';
 import { prepareModelFromZodOptions } from '../../helper/scalar';
 
 @ObjectType()

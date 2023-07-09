@@ -8,3 +8,4 @@ export * from './memberNotice';
 export * from './message';
 export * from './supplyCategory';
 export * from './supply';
+export * from './order';
