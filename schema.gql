@@ -1316,6 +1316,7 @@ input MemberNoticeUpdateInput {
 type SupplyCategoryModel {
   id: String!
   name: String!
+  description: String!
   teamId: String!
   timeAfterService: Int!
   nextVisit: Int!
@@ -1339,6 +1340,7 @@ input SupplyCategoryFindAll {
 input SupplyCategoryFilterInput {
   id: UserFilterInput_Id
   name: UserFilterInput_Id
+  description: UserFilterInput_Id
   teamId: UserFilterInput_Id
   timeAfterService: CurrencyFilterInput_Code
   nextVisit: CurrencyFilterInput_Code
@@ -1352,6 +1354,7 @@ input SupplyCategoryFilterInput {
 input SupplyCategoryFilterInput_Or {
   id: UserFilterInput_Id
   name: UserFilterInput_Id
+  description: UserFilterInput_Id
   teamId: UserFilterInput_Id
   timeAfterService: CurrencyFilterInput_Code
   nextVisit: CurrencyFilterInput_Code
@@ -1389,6 +1392,7 @@ input SupplyCategoryPaginationInput_Cursor {
 input SupplyCategoryPaginationInput_Cursor_StartFrom {
   id: SupplyCategoryPaginationInput_Cursor_StartFrom_Id!
   name: SupplyCategoryPaginationInput_Cursor_StartFrom_Name!
+  description: SupplyCategoryPaginationInput_Cursor_StartFrom_Description!
   teamId: SupplyCategoryPaginationInput_Cursor_StartFrom_TeamId!
   timeAfterService: SupplyCategoryPaginationInput_Cursor_StartFrom_TimeAfterService!
   nextVisit: SupplyCategoryPaginationInput_Cursor_StartFrom_NextVisit!
@@ -1404,6 +1408,11 @@ input SupplyCategoryPaginationInput_Cursor_StartFrom_Id {
 }
 
 input SupplyCategoryPaginationInput_Cursor_StartFrom_Name {
+  value: String!
+  order: Order!
+}
+
+input SupplyCategoryPaginationInput_Cursor_StartFrom_Description {
   value: String!
   order: Order!
 }
@@ -1455,6 +1464,7 @@ type SupplyCategoryMutation {
 
 input SupplyCategoryCreateInput {
   name: String!
+  description: String!
   teamId: String!
   timeAfterService: Int!
   nextVisit: Int!
@@ -1463,6 +1473,7 @@ input SupplyCategoryCreateInput {
 
 input SupplyCategoryUpdateInput {
   name: String
+  description: String
   teamId: String
   timeAfterService: Int
   nextVisit: Int

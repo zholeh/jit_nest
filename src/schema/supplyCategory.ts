@@ -9,6 +9,7 @@ export const SupplyCategory = z
   .object({
     id: SupplyCategoryId,
     name: z.string().max(255),
+    description: z.string().max(1024),
     teamId: TeamId,
     timeAfterService: z.number().int(),
     nextVisit: z.number().int(),

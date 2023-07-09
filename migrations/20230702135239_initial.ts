@@ -14,8 +14,13 @@ export async function up(knex: Knex): Promise<void> {
       last_name varchar(255) NOT NULL,
       email varchar(255) NOT NULL,
       phone varchar(255) NOT NULL,
+      referral_id uuid NOT NULL,
       PRIMARY KEY ("id")
     );
+  `);
+
+  await knex.raw(`
+    ALTER TABLE "user" ADD CONSTRAINT user_referral_id_fk FOREIGN KEY (referral_id) REFERENCES "user"(id);
   `);
 
   await knex.raw(`
@@ -66,6 +71,8 @@ export async function up(knex: Knex): Promise<void> {
       user_id uuid NOT NULL,
       team_id uuid NOT NULL,
       role team_mate_role NOT NULL DEFAULT 'super_mate',
+      "name" varchar(255) NOT NULL,
+      description varchar(1024) NOT NULL,
       PRIMARY KEY ("id"),
       CONSTRAINT team_mate_user_id_fk FOREIGN KEY (user_id) REFERENCES "user"(id),
       CONSTRAINT team_mate_team_id_fk FOREIGN KEY (team_id) REFERENCES team(id)
@@ -152,6 +159,44 @@ export async function up(knex: Knex): Promise<void> {
 
     CREATE INDEX message_channel_id_idx ON message (channel_id);
     CREATE INDEX message_mate_id_idx ON message (mate_id);
+  `);
+
+  await knex.raw(`
+    CREATE TABLE "supply_category" (
+      id uuid NOT NULL DEFAULT uuid_generate_v4(),
+      created_at timestamp NOT NULL DEFAULT now(),
+      updated_at timestamp NULL,
+      deleted_at timestamp NULL,
+      "name" varchar(255) NOT NULL,
+      description varchar(1024) NOT NULL,
+      team_id uuid NOT NULL,
+      time_after_service int4 NOT NULL,
+      next_visit int4 NOT NULL,
+      time_range int4 NOT NULL,
+      PRIMARY KEY ("id"),
+      CONSTRAINT supply_category_team_id_fk FOREIGN KEY (team_id) REFERENCES team(id)
+    );
+
+    CREATE INDEX supply_category_team_id_idx ON supply_category (team_id);
+  `);
+
+  await knex.raw(`
+    CREATE TABLE "supply" (
+      id uuid NOT NULL DEFAULT uuid_generate_v4(),
+      created_at timestamp NOT NULL DEFAULT now(),
+      updated_at timestamp NULL,
+      deleted_at timestamp NULL,
+      "name" varchar(255) NOT NULL,
+      description varchar(1024) NOT NULL,
+      category_id uuid NOT NULL,
+      time_after_service int4 NOT NULL,
+      next_visit int4 NOT NULL,
+      time_range int4 NOT NULL,
+      PRIMARY KEY ("id"),
+      CONSTRAINT supply_category_id_fk FOREIGN KEY (category_id) REFERENCES supply_category(id)
+    );
+
+    CREATE INDEX supply_category_id_idx ON supply (category_id);
   `);
 }
 
