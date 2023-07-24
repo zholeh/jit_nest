@@ -2,23 +2,29 @@ import { NotFoundServiceError } from '../../../../exception';
 import { FindAllOptions, FindOneOptions, FindReturn } from '../../../../helper/types';
 import { buildCursor, buildFilters } from '../../../helper/filter';
 import { buildOrders } from '../../../helper/order';
-import { BaseValueCrud } from './base';
-import { ValueSchema, ValueType } from './types';
+import { BaseValueObjectCrud } from './base';
+import { ValueObjectSchema, ValueObjectType } from './types';
 
-export abstract class Read<Value extends ValueSchema> extends BaseValueCrud<Value> {
-  async findAll(options?: FindAllOptions<ValueType<Value>>): Promise<readonly FindReturn<ValueType<Value>>[]> {
+export abstract class Read<ValueObject extends ValueObjectSchema> extends BaseValueObjectCrud<ValueObject> {
+  async findAll(
+    options?: FindAllOptions<ValueObjectType<ValueObject>>,
+  ): Promise<readonly FindReturn<ValueObjectType<ValueObject>>[]> {
     const result = await this.buildQuery(options);
     return result.map((valueObject) => this.valueObject(valueObject, options?.fields));
   }
 
-  async findValues(options?: FindOneOptions<ValueType<Value>>): Promise<FindReturn<ValueType<Value>> | undefined> {
-    const result = await this.findAll(this.addLimitToOptions(1, options));
+  async findValues(
+    options?: FindOneOptions<ValueObjectType<ValueObject>>,
+  ): Promise<FindReturn<ValueObjectType<ValueObject>>[] | undefined> {
+    const result = await this.findAll(options);
 
-    if (result.length) return result.map((valueObject) => this.valueObject(valueObject, options?.fields))[0];
+    if (result.length) return result.map((valueObject) => this.valueObject(valueObject, options?.fields));
     return undefined;
   }
 
-  async findOneOrFail(options: FindOneOptions<ValueType<Value>>): Promise<FindReturn<ValueType<Value>>> {
+  async findValuesOrFail(
+    options: FindOneOptions<ValueObjectType<ValueObject>>,
+  ): Promise<FindReturn<ValueObjectType<ValueObject>>> {
     const value = await this.findValues(options);
     if (!value) {
       throw new NotFoundServiceError(`Entity with options: ${JSON.stringify(options)} not found`);
@@ -27,15 +33,7 @@ export abstract class Read<Value extends ValueSchema> extends BaseValueCrud<Valu
     return value;
   }
 
-  private addLimitToOptions(limit: number, options?: FindAllOptions<ValueType<Value>>) {
-    const result: FindAllOptions<ValueType<Value>> = options ? { ...options } : {};
-    const pagination = result.pagination ? { ...result.pagination } : { limit };
-    pagination.limit = limit;
-    result.pagination = pagination;
-    return result;
-  }
-
-  private buildQuery(options: FindAllOptions<ValueType<Value>> | undefined) {
+  private buildQuery(options: FindAllOptions<ValueObjectType<ValueObject>> | undefined) {
     const query = this.builder.select(this.dbFields(options?.fields));
 
     if (options?.filters) buildFilters(options.filters, query);

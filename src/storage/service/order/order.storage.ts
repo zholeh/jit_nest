@@ -1,9 +1,9 @@
 import { Knex } from 'nestjs-knex';
 import { Order, OrderCreate, OrderLink, OrderUpdate } from '../../../schema/order';
 import { orderColumns, orderTable } from '../../entity/order.entity';
-import { crudEntityFactory } from '../crud/entity/crud.entity';
+import { CrudEntityFactory } from '../crud/entity/crud.entity';
 
-export class OrderStorage extends crudEntityFactory({
+export class OrderStorage extends CrudEntityFactory({
   entity: Order,
   create: OrderCreate,
   update: OrderUpdate,

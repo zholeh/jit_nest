@@ -1,35 +1,25 @@
 import { z } from 'zod';
 import { ValueObjectSchema } from './base/valueObject';
-import { onlyTimeTransformer } from './helper/zodPreprocessor';
+import { BookedTime } from './bookedTime';
 import { TeamMateId } from './teamMate';
+import { TimeRange } from './timeRange';
 
-export const TimeRange = z.object({
-  from: z.date().transform(onlyTimeTransformer),
-  to: z.date().transform(onlyTimeTransformer),
-});
-
-export const BookedTime = z.object({
-  from: z.date().transform(onlyTimeTransformer),
-  to: z.date().transform(onlyTimeTransformer),
-  order: z.string(), // TODO: fix to correct one
-});
-
-export const UserLink = z.object({
+export const CalendarLink = z.object({
   teamMateId: TeamMateId,
   date: z.date().transform((arg) => arg.setHours(0, 0, 0)),
 });
 
-export const UserCreate = z.object({
+export const CalendarCreate = z.object({
   timeRanges: TimeRange.array(),
-  bookedTime: BookedTime.array(),
+  bookedTimes: BookedTime.array(),
   hasSlot: z.boolean(),
 });
 
-export const User = ValueObjectSchema.merge(UserLink).merge(UserCreate);
+export const Calendar = ValueObjectSchema.merge(CalendarLink).merge(CalendarCreate);
 
-export type UserType = z.infer<typeof User>;
-export type UserCreateType = z.infer<typeof UserCreate>;
-export type UserLinkType = z.infer<typeof UserLink>;
+export type CalendarType = z.infer<typeof Calendar>;
+export type CalendarCreateType = z.infer<typeof CalendarCreate>;
+export type CalendarLinkType = z.infer<typeof CalendarLink>;
 
 // TODO: think about ORDER, FILTER
 // export const UserOrder = buildOrderZodSchema<typeof User>(['teamMateId', 'date', 'hasSlot']);

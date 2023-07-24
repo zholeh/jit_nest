@@ -1,9 +1,9 @@
 import { Knex } from 'nestjs-knex';
 import { Channel, ChannelCreate, ChannelLink, ChannelUpdate } from '../../../schema/channel';
 import { channelColumns, channelTable } from '../../entity/channel.entity';
-import { crudEntityFactory } from '../crud/entity/crud.entity';
+import { CrudEntityFactory } from '../crud/entity/crud.entity';
 
-export class ChannelStorage extends crudEntityFactory({
+export class ChannelStorage extends CrudEntityFactory({
   entity: Channel,
   create: ChannelCreate,
   update: ChannelUpdate,

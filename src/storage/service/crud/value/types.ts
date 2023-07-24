@@ -1,13 +1,13 @@
 import { TypeOf, ZodDate, ZodEffects, ZodObject, ZodRawShape } from 'zod';
 
-export type ValueCommonFields = {
+export type ValueObjectCommonFields = {
   createdAt: ZodEffects<ZodDate, Date, unknown>;
 };
-export type ValueSchema = ZodObject<ZodRawShape & ValueCommonFields>;
-export type ValueType<Value extends ValueSchema> = TypeOf<Value>;
-export type KeyofValue<Value extends ValueSchema> = keyof ValueType<Value>;
+export type ValueObjectSchema = ZodObject<ZodRawShape & ValueObjectCommonFields>;
+export type ValueObjectType<Value extends ValueObjectSchema> = TypeOf<Value>;
+export type KeyofValueObject<Value extends ValueObjectSchema> = keyof ValueObjectType<Value>;
 // export type ValueLink<Value extends ValueSchema> = Pick<TypeOf<Value>, 'id'>;
-export type ColumnsValueType<Value extends ValueSchema> = {
-  db: Map<KeyofValue<Value>, string>;
-  valueObject: Map<string, KeyofValue<Value>>;
+export type ColumnsValueObjectType<Value extends ValueObjectSchema> = {
+  db: Map<KeyofValueObject<Value>, string>;
+  valueObject: Map<string, KeyofValueObject<Value>>;
 };

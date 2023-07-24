@@ -1,9 +1,9 @@
 import { Knex } from 'nestjs-knex';
 import { TeamMate, TeamMateCreate, TeamMateLink, TeamMateUpdate } from '../../../schema/teamMate';
 import { teamMateColumns, teamMateTable } from '../../entity/teamMate.entity';
-import { crudEntityFactory } from '../crud/entity/crud.entity';
+import { CrudEntityFactory } from '../crud/entity/crud.entity';
 
-export class TeamMateStorage extends crudEntityFactory({
+export class TeamMateStorage extends CrudEntityFactory({
   entity: TeamMate,
   create: TeamMateCreate,
   update: TeamMateUpdate,

@@ -1,9 +1,9 @@
 import { Knex } from 'nestjs-knex';
 import { Supply, SupplyCreate, SupplyLink, SupplyUpdate } from '../../../schema/supply';
 import { supplyColumns, supplyTable } from '../../entity/supply.entity';
-import { crudEntityFactory } from '../crud/entity/crud.entity';
+import { CrudEntityFactory } from '../crud/entity/crud.entity';
 
-export class SupplyStorage extends crudEntityFactory({
+export class SupplyStorage extends CrudEntityFactory({
   entity: Supply,
   create: SupplyCreate,
   update: SupplyUpdate,

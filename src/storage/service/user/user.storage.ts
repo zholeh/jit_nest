@@ -1,9 +1,9 @@
 import { Knex } from 'nestjs-knex';
 import { User, UserCreate, UserLink, UserUpdate } from '../../../schema/user';
 import { userColumns, userTable } from '../../entity/user.entity';
-import { crudEntityFactory } from '../crud/entity/crud.entity';
+import { CrudEntityFactory } from '../crud/entity/crud.entity';
 
-export class UserStorage extends crudEntityFactory({
+export class UserStorage extends CrudEntityFactory({
   entity: User,
   create: UserCreate,
   update: UserUpdate,

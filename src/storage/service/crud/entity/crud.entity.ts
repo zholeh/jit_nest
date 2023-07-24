@@ -169,7 +169,7 @@ type FactoryType<
     (EntityDelete extends false ? BaseEntityCrud<Entity> : Exclude<Delete<Entity>, false>)
 >;
 
-export function crudEntityFactory<
+export function CrudEntityFactory<
   Entity extends EntitySchema,
   EntityCreate extends ZodObject<ZodRawShape> | false,
   EntityUpdate extends ZodObject<{ id: ZodBranded<ZodString, string> }> | false,

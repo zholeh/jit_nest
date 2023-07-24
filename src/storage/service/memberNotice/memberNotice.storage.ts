@@ -1,9 +1,9 @@
 import { Knex } from 'nestjs-knex';
 import { MemberNotice, MemberNoticeCreate, MemberNoticeLink, MemberNoticeUpdate } from '../../../schema/memberNotice';
 import { memberNoticeColumns, memberNoticeTable } from '../../entity/memberNotice';
-import { crudEntityFactory } from '../crud/entity/crud.entity';
+import { CrudEntityFactory } from '../crud/entity/crud.entity';
 
-export class MemberNoticeStorage extends crudEntityFactory({
+export class MemberNoticeStorage extends CrudEntityFactory({
   entity: MemberNotice,
   create: MemberNoticeCreate,
   update: MemberNoticeUpdate,

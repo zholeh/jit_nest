@@ -1,9 +1,9 @@
 import { Knex } from 'nestjs-knex';
 import { Currency, CurrencyCreate, CurrencyLink, CurrencyUpdate } from '../../../schema/currency';
 import { currencyColumns, currencyTable } from '../../entity/currency.entity';
-import { crudEntityFactory } from '../crud/entity/crud.entity';
+import { CrudEntityFactory } from '../crud/entity/crud.entity';
 
-export class CurrencyStorage extends crudEntityFactory({
+export class CurrencyStorage extends CrudEntityFactory({
   entity: Currency,
   create: CurrencyCreate,
   update: CurrencyUpdate,

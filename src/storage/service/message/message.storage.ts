@@ -1,9 +1,9 @@
 import { Knex } from 'nestjs-knex';
 import { Message, MessageCreate, MessageLink, MessageUpdate } from '../../../schema/message';
 import { messageColumns, messageTable } from '../../entity/message';
-import { crudEntityFactory } from '../crud/entity/crud.entity';
+import { CrudEntityFactory } from '../crud/entity/crud.entity';
 
-export class MessageStorage extends crudEntityFactory({
+export class MessageStorage extends CrudEntityFactory({
   entity: Message,
   create: MessageCreate,
   update: MessageUpdate,
