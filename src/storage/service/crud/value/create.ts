@@ -9,7 +9,7 @@ export abstract class Create<
 > extends BaseValueObjectCrud<ValueObject> {
   async create(
     link: {
-      [K in BaseValueObjectCrud<ValueObject>['keyFields'][number]]: string;
+      [K in BaseValueObjectCrud<ValueObject>['keyFields'][number]]: ValueObject[K];
     },
     input: ValueObjectCreate[],
   ): Promise<ValueObjectType<ValueObject>> {
@@ -19,15 +19,8 @@ export abstract class Create<
     throw new UnprocessableEntityServiceError(`Incorrect insert ${JSON.stringify(input)}`);
   }
 
-  // TODO: create many
-  // async createMany(input: ValueCreate[]): Promise<ValueType<Value>[]> {
-  //   const result = await this.builder.insert(input).returning('*');
-  //   if (result.length) return result.map((el) => this.valueObject(el));
-  //   throw new UnprocessableEntityServiceError(`Incorrect insert ${JSON.stringify(input)}`);
-  // }
-
   async delete(link: {
-    [K in BaseValueObjectCrud<ValueObject>['keyFields'][number]]: string;
+    [K in BaseValueObjectCrud<ValueObject>['keyFields'][number]]: ValueObject[K];
   }): Promise<boolean> {
     const where = this.db(link);
     const result = await this.builder.where(where).delete();
