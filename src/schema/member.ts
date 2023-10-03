@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { EntitySchema } from './base/entity';
+import { EntitySchema, entityOmit } from './base/entity';
 import { buildCursorZodSchema, buildFilterZodSchema, buildOrderZodSchema } from './helper';
 import { UserId } from './user';
 import { ChannelId } from './channel';
@@ -20,9 +20,7 @@ export const Member = z
 
 export const MemberCreate = Member.omit({
   id: true,
-  createdAt: true,
-  updatedAt: true,
-  deletedAt: true,
+  ...entityOmit,
 });
 
 export const MemberUpdate = MemberCreate.partial().extend(Member.pick({ id: true }).shape);

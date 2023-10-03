@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { EntitySchema } from './base/entity';
+import { EntitySchema, entityOmit } from './base/entity';
 import { buildCursorZodSchema, buildFilterZodSchema, buildOrderZodSchema } from './helper';
 import { MemberId } from './member';
 import { TeamMateId } from './teamMate';
@@ -31,9 +31,7 @@ export const Order = z
 
 export const OrderCreate = Order.omit({
   id: true,
-  createdAt: true,
-  updatedAt: true,
-  deletedAt: true,
+  ...entityOmit,
 });
 
 export const OrderUpdate = OrderCreate.partial().extend(Order.pick({ id: true }).shape);

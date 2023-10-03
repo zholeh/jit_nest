@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { EntitySchema } from './base/entity';
+import { EntitySchema, entityOmit } from './base/entity';
 import { buildCursorZodSchema, buildFilterZodSchema, buildOrderZodSchema } from './helper';
 
 export const UserId = z.string().uuid().brand<'UserId'>('UserId');
@@ -17,9 +17,7 @@ export const User = z
 
 export const UserCreate = User.omit({
   id: true,
-  createdAt: true,
-  updatedAt: true,
-  deletedAt: true,
+  ...entityOmit,
 });
 
 export const UserUpdate = UserCreate.partial().extend(User.pick({ id: true }).shape);

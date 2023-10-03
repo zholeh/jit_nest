@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { EntitySchema } from './base/entity';
+import { EntitySchema, entityOmit } from './base/entity';
 import { buildCursorZodSchema, buildFilterZodSchema, buildOrderZodSchema } from './helper';
 import { TeamId } from './team';
 
@@ -17,9 +17,7 @@ export const Channel = z
 
 export const ChannelCreate = Channel.omit({
   id: true,
-  createdAt: true,
-  updatedAt: true,
-  deletedAt: true,
+  ...entityOmit,
 });
 
 export const ChannelUpdate = ChannelCreate.partial().extend(Channel.pick({ id: true }).shape);

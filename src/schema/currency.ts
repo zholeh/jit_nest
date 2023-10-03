@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { EntitySchema } from './base/entity';
+import { EntitySchema, entityOmit } from './base/entity';
 import { buildCursorZodSchema, buildFilterZodSchema, buildOrderZodSchema } from './helper';
 
 export const CurrencyId = z.string().uuid().brand<'CurrencyId'>('CurrencyId');
@@ -16,9 +16,7 @@ export const Currency = z
 
 export const CurrencyCreate = Currency.omit({
   id: true,
-  createdAt: true,
-  updatedAt: true,
-  deletedAt: true,
+  ...entityOmit,
 });
 
 export const CurrencyUpdate = CurrencyCreate.partial().extend(Currency.pick({ id: true }).shape);

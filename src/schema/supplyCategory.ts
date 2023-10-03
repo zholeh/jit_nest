@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { EntitySchema } from './base/entity';
+import { EntitySchema, entityOmit } from './base/entity';
 import { buildCursorZodSchema, buildFilterZodSchema, buildOrderZodSchema } from './helper';
 import { TeamId } from './team';
 
@@ -19,9 +19,7 @@ export const SupplyCategory = z
 
 export const SupplyCategoryCreate = SupplyCategory.omit({
   id: true,
-  createdAt: true,
-  updatedAt: true,
-  deletedAt: true,
+  ...entityOmit,
 });
 
 export const SupplyCategoryUpdate = SupplyCategoryCreate.partial().extend(SupplyCategory.pick({ id: true }).shape);

@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { ChannelId } from './channel';
-import { EntitySchema } from './base/entity';
+import { EntitySchema, entityOmit } from './base/entity';
 import { buildCursorZodSchema, buildFilterZodSchema, buildOrderZodSchema } from './helper';
 import { MemberId } from './member';
 import { TeamMateId } from './teamMate';
@@ -20,9 +20,7 @@ export const MemberNotice = z
 
 export const MemberNoticeCreate = MemberNotice.omit({
   id: true,
-  createdAt: true,
-  updatedAt: true,
-  deletedAt: true,
+  ...entityOmit,
 });
 
 export const MemberNoticeUpdate = MemberNoticeCreate.partial().extend(MemberNotice.pick({ id: true }).shape);

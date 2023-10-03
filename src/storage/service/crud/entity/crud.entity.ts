@@ -5,7 +5,7 @@ import { Delete } from './delete';
 import { Read } from './read';
 import { EntityIdSchema, EntitySchema } from './types';
 import { Update } from './update';
-import { BaseCrud } from './base';
+import { BaseEntityCrud } from './base';
 
 type GConstructor<T = object> = new (knex: Knex) => T;
 

@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { EntitySchema } from './base/entity';
+import { EntitySchema, entityOmit } from './base/entity';
 import { buildCursorZodSchema, buildFilterZodSchema, buildOrderZodSchema } from './helper';
 import { UserId } from './user';
 import { CurrencyId } from './currency';
@@ -18,9 +18,7 @@ export const Message = z
 
 export const MessageCreate = Message.omit({
   id: true,
-  createdAt: true,
-  updatedAt: true,
-  deletedAt: true,
+  ...entityOmit,
 });
 
 export const MessageUpdate = MessageCreate.partial().extend(Message.pick({ id: true }).shape);

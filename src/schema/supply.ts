@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { EntitySchema } from './base/entity';
+import { EntitySchema, entityOmit } from './base/entity';
 import { buildCursorZodSchema, buildFilterZodSchema, buildOrderZodSchema } from './helper';
 import { UserId } from './user';
 import { CurrencyId } from './currency';
@@ -18,9 +18,7 @@ export const Supply = z
 
 export const SupplyCreate = Supply.omit({
   id: true,
-  createdAt: true,
-  updatedAt: true,
-  deletedAt: true,
+  ...entityOmit,
 });
 
 export const SupplyUpdate = SupplyCreate.partial().extend(Supply.pick({ id: true }).shape);
