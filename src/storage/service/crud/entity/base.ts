@@ -22,27 +22,29 @@ export abstract class BaseEntityCrud<Entity extends EntitySchema> {
     );
 
     if (fields) {
-      let schema = this.schema.omit({});
-      Object.entries(this.schema.shape).map(([key]) => {
-        if (!fields.find((el) => el === key)) schema = schema.omit({ [key]: true });
-      });
+      const shape = Object.keys(this.schema.shape).reduce<Partial<Record<KeyofEntity<Entity>, true>>>(
+        (acc, key: KeyofEntity<Entity>) => {
+          if (!this.hasField(fields, key)) acc[key] = true;
+          return acc;
+        },
+        {},
+      );
+      const schema = this.schema.omit(shape);
       return schema.parse(obj);
     }
     return this.schema.parse(obj);
   }
 
   protected db(entity: EntityType<Entity>): DictionaryUnknown {
-    const obj: DictionaryUnknown = Object.fromEntries(
-      Object.entries(entity).map(([key, value]) => {
-        const field = this.dbField(key);
-        return [field, value];
-      }),
-    );
+    const obj = Object.keys(entity).reduce<DictionaryUnknown>((acc, key) => {
+      acc[this.dbField(key)] = entity[key];
+      return acc;
+    }, {});
     return obj;
   }
 
   protected entityField(field: string): KeyofEntity<Entity> {
-    return this.columns.entity.get(field) || field.toString();
+    return this.columns.entity.get(field) || field;
   }
 
   protected dbFields(arr?: KeyofEntity<Entity>[]): string[] {
@@ -52,5 +54,9 @@ export abstract class BaseEntityCrud<Entity extends EntitySchema> {
 
   protected dbField(field: KeyofEntity<Entity>): string {
     return this.columns.db.get(field) || field.toString();
+  }
+
+  private hasField(fields: (keyof EntityType<Entity>)[], key: keyof EntityType<Entity>): boolean {
+    return fields.find((el) => el === key) !== undefined;
   }
 }
