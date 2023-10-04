@@ -23,7 +23,7 @@ export class CalendarService {
     return this.storage.findValuesOrFail(input);
   }
 
-  async create(link: CalendarLinkType, input: CalendarCreateType) {
+  async create(link: CalendarLinkType, input: CalendarCreateType[]) {
     return this.storage.create(link, input);
   }
 }

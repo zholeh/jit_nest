@@ -8,9 +8,9 @@ export abstract class Create<
   ValueObjectCreate extends DictionaryUnknown,
 > extends BaseValueObjectCrud<ValueObject> {
   async create(
-    link: {
+    link: Partial<{
       [K in BaseValueObjectCrud<ValueObject>['keyFields'][number]]: ValueObject[K];
-    },
+    }>,
     input: ValueObjectCreate[],
   ): Promise<ValueObjectType<ValueObject>> {
     await this.delete(link);
@@ -19,9 +19,11 @@ export abstract class Create<
     throw new UnprocessableEntityServiceError(`Incorrect insert ${JSON.stringify(input)}`);
   }
 
-  async delete(link: {
-    [K in BaseValueObjectCrud<ValueObject>['keyFields'][number]]: ValueObject[K];
-  }): Promise<boolean> {
+  async delete(
+    link: Partial<{
+      [K in BaseValueObjectCrud<ValueObject>['keyFields'][number]]: ValueObject[K];
+    }>,
+  ): Promise<boolean> {
     const where = this.db(link);
     const result = await this.builder.where(where).delete();
     if (result > 0) return true;

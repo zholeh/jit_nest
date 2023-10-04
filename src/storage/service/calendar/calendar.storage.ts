@@ -7,7 +7,7 @@ export class CalendarStorage extends CrudValueObjectFactory({
   valueObject: Calendar,
   create: CalendarCreate,
 }) {
-  protected keyFields: [keyof CalendarType, ...(keyof CalendarType)[]] = ['teamMateId', 'createdAt'];
+  protected readonly keyFields: [keyof CalendarType, ...(keyof CalendarType)[]] = ['teamMateId', 'date'];
   protected readonly table = calendarTable;
   protected readonly columns = calendarColumns;
   protected readonly schema = Calendar;

@@ -5,8 +5,8 @@ import { ColumnsValueObjectType, KeyofValueObject, ValueObjectSchema, ValueObjec
 export abstract class BaseValueObjectCrud<ValueObject extends ValueObjectSchema> {
   protected abstract readonly table: string;
   protected abstract readonly schema: ValueObject;
-  // protected abstract readonly keyFields: [KeyofValueObject<ValueObject>, ...KeyofValueObject<ValueObject>[]];
-  protected abstract readonly keyFields: KeyofValueObject<ValueObject>[];
+  protected abstract readonly keyFields: [KeyofValueObject<ValueObject>, ...KeyofValueObject<ValueObject>[]];
+  // protected abstract readonly keyFields: KeyofValueObject<ValueObject>[];
   protected abstract readonly columns: ColumnsValueObjectType<ValueObject>;
 
   protected abstract readonly knex: Knex;
