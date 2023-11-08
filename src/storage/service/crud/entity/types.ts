@@ -1,10 +1,20 @@
-import { TypeOf, ZodBranded, ZodDate, ZodEffects, ZodNullable, ZodObject, ZodRawShape, ZodString } from 'zod';
+import {
+  TypeOf,
+  ZodBranded,
+  ZodDate,
+  ZodEffects,
+  ZodNullable,
+  ZodObject,
+  ZodOptional,
+  ZodRawShape,
+  ZodString,
+} from 'zod';
 
 export type EntityIdSchema = { id: ZodBranded<ZodString, string> };
 export type EntityCommonFields = {
   createdAt: ZodEffects<ZodDate, Date, unknown>;
-  updatedAt: ZodEffects<ZodNullable<ZodDate>, Date | null, unknown>;
-  deletedAt: ZodEffects<ZodNullable<ZodDate>, Date | null, unknown>;
+  updatedAt: ZodOptional<ZodNullable<ZodEffects<ZodNullable<ZodDate>, Date | null, unknown>>>;
+  deletedAt: ZodOptional<ZodNullable<ZodEffects<ZodNullable<ZodDate>, Date | null, unknown>>>;
 };
 export type EntitySchema = ZodObject<ZodRawShape & EntityIdSchema & EntityCommonFields>;
 export type EntityId = Exclude<TypeOf<EntitySchema>['id'], undefined>;

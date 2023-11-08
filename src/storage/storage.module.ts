@@ -11,6 +11,7 @@ import { MessageService } from './service/message/message.service';
 import { SupplyCategoryService } from './service/supplyCategory/supplyCategory.service';
 import { SupplyService } from './service/supply/supply.service';
 import { OrderService } from './service/order/order.service';
+import { UserViewLayerService } from './service/userViewLayer/userViewLayer.service';
 
 const providers = [
   UserService,
@@ -24,6 +25,7 @@ const providers = [
   SupplyCategoryService,
   SupplyService,
   OrderService,
+  UserViewLayerService,
 ] as const;
 
 @Module({

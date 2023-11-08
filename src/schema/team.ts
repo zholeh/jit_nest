@@ -9,7 +9,7 @@ export const TeamId = z.string().uuid().brand<'TeamId'>('TeamId');
 export const Team = z
   .object({
     id: TeamId,
-    name: z.string().max(255).nonempty(),
+    name: z.string().max(255).min(1),
     description: z.string().max(1024),
     referralId: UserId,
     currencyId: CurrencyId,

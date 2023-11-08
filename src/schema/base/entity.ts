@@ -3,8 +3,8 @@ import { z } from 'zod';
 
 export const EntitySchema = z.object({
   createdAt: z.preprocess(datePreprocessor, z.date()),
-  updatedAt: z.preprocess(datePreprocessor, z.date().nullable()),
-  deletedAt: z.preprocess(datePreprocessor, z.date().nullable()),
+  updatedAt: z.preprocess(datePreprocessor, z.date().nullable()).nullish(),
+  deletedAt: z.preprocess(datePreprocessor, z.date().nullable()).nullish(),
 });
 
 export const entityOmit: Partial<Record<keyof typeof EntitySchema.shape, true>> = {

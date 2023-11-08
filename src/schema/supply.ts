@@ -9,7 +9,7 @@ export const SupplyId = z.string().uuid().brand<'SupplyId'>('SupplyId');
 export const Supply = z
   .object({
     id: SupplyId,
-    name: z.string().max(255).nonempty(),
+    name: z.string().max(255).min(1),
     description: z.string().max(1024),
     referralId: UserId,
     currencyId: CurrencyId,

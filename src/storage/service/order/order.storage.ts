@@ -1,5 +1,5 @@
 import { Knex } from 'nestjs-knex';
-import { Order, OrderCreate, OrderLink, OrderUpdate } from '../../../schema/order';
+import { Order, OrderCreate, OrderLink, OrderUpdate } from '../../../schema';
 import { orderColumns, orderTable } from '../../entity/order.entity';
 import { CrudEntityFactory } from '../crud/entity/crud.entity';
 

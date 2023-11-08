@@ -1,33 +1,11 @@
 import type { Knex } from 'knex';
-
-// Update with your config settings.
+import { dbConnection } from './src/infrastructure/helpers/dbConnection';
 
 const config: { [key: string]: Knex.Config } = {
   development: {
-    client: 'postgresql',
+    client: 'postgres',
     connection: {
-      database: 'ls',
-      user: 'icfcusr',
-      password: 'password',
-    },
-    migrations: {
-      tableName: 'migration',
-    },
-  },
-
-  staging: {
-    client: 'postgresql',
-    connection: {
-      database: 'ls',
-      user: 'icfcusr',
-      password: 'password',
-    },
-    pool: {
-      min: 2,
-      max: 10,
-    },
-    migrations: {
-      tableName: 'migration',
+      connectionString: dbConnection(),
     },
   },
 };

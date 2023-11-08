@@ -7,7 +7,7 @@ import {
   SupplyPagination,
   SupplyType,
   SupplyUpdate,
-} from '../../../../schema/supply';
+} from '../../../../schema';
 import { Field, InputType } from '@nestjs/graphql';
 import { FindAllOptions, FindOneOptions } from '../../../../helper/types';
 

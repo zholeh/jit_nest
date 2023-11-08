@@ -1,10 +1,5 @@
 import { Knex } from 'nestjs-knex';
-import {
-  SupplyCategory,
-  SupplyCategoryCreate,
-  SupplyCategoryLink,
-  SupplyCategoryUpdate,
-} from '../../../schema/supplyCategory';
+import { SupplyCategory, SupplyCategoryCreate, SupplyCategoryLink, SupplyCategoryUpdate } from '../../../schema';
 import { supplyCategoryColumns, supplyCategoryTable } from '../../entity/supplyCategory.entity';
 import { CrudEntityFactory } from '../crud/entity/crud.entity';
 

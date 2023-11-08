@@ -1,4 +1,4 @@
-import { UnprocessableEntityServiceError } from '../../../../exception';
+import { ServiceExceptions } from '../../../../exception';
 import { DictionaryUnknown } from '../../../../helper/types';
 import { BaseEntityCrud } from './base';
 import { EntityId, EntitySchema, EntityType } from './types';
@@ -17,7 +17,7 @@ export abstract class Update<
       .update({ ...input, updatedAt: new Date() })
       .returning('*');
     if (result.length) return this.entity(result[0]);
-    throw new UnprocessableEntityServiceError(`Incorrect update ${JSON.stringify(input)}`);
+    throw new ServiceExceptions.UnprocessableEntity(`Incorrect update ${JSON.stringify(input)}`);
   }
 
   async patch(
@@ -30,6 +30,6 @@ export abstract class Update<
       .update({ ...input, updatedAt: new Date() })
       .returning('*');
     if (result.length) return this.entity(result[0]);
-    throw new UnprocessableEntityServiceError(`Incorrect patch ${JSON.stringify(input)}`);
+    throw new ServiceExceptions.UnprocessableEntity(`Incorrect patch ${JSON.stringify(input)}`);
   }
 }

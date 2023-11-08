@@ -1,4 +1,4 @@
-import { TeamMate } from '../../schema/teamMate';
+import { TeamMate } from '../../schema';
 import { objectToSnakeCaseKeyMap, objectToSnakeCaseValueMap } from '../helper/caseProcessing';
 import { Entity } from './entity.abstract';
 

@@ -1,4 +1,4 @@
-import { NotFoundServiceError } from '../../../../exception';
+import { ServiceExceptions } from '../../../../exception';
 import { FindAllOptions, FindOneOptions, FindReturn } from '../../../../helper/types';
 import { buildCursor, buildFilters } from '../../../helper/filter';
 import { buildOrders } from '../../../helper/order';
@@ -27,7 +27,7 @@ export abstract class Read<ValueObject extends ValueObjectSchema> extends BaseVa
   ): Promise<FindReturn<ValueObjectType<ValueObject>>> {
     const value = await this.findValues(options);
     if (!value) {
-      throw new NotFoundServiceError(`Entity with options: ${JSON.stringify(options)} not found`);
+      throw new ServiceExceptions.NotFound(`Entity with options: ${JSON.stringify(options)} not found`);
     }
 
     return value;
@@ -36,7 +36,7 @@ export abstract class Read<ValueObject extends ValueObjectSchema> extends BaseVa
   private buildQuery(options: FindAllOptions<ValueObjectType<ValueObject>> | undefined) {
     const query = this.builder.select(this.dbFields(options?.fields));
 
-    if (options?.filters) buildFilters(options.filters, query);
+    if (options?.filters) buildFilters(options.filters, query, this.columns.db);
     if (options?.orders) query.orderBy(buildOrders(options.orders));
     if (options?.pagination?.limit) query.limit(options.pagination.limit);
     // TODO: offset should be by code

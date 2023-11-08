@@ -7,7 +7,7 @@ import {
   CurrencyPagination,
   CurrencyType,
   CurrencyUpdate,
-} from '../../../../schema/currency';
+} from '../../../../schema';
 import { Field, InputType } from '@nestjs/graphql';
 import { FindAllOptions, FindOneOptions } from '../../../../helper/types';
 

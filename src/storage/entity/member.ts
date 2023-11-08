@@ -1,4 +1,4 @@
-import { Member } from '../../schema/member';
+import { Member } from '../../schema';
 import { objectToSnakeCaseKeyMap, objectToSnakeCaseValueMap } from '../helper/caseProcessing';
 import { Entity } from './entity.abstract';
 

@@ -1,5 +1,5 @@
 import { Knex } from 'nestjs-knex';
-import { Message, MessageCreate, MessageLink, MessageUpdate } from '../../../schema/message';
+import { Message, MessageCreate, MessageLink, MessageUpdate } from '../../../schema';
 import { messageColumns, messageTable } from '../../entity/message';
 import { CrudEntityFactory } from '../crud/entity/crud.entity';
 

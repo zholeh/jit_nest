@@ -1,2 +1,1 @@
-export * from './notFoundError';
-export * from './unprocessableEntity';
+export * from './service';

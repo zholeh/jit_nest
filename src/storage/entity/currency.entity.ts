@@ -1,4 +1,4 @@
-import { Currency } from '../../schema/currency';
+import { Currency } from '../../schema';
 import { objectToSnakeCaseKeyMap, objectToSnakeCaseValueMap } from '../helper/caseProcessing';
 import { Entity } from './entity.abstract';
 

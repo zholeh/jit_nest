@@ -6,6 +6,6 @@ const {
   },
 } = configuration;
 
-export function connection(): string {
+export function dbConnection(): string {
   return `postgresql://${user}:${password}@${host}:${port}/${db}`;
 }

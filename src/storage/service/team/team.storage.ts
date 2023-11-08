@@ -1,5 +1,5 @@
 import { Knex } from 'nestjs-knex';
-import { Team, TeamCreate, TeamLink, TeamUpdate } from '../../../schema/team';
+import { Team, TeamCreate, TeamLink, TeamUpdate } from '../../../schema';
 import { teamColumns, teamTable } from '../../entity/team.entity';
 import { CrudEntityFactory } from '../crud/entity/crud.entity';
 

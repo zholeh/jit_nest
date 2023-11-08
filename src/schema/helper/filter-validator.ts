@@ -15,7 +15,10 @@ import {
   object,
   z,
   ZodNativeEnum,
+  ZodRecord,
+  ZodNever,
 } from 'zod';
+import { ExcludeNullish } from '../../helper/types/excludeNullish';
 import {
   BooleanInput,
   DateInput,
@@ -43,12 +46,13 @@ type InputTypes =
   | typeof DateRangeInput
   | typeof DateInput;
 
-function getFilterType(value: ZodTypes): ZodType {
+function getFilterType(value: ZodTypes): ZodType | undefined {
   if (value instanceof ZodNumber) return NumberInput;
   if (value instanceof ZodString) return StringInput;
   if (value instanceof ZodNativeEnum) return buildEnumInput(value);
   if (value instanceof ZodDate) return DateInput;
   if (value instanceof ZodBoolean) return BooleanInput;
+  if (value instanceof ZodRecord) return undefined;
 
   // recursive
   if (value instanceof ZodEffects) return getFilterType(value.innerType());
@@ -62,33 +66,33 @@ function getFilterType(value: ZodTypes): ZodType {
 }
 
 type FilterFieldsType<Entity extends ZodObject<ZodRawShape>> = {
-  [P in keyof z.infer<Entity>]: Entity[P] extends string
+  [P in keyof z.infer<Entity>]-?: ExcludeNullish<z.infer<Entity>[P]> extends string
     ? typeof StringInput
-    : Entity[P] extends Record<string, string>
+    : ExcludeNullish<z.infer<Entity>[P]> extends Record<string, string>
     ? typeof EnumInput
-    : Entity[P] extends boolean
+    : ExcludeNullish<z.infer<Entity>[P]> extends boolean
     ? typeof BooleanInput
-    : Entity[P] extends Date
+    : ExcludeNullish<z.infer<Entity>[P]> extends Date
     ? typeof DateInput
-    : Entity[P] extends number
+    : ExcludeNullish<z.infer<Entity>[P]> extends number
     ? typeof NumberInput
-    : never;
+    : ZodNever;
 };
 
 type FilterOrType<Entity extends ZodObject<ZodRawShape>> = {
   or: ZodArray<
     ZodObject<{
-      [P in keyof z.infer<Entity>]: Entity[P] extends string
+      [P in keyof z.infer<Entity>]-?: ExcludeNullish<z.infer<Entity>[P]> extends string
         ? typeof StringInput
-        : Entity[P] extends Record<string, string>
+        : ExcludeNullish<z.infer<Entity>[P]> extends Record<string, string>
         ? typeof EnumInput
-        : Entity[P] extends boolean
+        : ExcludeNullish<z.infer<Entity>[P]> extends boolean
         ? typeof BooleanInput
-        : Entity[P] extends Date
+        : ExcludeNullish<z.infer<Entity>[P]> extends Date
         ? typeof DateInput
-        : Entity[P] extends number
+        : ExcludeNullish<z.infer<Entity>[P]> extends number
         ? typeof NumberInput
-        : never;
+        : ZodNever;
     }>
   >;
 };
@@ -100,6 +104,7 @@ export function buildFilterZodSchema<Entity extends ZodObject<ZodRawShape>>(
 ): FilterType<Entity> {
   const obj = Object.entries(zod.shape).reduce((acc, [key, value]) => {
     const zodType = force?.[key] || getFilterType(value);
+    if (!zodType) return acc;
     const property = object({
       [key]: zodType.optional(),
     });

@@ -1,4 +1,4 @@
-import { Order } from '../../schema/order';
+import { Order } from '../../schema';
 import { objectToSnakeCaseKeyMap, objectToSnakeCaseValueMap } from '../helper/caseProcessing';
 import { Entity } from './entity.abstract';
 

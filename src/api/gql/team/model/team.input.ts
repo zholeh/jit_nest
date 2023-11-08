@@ -1,6 +1,6 @@
 import { inputFromZod } from 'nestjs-graphql-zod';
 import { prepareInputFromZodOptions } from '../../helper/scalar';
-import { TeamCreate, TeamFilter, TeamOrder, TeamPagination, TeamType, TeamUpdate } from '../../../../schema/team';
+import { TeamCreate, TeamFilter, TeamOrder, TeamPagination, TeamType, TeamUpdate } from '../../../../schema';
 import { Field, InputType } from '@nestjs/graphql';
 import { FindAllOptions, FindOneOptions } from '../../../../helper/types';
 

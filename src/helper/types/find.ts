@@ -3,13 +3,16 @@ import { Filter } from './filter';
 import { Order } from './order';
 import { Pagination } from './pagination';
 
-export type FindAllOptions<Entity extends DictionaryUnknown> = FindOneOptions<Entity> & {
+export type FindAllOptions<Entity extends DictionaryUnknown, Fields extends Entity = Entity> = FindOneOptions<
+  Entity,
+  Fields
+> & {
   orders?: Order<Entity>[];
   pagination?: Pagination<Entity>;
 };
 
-export type FindOneOptions<Entity extends DictionaryUnknown> = {
-  fields?: (keyof Entity)[];
+export type FindOneOptions<Entity extends DictionaryUnknown, Fields extends Entity = Entity> = {
+  fields?: (keyof Fields)[];
   filters?: Filter<Entity>[];
   deleted?: boolean;
 };

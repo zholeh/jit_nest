@@ -7,7 +7,7 @@ import {
   TeamMatePagination,
   TeamMateType,
   TeamMateUpdate,
-} from '../../../../schema/teamMate';
+} from '../../../../schema';
 import { Field, InputType } from '@nestjs/graphql';
 import { FindAllOptions, FindOneOptions } from '../../../../helper/types';
 

@@ -1,4 +1,6 @@
 {
-  "cSpell.words": [],
-  "typescript.tsdk": "node_modules\\typescript\\lib"
+  "cSpell.words": [
+    "QLJSON"
+  ],
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

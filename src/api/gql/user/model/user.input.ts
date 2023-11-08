@@ -1,6 +1,6 @@
 import { inputFromZod } from 'nestjs-graphql-zod';
 import { prepareInputFromZodOptions } from '../../helper/scalar';
-import { UserCreate, UserFilter, UserOrder, UserPagination, UserType, UserUpdate } from '../../../../schema/user';
+import { UserCreate, UserFilter, UserOrder, UserPagination, UserType, UserUpdate } from '../../../../schema';
 import { Field, InputType } from '@nestjs/graphql';
 import { FindAllOptions, FindOneOptions } from '../../../../helper/types';
 

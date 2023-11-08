@@ -7,7 +7,7 @@ import {
   ChannelPagination,
   ChannelType,
   ChannelUpdate,
-} from '../../../../schema/channel';
+} from '../../../../schema';
 import { Field, InputType } from '@nestjs/graphql';
 import { FindAllOptions, FindOneOptions } from '../../../../helper/types';
 

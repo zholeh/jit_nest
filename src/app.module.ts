@@ -12,9 +12,11 @@ import { RestModule } from './api/rest/rest.module';
     RestModule,
     LoggerModule.forRoot({
       pinoHttp: {
-        name: 'main',
+        name: 'JIT',
         level: configuration.params.logger.level,
         transport: configuration.params.logger.transport,
+        autoLogging: configuration.params.logger.autoLogging,
+        quietReqLogger: true,
       },
     }),
   ],

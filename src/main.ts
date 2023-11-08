@@ -8,7 +8,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { bufferLogs: true });
   app.useLogger(app.get(LoggerPino));
-  const logger = new Logger();
+  const logger = new Logger('Main');
 
   if (configuration.params.application.origin) {
     logger.log(`Accepting requests from origin "${configuration.params.application.origin}"`);
@@ -29,7 +29,7 @@ async function bootstrap() {
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api/v1', app, document);
+  SwaggerModule.setup(configuration.params.openApi.path, app, document);
 
   process.on('unhandledRejection', (reason: unknown, p: unknown) => {
     logger.error(`Unhandled Rejection at: Promise: ${p}, reason: ${reason}`);
@@ -41,6 +41,13 @@ async function bootstrap() {
     console.error(`Unhandled Exception at: ${err}: err, origin: ${origin}`);
     // process.abort();
   });
-  await app.listen(configuration.params.application.port, configuration.params.application.address);
+  await app.listen(configuration.params.application.port, configuration.params.application.host);
+  logger.log(
+    `Application was started on: http://${configuration.params.application.host}:${configuration.params.application.port}`,
+  );
+
+  logger.log(
+    `Open Api was started on: http://${configuration.params.application.host}:${configuration.params.application.port}/${configuration.params.openApi.path}`,
+  );
 }
 bootstrap();

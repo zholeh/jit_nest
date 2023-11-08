@@ -1,3 +1,5 @@
+import { ExcludeNullish } from './excludeNullish';
+
 type BooleanOperator = {
   readonly eq: boolean;
 };
@@ -56,26 +58,26 @@ type NumberRange = {
 };
 
 type FilterEntity<Entity> = {
-  readonly [P in keyof Entity]?: Entity[P] extends string
+  readonly [P in keyof Entity]?: ExcludeNullish<Entity[P]> extends string
     ? StringOperator
-    : Entity[P] extends boolean
+    : ExcludeNullish<Entity[P]> extends boolean
     ? BooleanOperator
-    : Entity[P] extends Date
+    : ExcludeNullish<Entity[P]> extends Date
     ? DateOperator
-    : Entity[P] extends number
+    : ExcludeNullish<Entity[P]> extends number
     ? NumberOperator
     : never;
 };
 
 type FilterOr<Entity> = {
   or: {
-    readonly [P in keyof Entity]?: Entity[P] extends string
+    readonly [P in keyof Entity]?: ExcludeNullish<Entity[P]> extends string
       ? StringOperator
-      : Entity[P] extends boolean
+      : ExcludeNullish<Entity[P]> extends boolean
       ? BooleanOperator
-      : Entity[P] extends Date
+      : ExcludeNullish<Entity[P]> extends Date
       ? DateOperator
-      : Entity[P] extends number
+      : ExcludeNullish<Entity[P]> extends number
       ? NumberOperator
       : never;
   }[];

@@ -1,6 +1,6 @@
 import { FieldNode, FragmentSpreadNode, GraphQLResolveInfo, SelectionNode } from 'graphql';
 import { DictionaryUnknown } from '../../../helper/types';
-import { UnprocessableEntityServiceError } from '../../../exception';
+import { ServiceExceptions } from '../../../exception';
 
 function isNodeWithName(selection: SelectionNode): selection is FieldNode | FragmentSpreadNode {
   if (Object.prototype.hasOwnProperty.call(selection, 'name')) return true;
@@ -9,9 +9,15 @@ function isNodeWithName(selection: SelectionNode): selection is FieldNode | Frag
 
 export function astFields<T extends DictionaryUnknown>(info: GraphQLResolveInfo): (keyof T)[] {
   return (
-    info.fieldNodes?.[0]?.selectionSet?.selections.map((selection) => {
-      if (isNodeWithName(selection)) return selection.name.value as keyof T;
-      throw new UnprocessableEntityServiceError(`AST: unprocessable type of selection: ${JSON.stringify(selection)}`);
-    }) || []
+    info.fieldNodes?.[0]?.selectionSet?.selections.reduce<(keyof T)[]>((acc, selection) => {
+      if (isNodeWithName(selection)) {
+        if (selection.name.value !== '__typename') acc.push(selection.name.value as keyof T);
+
+        return acc;
+      }
+      throw new ServiceExceptions.UnprocessableEntity(
+        `AST: unprocessable type of selection: ${JSON.stringify(selection)}`,
+      );
+    }, []) || []
   );
 }

@@ -1,4 +1,4 @@
-import { Calendar } from '../../schema/calendar';
+import { Calendar } from '../../schema';
 import { objectToSnakeCaseKeyMap, objectToSnakeCaseValueMap } from '../helper/caseProcessing';
 import { Entity } from './entity.abstract';
 

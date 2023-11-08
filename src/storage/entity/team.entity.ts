@@ -1,4 +1,4 @@
-import { Team } from '../../schema/team';
+import { Team } from '../../schema';
 import { objectToSnakeCaseKeyMap, objectToSnakeCaseValueMap } from '../helper/caseProcessing';
 import { Entity } from './entity.abstract';
 

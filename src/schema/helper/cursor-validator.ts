@@ -7,7 +7,7 @@ type CursorValueType<Value> = ZodObject<{
 }>;
 
 type CursorType<Entity extends ZodRawShape> = ZodObject<{
-  [P in keyof Entity]: CursorValueType<Entity[P]>;
+  [P in keyof Entity]-?: CursorValueType<Entity[P]>;
 }>;
 
 export function buildCursorZodSchema<Entity extends ZodObject<ZodRawShape>>(zod: Entity): CursorType<z.infer<Entity>> {

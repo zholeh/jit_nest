@@ -2,7 +2,7 @@ import { DictionaryUnknown } from './dictionary';
 import { OrderDirection } from './order';
 
 type StartFromValue<Value> = {
-  value: Value;
+  value?: Value;
   order: OrderDirection;
 };
 

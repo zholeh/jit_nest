@@ -1,13 +1,6 @@
 import { inputFromZod } from 'nestjs-graphql-zod';
 import { prepareInputFromZodOptions } from '../../helper/scalar';
-import {
-  OrderCreate,
-  OrderFilter,
-  OrderOrder,
-  OrderPagination,
-  OrderType,
-  OrderUpdate,
-} from '../../../../schema/order';
+import { OrderCreate, OrderFilter, OrderOrder, OrderPagination, OrderType, OrderUpdate } from '../../../../schema';
 import { Field, InputType } from '@nestjs/graphql';
 import { FindAllOptions, FindOneOptions } from '../../../../helper/types';
 

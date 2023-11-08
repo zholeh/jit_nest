@@ -1,6 +1,7 @@
 import { Knex } from 'nestjs-knex';
 import { DictionaryUnknown } from '../../../../helper/types';
 import { ColumnsValueObjectType, KeyofValueObject, ValueObjectSchema, ValueObjectType } from './types';
+import { Logger } from '@nestjs/common';
 
 export abstract class BaseValueObjectCrud<ValueObject extends ValueObjectSchema> {
   protected abstract readonly table: string;
@@ -8,6 +9,7 @@ export abstract class BaseValueObjectCrud<ValueObject extends ValueObjectSchema>
   protected abstract readonly keyFields: [KeyofValueObject<ValueObject>, ...KeyofValueObject<ValueObject>[]];
   // protected abstract readonly keyFields: KeyofValueObject<ValueObject>[];
   protected abstract readonly columns: ColumnsValueObjectType<ValueObject>;
+  protected abstract readonly logger: Logger;
 
   protected abstract readonly knex: Knex;
 

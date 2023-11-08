@@ -17,26 +17,10 @@ export abstract class Entity<T extends ZodObject<ZodRawShape>> {
 
   private shapeTypeDescriptions?: ShapeTypeDescriptions<T>;
 
-  // constructor() {
-  //   this.init();
-  // }
   protected describeField(key: keyof z.TypeOf<T>, value: EntityShapeDescription) {
     if (!this.shapeTypeDescriptions) this.shapeTypeDescriptions = {};
     this.shapeTypeDescriptions[key] = value;
 
     return this;
   }
-  // private init() {
-  //   let key: keyof ShapeTypeDescriptions<T>;
-  //   if (this.shapeTypeDescriptions)
-  //     for (key in this.shapeTypeDescriptions) {
-  //       if (Object.prototype.hasOwnProperty.call(this.shapeTypeDescriptions, key)) {
-  //         const val = this.shapeTypeDescriptions[key];
-  //         if (val) {
-  //           if (typeof val === 'string') this.columns.set(key, val);
-  //           else this.columns.set(key, val.name);
-  //         }
-  //       }
-  //     }
-  // }
 }

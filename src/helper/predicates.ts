@@ -1,5 +1,5 @@
 import { BRAND } from 'zod';
-import { UnprocessableEntityServiceError } from '../exception';
+import { ServiceExceptions } from '../exception';
 
 export function isString(value: unknown): value is string {
   return typeof value === 'string' ? true : false;
@@ -41,5 +41,5 @@ function isId<T extends string & BRAND<string>>(val: unknown): val is T {
 
 export function coerceId<T extends string & BRAND<string>>(val: unknown): T {
   if (isId<T>(val)) return val;
-  throw new UnprocessableEntityServiceError(`Can't assert value ${val}`);
+  throw new ServiceExceptions.UnprocessableEntity(`Can't assert value ${val}`);
 }

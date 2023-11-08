@@ -24,6 +24,6 @@ export class CalendarService {
   }
 
   async create(link: CalendarLinkType, input: CalendarCreateType[]) {
-    return this.storage.create(link, input);
+    return this.storage.deleteThanInsert(link, input);
   }
 }

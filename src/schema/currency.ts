@@ -7,7 +7,7 @@ export const CurrencyId = z.string().uuid().brand<'CurrencyId'>('CurrencyId');
 export const Currency = z
   .object({
     id: CurrencyId,
-    name: z.string().max(255).nonempty(),
+    name: z.string().max(255).min(1),
     description: z.string().max(1024),
     code: z.number().int(),
     shortName: z.string().max(5),

@@ -1,5 +1,5 @@
 import { Knex } from 'nestjs-knex';
-import { Channel, ChannelCreate, ChannelLink, ChannelUpdate } from '../../../schema/channel';
+import { Channel, ChannelCreate, ChannelLink, ChannelUpdate } from '../../../schema';
 import { channelColumns, channelTable } from '../../entity/channel.entity';
 import { CrudEntityFactory } from '../crud/entity/crud.entity';
 

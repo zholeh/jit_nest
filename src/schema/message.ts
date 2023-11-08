@@ -9,7 +9,7 @@ export const MessageId = z.string().uuid().brand<'MessageId'>('MessageId');
 export const Message = z
   .object({
     id: MessageId,
-    name: z.string().max(255).nonempty(),
+    name: z.string().max(255).min(1),
     description: z.string().max(1024),
     referralId: UserId,
     currencyId: CurrencyId,

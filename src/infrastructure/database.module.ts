@@ -1,6 +1,6 @@
 import { Logger, Module } from '@nestjs/common';
 import { configuration } from './configuration';
-import { connection } from './helpers/connection';
+import { dbConnection } from './helpers/dbConnection';
 import { KnexModule } from 'nestjs-knex';
 
 const {
@@ -31,7 +31,8 @@ const log = logging
     KnexModule.forRoot({
       config: {
         client: 'pg',
-        connection: connection(),
+        connection: dbConnection(),
+        debug: configuration.secrets.db.debug ?? false,
         log,
       },
     }),

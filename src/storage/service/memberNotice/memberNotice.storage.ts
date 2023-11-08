@@ -1,5 +1,5 @@
 import { Knex } from 'nestjs-knex';
-import { MemberNotice, MemberNoticeCreate, MemberNoticeLink, MemberNoticeUpdate } from '../../../schema/memberNotice';
+import { MemberNotice, MemberNoticeCreate, MemberNoticeLink, MemberNoticeUpdate } from '../../../schema';
 import { memberNoticeColumns, memberNoticeTable } from '../../entity/memberNotice';
 import { CrudEntityFactory } from '../crud/entity/crud.entity';
 

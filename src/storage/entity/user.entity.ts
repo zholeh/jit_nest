@@ -1,4 +1,4 @@
-import { User } from '../../schema/user';
+import { User } from '../../schema';
 import { objectToSnakeCaseKeyMap, objectToSnakeCaseValueMap } from '../helper/caseProcessing';
 import { Entity } from './entity.abstract';
 

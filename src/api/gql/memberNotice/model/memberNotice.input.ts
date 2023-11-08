@@ -7,7 +7,7 @@ import {
   MemberNoticePagination,
   MemberNoticeType,
   MemberNoticeUpdate,
-} from '../../../../schema/memberNotice';
+} from '../../../../schema';
 import { Field, InputType } from '@nestjs/graphql';
 import { FindAllOptions, FindOneOptions } from '../../../../helper/types';
 

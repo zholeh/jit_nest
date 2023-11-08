@@ -6,12 +6,13 @@ secrets:
     user: icfcusr
     password: password
     logging: true
+    debug: true
 params:
   gql:
     playground: true
   application:
     port: 3100
   logger:
-    level: info
+    level: trace
     transport:
       target: pino-pretty

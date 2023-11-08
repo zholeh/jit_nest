@@ -1,4 +1,4 @@
-import { Message } from '../../schema/message';
+import { Message } from '../../schema';
 import { objectToSnakeCaseKeyMap, objectToSnakeCaseValueMap } from '../helper/caseProcessing';
 import { Entity } from './entity.abstract';
 

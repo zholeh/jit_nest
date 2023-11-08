@@ -1,4 +1,4 @@
-import { UnprocessableEntityServiceError } from '../../../../exception';
+import { ServiceExceptions } from '../../../../exception';
 import { DictionaryUnknown } from '../../../../helper/types';
 import { BaseEntityCrud } from './base';
 import { EntitySchema, EntityType } from './types';
@@ -8,14 +8,16 @@ export abstract class Create<
   EntityCreate extends DictionaryUnknown,
 > extends BaseEntityCrud<Entity> {
   async create(input: EntityCreate): Promise<EntityType<Entity>> {
+    // Have to open a transaction
     const result = await this.builder.insert(this.db(input)).returning('*');
-    if (result.length) return this.entity(result[0]);
-    throw new UnprocessableEntityServiceError(`Incorrect insert ${JSON.stringify(input)}`);
+    if (result?.length) return this.entity(result[0]);
+    throw new ServiceExceptions.UnprocessableEntity(`Incorrect insert ${JSON.stringify(input)}`);
   }
 
   async createMany(input: EntityCreate[]): Promise<EntityType<Entity>[]> {
+    // Have to open a transaction
     const result = await this.builder.insert(input).returning('*');
-    if (result.length) return result.map((el) => this.entity(el));
-    throw new UnprocessableEntityServiceError(`Incorrect insert ${JSON.stringify(input)}`);
+    if (result?.length) return result.map((el) => this.entity(el));
+    throw new ServiceExceptions.UnprocessableEntity(`Incorrect insert many ${JSON.stringify(input)}`);
   }
 }

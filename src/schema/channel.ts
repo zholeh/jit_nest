@@ -8,7 +8,7 @@ export const ChannelId = z.string().uuid().brand<'ChannelId'>('ChannelId');
 export const Channel = z
   .object({
     id: ChannelId,
-    name: z.string().max(255).nonempty(),
+    name: z.string().max(255).min(1),
     description: z.string().max(1024),
     teamId: TeamId,
     token: z.string(),

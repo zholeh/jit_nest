@@ -3,11 +3,14 @@ import { UserIdType } from '../../../../schema';
 import { UserCreateInput, UserUpdateInput } from '../model/user.input';
 import { UserModel } from '../model/user.model';
 import { UserService } from '../../../../storage/service/user/user.service';
+import { UseInterceptors } from '@nestjs/common';
+import { ExceptionsGqlInterceptor } from '../../common/interceptor/exception.interceptor';
 
 @ObjectType()
 export class UserMutation {}
 
 @Resolver(UserMutation)
+@UseInterceptors(ExceptionsGqlInterceptor)
 export class UserMutationResolver {
   constructor(private readonly service: UserService) {}
 

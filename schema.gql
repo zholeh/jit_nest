@@ -9,9 +9,10 @@ type UserModel {
   lastName: String!
   email: String!
   phone: String!
+  referralId: String!
   createdAt: DateTime!
-  updatedAt: DateTime!
-  deletedAt: DateTime!
+  updatedAt: DateTime
+  deletedAt: DateTime
 }
 
 """
@@ -37,6 +38,7 @@ input UserFilterInput {
   lastName: UserFilterInput_Id
   email: UserFilterInput_Id
   phone: UserFilterInput_Id
+  referralId: UserFilterInput_Id
   createdAt: UserFilterInput_CreatedAt
   updatedAt: UserFilterInput_CreatedAt
   deletedAt: UserFilterInput_CreatedAt
@@ -83,6 +85,7 @@ input UserFilterInput_Or {
   lastName: UserFilterInput_Id
   email: UserFilterInput_Id
   phone: UserFilterInput_Id
+  referralId: UserFilterInput_Id
   createdAt: UserFilterInput_CreatedAt
   updatedAt: UserFilterInput_CreatedAt
   deletedAt: UserFilterInput_CreatedAt
@@ -128,6 +131,7 @@ input UserPaginationInput_Cursor_StartFrom {
   lastName: UserPaginationInput_Cursor_StartFrom_LastName!
   email: UserPaginationInput_Cursor_StartFrom_Email!
   phone: UserPaginationInput_Cursor_StartFrom_Phone!
+  referralId: UserPaginationInput_Cursor_StartFrom_ReferralId!
   createdAt: UserPaginationInput_Cursor_StartFrom_CreatedAt!
   updatedAt: UserPaginationInput_Cursor_StartFrom_UpdatedAt!
   deletedAt: UserPaginationInput_Cursor_StartFrom_DeletedAt!
@@ -163,18 +167,23 @@ input UserPaginationInput_Cursor_StartFrom_Phone {
   order: Order!
 }
 
+input UserPaginationInput_Cursor_StartFrom_ReferralId {
+  value: String!
+  order: Order!
+}
+
 input UserPaginationInput_Cursor_StartFrom_CreatedAt {
   value: DateTime!
   order: Order!
 }
 
 input UserPaginationInput_Cursor_StartFrom_UpdatedAt {
-  value: DateTime!
+  value: DateTime
   order: Order!
 }
 
 input UserPaginationInput_Cursor_StartFrom_DeletedAt {
-  value: DateTime!
+  value: DateTime
   order: Order!
 }
 
@@ -194,6 +203,7 @@ input UserCreateInput {
   lastName: String!
   email: String!
   phone: String!
+  referralId: String!
 }
 
 input UserUpdateInput {
@@ -202,6 +212,7 @@ input UserUpdateInput {
   lastName: String
   email: String
   phone: String
+  referralId: String
   id: String!
 }
 
@@ -212,8 +223,8 @@ type CurrencyModel {
   code: Int!
   shortName: String!
   createdAt: DateTime!
-  updatedAt: DateTime!
-  deletedAt: DateTime!
+  updatedAt: DateTime
+  deletedAt: DateTime
 }
 
 type CurrencyQuery {
@@ -338,12 +349,12 @@ input CurrencyPaginationInput_Cursor_StartFrom_CreatedAt {
 }
 
 input CurrencyPaginationInput_Cursor_StartFrom_UpdatedAt {
-  value: DateTime!
+  value: DateTime
   order: Order!
 }
 
 input CurrencyPaginationInput_Cursor_StartFrom_DeletedAt {
-  value: DateTime!
+  value: DateTime
   order: Order!
 }
 
@@ -379,8 +390,8 @@ type TeamModel {
   referralId: String!
   currencyId: String!
   createdAt: DateTime!
-  updatedAt: DateTime!
-  deletedAt: DateTime!
+  updatedAt: DateTime
+  deletedAt: DateTime
 }
 
 type TeamQuery {
@@ -485,12 +496,12 @@ input TeamPaginationInput_Cursor_StartFrom_CreatedAt {
 }
 
 input TeamPaginationInput_Cursor_StartFrom_UpdatedAt {
-  value: DateTime!
+  value: DateTime
   order: Order!
 }
 
 input TeamPaginationInput_Cursor_StartFrom_DeletedAt {
-  value: DateTime!
+  value: DateTime
   order: Order!
 }
 
@@ -527,8 +538,8 @@ type TeamMateModel {
   teamId: String!
   role: Role!
   createdAt: DateTime!
-  updatedAt: DateTime!
-  deletedAt: DateTime!
+  updatedAt: DateTime
+  deletedAt: DateTime
 }
 
 """Enum values for TeamMateModel.role"""
@@ -656,12 +667,12 @@ input TeamMatePaginationInput_Cursor_StartFrom_CreatedAt {
 }
 
 input TeamMatePaginationInput_Cursor_StartFrom_UpdatedAt {
-  value: DateTime!
+  value: DateTime
   order: Order!
 }
 
 input TeamMatePaginationInput_Cursor_StartFrom_DeletedAt {
-  value: DateTime!
+  value: DateTime
   order: Order!
 }
 
@@ -699,8 +710,8 @@ type ChannelModel {
   teamId: String!
   token: String!
   createdAt: DateTime!
-  updatedAt: DateTime!
-  deletedAt: DateTime!
+  updatedAt: DateTime
+  deletedAt: DateTime
 }
 
 type ChannelQuery {
@@ -805,12 +816,12 @@ input ChannelPaginationInput_Cursor_StartFrom_CreatedAt {
 }
 
 input ChannelPaginationInput_Cursor_StartFrom_UpdatedAt {
-  value: DateTime!
+  value: DateTime
   order: Order!
 }
 
 input ChannelPaginationInput_Cursor_StartFrom_DeletedAt {
-  value: DateTime!
+  value: DateTime
   order: Order!
 }
 
@@ -848,8 +859,8 @@ type MemberModel {
   channelId: String!
   userId: String!
   createdAt: DateTime!
-  updatedAt: DateTime!
-  deletedAt: DateTime!
+  updatedAt: DateTime
+  deletedAt: DateTime
 }
 
 type MemberQuery {
@@ -970,12 +981,12 @@ input MemberPaginationInput_Cursor_StartFrom_CreatedAt {
 }
 
 input MemberPaginationInput_Cursor_StartFrom_UpdatedAt {
-  value: DateTime!
+  value: DateTime
   order: Order!
 }
 
 input MemberPaginationInput_Cursor_StartFrom_DeletedAt {
-  value: DateTime!
+  value: DateTime
   order: Order!
 }
 
@@ -1015,8 +1026,8 @@ type MessageModel {
   referralId: String!
   currencyId: String!
   createdAt: DateTime!
-  updatedAt: DateTime!
-  deletedAt: DateTime!
+  updatedAt: DateTime
+  deletedAt: DateTime
 }
 
 type MessageQuery {
@@ -1121,12 +1132,12 @@ input MessagePaginationInput_Cursor_StartFrom_CreatedAt {
 }
 
 input MessagePaginationInput_Cursor_StartFrom_UpdatedAt {
-  value: DateTime!
+  value: DateTime
   order: Order!
 }
 
 input MessagePaginationInput_Cursor_StartFrom_DeletedAt {
-  value: DateTime!
+  value: DateTime
   order: Order!
 }
 
@@ -1163,8 +1174,8 @@ type MemberNoticeModel {
   memberId: String!
   notice: String!
   createdAt: DateTime!
-  updatedAt: DateTime!
-  deletedAt: DateTime!
+  updatedAt: DateTime
+  deletedAt: DateTime
 }
 
 type MemberNoticeQuery {
@@ -1277,12 +1288,12 @@ input MemberNoticePaginationInput_Cursor_StartFrom_CreatedAt {
 }
 
 input MemberNoticePaginationInput_Cursor_StartFrom_UpdatedAt {
-  value: DateTime!
+  value: DateTime
   order: Order!
 }
 
 input MemberNoticePaginationInput_Cursor_StartFrom_DeletedAt {
-  value: DateTime!
+  value: DateTime
   order: Order!
 }
 
@@ -1322,8 +1333,8 @@ type SupplyCategoryModel {
   nextVisit: Int!
   timeRange: Int!
   createdAt: DateTime!
-  updatedAt: DateTime!
-  deletedAt: DateTime!
+  updatedAt: DateTime
+  deletedAt: DateTime
 }
 
 type SupplyCategoryQuery {
@@ -1443,12 +1454,12 @@ input SupplyCategoryPaginationInput_Cursor_StartFrom_CreatedAt {
 }
 
 input SupplyCategoryPaginationInput_Cursor_StartFrom_UpdatedAt {
-  value: DateTime!
+  value: DateTime
   order: Order!
 }
 
 input SupplyCategoryPaginationInput_Cursor_StartFrom_DeletedAt {
-  value: DateTime!
+  value: DateTime
   order: Order!
 }
 
@@ -1488,8 +1499,8 @@ type SupplyModel {
   referralId: String!
   currencyId: String!
   createdAt: DateTime!
-  updatedAt: DateTime!
-  deletedAt: DateTime!
+  updatedAt: DateTime
+  deletedAt: DateTime
 }
 
 type SupplyQuery {
@@ -1594,12 +1605,12 @@ input SupplyPaginationInput_Cursor_StartFrom_CreatedAt {
 }
 
 input SupplyPaginationInput_Cursor_StartFrom_UpdatedAt {
-  value: DateTime!
+  value: DateTime
   order: Order!
 }
 
 input SupplyPaginationInput_Cursor_StartFrom_DeletedAt {
-  value: DateTime!
+  value: DateTime
   order: Order!
 }
 
@@ -1646,8 +1657,8 @@ type OrderModel {
   completedTime: DateTime!
   date: DateTime!
   createdAt: DateTime!
-  updatedAt: DateTime!
-  deletedAt: DateTime!
+  updatedAt: DateTime
+  deletedAt: DateTime
   supplies: [OrderSupplyModel!]!
 }
 
@@ -1781,12 +1792,12 @@ input OrderPaginationInput_Cursor_StartFrom_CreatedAt {
 }
 
 input OrderPaginationInput_Cursor_StartFrom_UpdatedAt {
-  value: DateTime!
+  value: DateTime
   order: Order!
 }
 
 input OrderPaginationInput_Cursor_StartFrom_DeletedAt {
-  value: DateTime!
+  value: DateTime
   order: Order!
 }
 
@@ -1831,6 +1842,56 @@ input OrderUpdateInput {
   id: String!
 }
 
+type UserViewLayerModel {
+  createdAt: DateTime!
+  userId: String!
+  layer: String!
+  setting: JSONObject!
+}
+
+"""
+The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSONObject
+
+type UserViewLayerQuery {
+  findAll(options: UserViewLayerFindAllInput): [UserViewLayerModel!]!
+}
+
+input UserViewLayerFindAllInput {
+  filters: [UserViewLayerFilterInput!]!
+}
+
+input UserViewLayerFilterInput {
+  createdAt: UserFilterInput_CreatedAt
+  layer: UserFilterInput_Id
+  or: [UserViewLayerFilter_Or!]
+  userId: UserViewLayerUserIdFilterInput!
+}
+
+input UserViewLayerFilter_Or {
+  createdAt: UserFilterInput_CreatedAt
+  userId: UserFilterInput_Id
+  layer: UserFilterInput_Id
+}
+
+input UserViewLayerUserIdFilterInput {
+  eq: String!
+}
+
+type UserViewLayerMutation {
+  upsert(link: UserViewLayerLinkInput!, input: [UserViewLayerCreateInput!]!): UserViewLayerModel!
+}
+
+input UserViewLayerLinkInput {
+  userId: String!
+  layer: String!
+}
+
+input UserViewLayerCreateInput {
+  setting: JSONObject!
+}
+
 type Query {
   user: UserQuery!
   currency: CurrencyQuery!
@@ -1843,6 +1904,7 @@ type Query {
   supplyCategory: SupplyCategoryQuery!
   supply: SupplyQuery!
   order: OrderQuery!
+  userViewLayer: UserViewLayerQuery!
 }
 
 type Mutation {
@@ -1857,4 +1919,5 @@ type Mutation {
   supplyCategory: SupplyCategoryMutation!
   supply: SupplyMutation!
   order: OrderMutation!
+  userViewLayer: UserViewLayerMutation!
 }

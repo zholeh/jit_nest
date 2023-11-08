@@ -1,5 +1,5 @@
 import { Knex } from 'nestjs-knex';
-import { User, UserCreate, UserLink, UserUpdate } from '../../../schema/user';
+import { User, UserCreate, UserLink, UserUpdate } from '../../../schema';
 import { userColumns, userTable } from '../../entity/user.entity';
 import { CrudEntityFactory } from '../crud/entity/crud.entity';
 

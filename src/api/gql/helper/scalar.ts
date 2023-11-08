@@ -1,5 +1,6 @@
 import { GraphQLISODateTime } from '@nestjs/graphql';
 import { GraphQLScalarType } from 'graphql';
+import { GraphQLJSONObject } from 'graphql-type-json';
 
 export function prepareInputFromZodOptions(name: string) {
   return {
@@ -16,5 +17,6 @@ export function prepareModelFromZodOptions(name: string) {
 
 function getScalarTypeFor(scalar: string): GraphQLScalarType | undefined {
   if (scalar.trim().toLowerCase() === 'date') return GraphQLISODateTime;
+  if (scalar.trim().toLowerCase() === 'record<string, any>') return GraphQLJSONObject;
   return undefined;
 }

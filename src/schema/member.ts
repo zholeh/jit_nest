@@ -9,7 +9,7 @@ export const MemberId = z.string().uuid().brand<'MemberId'>('MemberId');
 export const Member = z
   .object({
     id: MemberId,
-    name: z.string().max(255).nonempty(),
+    name: z.string().max(255).min(1),
     description: z.string().max(1024),
     token: z.string(),
     range: z.number().max(999.99).min(0),

@@ -1,5 +1,5 @@
 import { Knex } from 'nestjs-knex';
-import { Member, MemberCreate, MemberLink, MemberUpdate } from '../../../schema/member';
+import { Member, MemberCreate, MemberLink, MemberUpdate } from '../../../schema';
 import { memberColumns, memberTable } from '../../entity/member';
 import { CrudEntityFactory } from '../crud/entity/crud.entity';
 

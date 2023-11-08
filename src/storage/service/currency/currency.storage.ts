@@ -1,5 +1,5 @@
 import { Knex } from 'nestjs-knex';
-import { Currency, CurrencyCreate, CurrencyLink, CurrencyUpdate } from '../../../schema/currency';
+import { Currency, CurrencyCreate, CurrencyLink, CurrencyUpdate } from '../../../schema';
 import { currencyColumns, currencyTable } from '../../entity/currency.entity';
 import { CrudEntityFactory } from '../crud/entity/crud.entity';
 

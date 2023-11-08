@@ -7,11 +7,12 @@ export const UserId = z.string().uuid().brand<'UserId'>('UserId');
 export const User = z
   .object({
     id: UserId,
-    name: z.string().max(255).nonempty(),
+    name: z.string().max(255).min(1),
     description: z.string().max(1024),
     lastName: z.string().max(255),
     email: z.string().max(255).email(),
     phone: z.string().max(255),
+    referralId: UserId,
   })
   .extend(EntitySchema.shape);
 
@@ -34,6 +35,7 @@ export type UserLinkType = z.infer<typeof UserLink>;
 
 export const UserOrder = buildOrderZodSchema<typeof User>(['createdAt', 'description', 'id', 'name', 'lastName']);
 export const UserFilter = buildFilterZodSchema(User);
+
 export const UserPagination = z.object({
   limit: z.number(),
   offset: z.number().optional(),

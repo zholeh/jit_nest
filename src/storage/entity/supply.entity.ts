@@ -1,4 +1,4 @@
-import { Supply } from '../../schema/supply';
+import { Supply } from '../../schema';
 import { objectToSnakeCaseKeyMap, objectToSnakeCaseValueMap } from '../helper/caseProcessing';
 import { Entity } from './entity.abstract';
 
