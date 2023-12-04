@@ -3,7 +3,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { ServiceExceptions } from '../../../../exception/service';
 import { GqlError, GqlExceptions } from '../exception';
-import { objectKeys } from '../../../../helper/objectKeys';
+import { objectKeys } from '../../../../helper/object';
 
 function mapToHttpError<T extends Error>(err: T) {
   const keys = objectKeys(ServiceExceptions);

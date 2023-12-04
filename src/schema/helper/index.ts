@@ -1,3 +1,3 @@
-export * from './filter-validator';
-export * from './order-validator';
-export * from './cursor-validator';
+export * from './filterValidator';
+export * from './orderValidator';
+export * from './cursorValidator';

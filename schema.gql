@@ -107,7 +107,9 @@ enum UserOrderInput_ColumnEnum_0 {
   lastName
 }
 
-"""Enum values for OrderPaginationInput_Cursor_StartFrom_DeletedAt.order"""
+"""
+Enum values for TeamCombinePaginationInput_Cursor_StartFrom_Currency.order
+"""
 enum Order {
   ASC
   DESC
@@ -1892,6 +1894,186 @@ input UserViewLayerCreateInput {
   setting: JSONObject!
 }
 
+type TeamCombineModel_Currency {
+  id: String!
+  name: String!
+  description: String!
+  code: Int!
+  shortName: String!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  deletedAt: DateTime
+}
+
+type TeamCombineModel {
+  id: String!
+  name: String!
+  description: String!
+  referralId: String!
+  currencyId: String!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  deletedAt: DateTime
+  currency: TeamCombineModel_Currency!
+}
+
+type TeamCombineQuery {
+  findAll(options: TeamCombineFindAll): [TeamCombineModel!]!
+  findOne(options: TeamCombineFindOne): TeamCombineModel
+}
+
+input TeamCombineFindAll {
+  filters: [TeamCombineFilterInput!]
+  orders: [TeamCombineOrderInput!]
+  pagination: TeamCombinePaginationInput
+}
+
+input TeamCombineFilterInput {
+  id: UserFilterInput_Id
+  name: UserFilterInput_Id
+  description: UserFilterInput_Id
+  referralId: UserFilterInput_Id
+  currencyId: UserFilterInput_Id
+  createdAt: UserFilterInput_CreatedAt
+  updatedAt: UserFilterInput_CreatedAt
+  deletedAt: UserFilterInput_CreatedAt
+  currency: TeamCombineFilterInput_Currency
+  or: [TeamCombineFilterInput_Or!]
+}
+
+input TeamCombineFilterInput_Currency {
+  id: UserFilterInput_Id
+  name: UserFilterInput_Id
+  description: UserFilterInput_Id
+  code: CurrencyFilterInput_Code
+  shortName: UserFilterInput_Id
+  createdAt: UserFilterInput_CreatedAt
+  updatedAt: UserFilterInput_CreatedAt
+  deletedAt: UserFilterInput_CreatedAt
+  or: [TeamCombineFilterInput_Currency_Or!]
+}
+
+input TeamCombineFilterInput_Currency_Or {
+  id: UserFilterInput_Id
+  name: UserFilterInput_Id
+  description: UserFilterInput_Id
+  code: CurrencyFilterInput_Code
+  shortName: UserFilterInput_Id
+  createdAt: UserFilterInput_CreatedAt
+  updatedAt: UserFilterInput_CreatedAt
+  deletedAt: UserFilterInput_CreatedAt
+}
+
+input TeamCombineFilterInput_Or {
+  id: UserFilterInput_Id
+  name: UserFilterInput_Id
+  description: UserFilterInput_Id
+  referralId: UserFilterInput_Id
+  currencyId: UserFilterInput_Id
+  createdAt: UserFilterInput_CreatedAt
+  updatedAt: UserFilterInput_CreatedAt
+  deletedAt: UserFilterInput_CreatedAt
+  currency: TeamCombineFilterInput_Currency
+}
+
+input TeamCombineOrderInput {
+  column: TeamCombineOrderInput_ColumnEnum_0!
+
+  """Order"""
+  order: Order!
+}
+
+"""Enum values for TeamCombineOrderInput.column"""
+enum TeamCombineOrderInput_ColumnEnum_0 {
+  createdAt
+  description
+  id
+  name
+}
+
+input TeamCombinePaginationInput {
+  limit: Float!
+  offset: Float
+  cursor: TeamCombinePaginationInput_Cursor
+}
+
+input TeamCombinePaginationInput_Cursor {
+  id: String!
+  startFrom: TeamCombinePaginationInput_Cursor_StartFrom!
+}
+
+input TeamCombinePaginationInput_Cursor_StartFrom {
+  id: TeamCombinePaginationInput_Cursor_StartFrom_Id!
+  name: TeamCombinePaginationInput_Cursor_StartFrom_Name!
+  description: TeamCombinePaginationInput_Cursor_StartFrom_Description!
+  referralId: TeamCombinePaginationInput_Cursor_StartFrom_ReferralId!
+  currencyId: TeamCombinePaginationInput_Cursor_StartFrom_CurrencyId!
+  createdAt: TeamCombinePaginationInput_Cursor_StartFrom_CreatedAt!
+  updatedAt: TeamCombinePaginationInput_Cursor_StartFrom_UpdatedAt!
+  deletedAt: TeamCombinePaginationInput_Cursor_StartFrom_DeletedAt!
+  currency: TeamCombinePaginationInput_Cursor_StartFrom_Currency!
+}
+
+input TeamCombinePaginationInput_Cursor_StartFrom_Id {
+  value: String!
+  order: Order!
+}
+
+input TeamCombinePaginationInput_Cursor_StartFrom_Name {
+  value: String!
+  order: Order!
+}
+
+input TeamCombinePaginationInput_Cursor_StartFrom_Description {
+  value: String!
+  order: Order!
+}
+
+input TeamCombinePaginationInput_Cursor_StartFrom_ReferralId {
+  value: String!
+  order: Order!
+}
+
+input TeamCombinePaginationInput_Cursor_StartFrom_CurrencyId {
+  value: String!
+  order: Order!
+}
+
+input TeamCombinePaginationInput_Cursor_StartFrom_CreatedAt {
+  value: DateTime!
+  order: Order!
+}
+
+input TeamCombinePaginationInput_Cursor_StartFrom_UpdatedAt {
+  value: DateTime
+  order: Order!
+}
+
+input TeamCombinePaginationInput_Cursor_StartFrom_DeletedAt {
+  value: DateTime
+  order: Order!
+}
+
+input TeamCombinePaginationInput_Cursor_StartFrom_Currency {
+  value: TeamCombinePaginationInput_Cursor_StartFrom_Currency_Value!
+  order: Order!
+}
+
+input TeamCombinePaginationInput_Cursor_StartFrom_Currency_Value {
+  id: String!
+  name: String!
+  description: String!
+  code: Int!
+  shortName: String!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  deletedAt: DateTime
+}
+
+input TeamCombineFindOne {
+  filters: [TeamCombineFilterInput!]
+}
+
 type Query {
   user: UserQuery!
   currency: CurrencyQuery!
@@ -1905,6 +2087,7 @@ type Query {
   supply: SupplyQuery!
   order: OrderQuery!
   userViewLayer: UserViewLayerQuery!
+  teamCombine: TeamCombineQuery!
 }
 
 type Mutation {

@@ -16,6 +16,7 @@ import { OrderModule } from './order/order.module';
 import { UserViewLayerModule } from './userViewLayer/userViewLayer.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { ExceptionsGqlInterceptor } from './common/interceptor/exception.interceptor';
+import { TeamCombineModule } from './teamCombine/teamCombine.module';
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { ExceptionsGqlInterceptor } from './common/interceptor/exception.interce
     SupplyModule,
     OrderModule,
     UserViewLayerModule,
+    TeamCombineModule,
   ],
   providers: [
     {

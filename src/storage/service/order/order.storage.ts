@@ -1,6 +1,6 @@
 import { Knex } from 'nestjs-knex';
 import { Order, OrderCreate, OrderLink, OrderUpdate } from '../../../schema';
-import { orderColumns, orderTable } from '../../entity/order.entity';
+import { orderEntity } from '../../entity';
 import { CrudEntityFactory } from '../crud/entity/crud.entity';
 
 export class OrderStorage extends CrudEntityFactory({
@@ -9,9 +9,7 @@ export class OrderStorage extends CrudEntityFactory({
   update: OrderUpdate,
   delete: OrderLink,
 }) {
-  protected readonly table = orderTable;
-  protected readonly columns = orderColumns;
-  protected readonly schema = Order;
+  protected readonly dbEntity = orderEntity;
   protected readonly knex;
 
   constructor(knex: Knex) {

@@ -28,7 +28,7 @@ import {
   StringInput,
   buildEnumInput,
   EnumInput,
-} from '../../schema/filter';
+} from '../filter';
 
 type ZodTypes =
   | ZodType
@@ -103,12 +103,20 @@ export function buildFilterZodSchema<Entity extends ZodObject<ZodRawShape>>(
   force?: Record<string, InputTypes>,
 ): FilterType<Entity> {
   const obj = Object.entries(zod.shape).reduce((acc, [key, value]) => {
-    const zodType = force?.[key] || getFilterType(value);
-    if (!zodType) return acc;
-    const property = object({
-      [key]: zodType.optional(),
-    });
-    return acc.merge(property);
+    if (value instanceof ZodObject) {
+      const filter = buildFilterZodSchema(value);
+      const property = object({
+        [key]: filter.optional(),
+      });
+      return acc.merge(property);
+    } else {
+      const zodType = force?.[key] || getFilterType(value);
+      if (!zodType) return acc;
+      const property = object({
+        [key]: zodType.optional(),
+      });
+      return acc.merge(property);
+    }
   }, object({}));
 
   obj.merge(object({ or: obj.array() }));

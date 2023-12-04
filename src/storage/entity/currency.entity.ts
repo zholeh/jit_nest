@@ -1,24 +1,15 @@
 import { Currency } from '../../schema';
 import { objectToSnakeCaseKeyMap, objectToSnakeCaseValueMap } from '../helper/caseProcessing';
-import { Entity } from './entity.abstract';
+import { DatabaseEntity } from './entity.abstract';
 
-const currencyColumnMap = objectToSnakeCaseKeyMap(Currency.shape);
-export const currencyColumns = {
-  db: objectToSnakeCaseKeyMap(Currency.shape),
-  entity: objectToSnakeCaseValueMap(Currency.shape),
-};
-export const currencyTable = 'currency';
+const shape = Currency.shape;
 
-export class CurrencyEntity extends Entity<typeof Currency> {
-  protected columns = currencyColumnMap;
+export class CurrencyEntity extends DatabaseEntity<typeof Currency> {
+  readonly columns = {
+    db: objectToSnakeCaseKeyMap(shape),
+    entity: objectToSnakeCaseValueMap(shape),
+  };
+  readonly table = 'currency' as const;
 
-  constructor(readonly schema: typeof Currency) {
-    super();
-
-    this.describeField('id', {
-      name: 'id',
-      type: 'uuid',
-      primary: true,
-    });
-  }
+  readonly schema = Currency;
 }

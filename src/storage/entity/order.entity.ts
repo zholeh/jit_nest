@@ -1,24 +1,15 @@
 import { Order } from '../../schema';
 import { objectToSnakeCaseKeyMap, objectToSnakeCaseValueMap } from '../helper/caseProcessing';
-import { Entity } from './entity.abstract';
+import { DatabaseEntity } from './entity.abstract';
 
-const orderColumnMap = objectToSnakeCaseKeyMap(Order.shape);
-export const orderColumns = {
-  db: objectToSnakeCaseKeyMap(Order.shape),
-  entity: objectToSnakeCaseValueMap(Order.shape),
-};
-export const orderTable = 'order';
+const shape = Order.shape;
 
-export class OrderEntity extends Entity<typeof Order> {
-  protected columns = orderColumnMap;
+export class OrderEntity extends DatabaseEntity<typeof Order> {
+  readonly columns = {
+    db: objectToSnakeCaseKeyMap(shape),
+    entity: objectToSnakeCaseValueMap(shape),
+  };
+  readonly table = 'order' as const;
 
-  constructor(readonly schema: typeof Order) {
-    super();
-
-    this.describeField('id', {
-      name: 'id',
-      type: 'uuid',
-      primary: true,
-    });
-  }
+  readonly schema = Order;
 }

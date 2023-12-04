@@ -1,6 +1,6 @@
 import { Knex } from 'nestjs-knex';
 import { User, UserCreate, UserLink, UserUpdate } from '../../../schema';
-import { userColumns, userTable } from '../../entity/user.entity';
+import { userEntity } from '../../entity';
 import { CrudEntityFactory } from '../crud/entity/crud.entity';
 
 export class UserStorage extends CrudEntityFactory({
@@ -9,9 +9,7 @@ export class UserStorage extends CrudEntityFactory({
   update: UserUpdate,
   delete: UserLink,
 }) {
-  protected readonly table = userTable;
-  protected readonly columns = userColumns;
-  protected readonly schema = User;
+  protected readonly dbEntity = userEntity;
   protected readonly knex;
 
   constructor(knex: Knex) {

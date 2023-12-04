@@ -55,8 +55,8 @@ function getCursorOperator(direction: OrderDirection) {
 }
 
 export function buildFilters<Entity extends ZodObject<ZodRawShape>>(
-  filters: Filter<TypeOf<Entity>>[],
   query: Knex.QueryBuilder,
+  filters: Filter<TypeOf<Entity>>[],
   mapping: Map<string | number | symbol, string>,
 ): Knex.QueryBuilder<any, any> {
   query.andWhere((builderAnd) => {
@@ -64,7 +64,7 @@ export function buildFilters<Entity extends ZodObject<ZodRawShape>>(
       builderAnd.orWhere((builder) => {
         Object.entries(filter).forEach(([filterKey, filterOperator]) => {
           if (filterKey === 'or') {
-            builder = buildFilters(filterOperator as Filter<TypeOf<Entity>>[], builder, mapping);
+            builder = buildFilters(builder, filterOperator as Filter<TypeOf<Entity>>[], mapping);
           } else {
             if (!filterOperator) return;
             Object.entries(filterOperator).forEach(([operatorKey, operatorValue]) => {

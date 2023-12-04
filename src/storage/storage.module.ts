@@ -12,6 +12,7 @@ import { SupplyCategoryService } from './service/supplyCategory/supplyCategory.s
 import { SupplyService } from './service/supply/supply.service';
 import { OrderService } from './service/order/order.service';
 import { UserViewLayerService } from './service/userViewLayer/userViewLayer.service';
+import { TeamCombineService } from './service/teamCombine/teamCombine.service';
 
 const providers = [
   UserService,
@@ -26,6 +27,7 @@ const providers = [
   SupplyService,
   OrderService,
   UserViewLayerService,
+  TeamCombineService,
 ] as const;
 
 @Module({

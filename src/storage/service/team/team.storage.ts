@@ -1,6 +1,6 @@
 import { Knex } from 'nestjs-knex';
 import { Team, TeamCreate, TeamLink, TeamUpdate } from '../../../schema';
-import { teamColumns, teamTable } from '../../entity/team.entity';
+import { teamEntity } from '../../entity';
 import { CrudEntityFactory } from '../crud/entity/crud.entity';
 
 export class TeamStorage extends CrudEntityFactory({
@@ -9,9 +9,7 @@ export class TeamStorage extends CrudEntityFactory({
   update: TeamUpdate,
   delete: TeamLink,
 }) {
-  protected readonly table = teamTable;
-  protected readonly columns = teamColumns;
-  protected readonly schema = Team;
+  protected readonly dbEntity = teamEntity;
   protected readonly knex;
 
   constructor(knex: Knex) {

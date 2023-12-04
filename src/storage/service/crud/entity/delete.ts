@@ -16,7 +16,7 @@ export abstract class Delete<Entity extends EntitySchema> extends BaseEntityCrud
 
   private async softDelete(id: EntityLink<Entity>['id'] | EntityLink<Entity>['id'][]): Promise<boolean> {
     const input = { deletedAt: new Date() };
-    const result = await this.builder.where('id', id).update(input);
+    const result = await this.builder.where('id', id).update(this.dbEntity.db(input));
 
     if (result > 0) return true;
     return false;

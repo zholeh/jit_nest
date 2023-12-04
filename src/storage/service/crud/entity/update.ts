@@ -16,7 +16,7 @@ export abstract class Update<
       .where('id', input.id)
       .update({ ...input, updatedAt: new Date() })
       .returning('*');
-    if (result.length) return this.entity(result[0]);
+    if (result.length) return this.dbEntity.entity(result[0]);
     throw new ServiceExceptions.UnprocessableEntity(`Incorrect update ${JSON.stringify(input)}`);
   }
 
@@ -29,7 +29,7 @@ export abstract class Update<
       .where('id', input.id)
       .update({ ...input, updatedAt: new Date() })
       .returning('*');
-    if (result.length) return this.entity(result[0]);
+    if (result.length) return this.dbEntity.entity(result[0]);
     throw new ServiceExceptions.UnprocessableEntity(`Incorrect patch ${JSON.stringify(input)}`);
   }
 }

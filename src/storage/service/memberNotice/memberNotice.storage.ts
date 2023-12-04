@@ -1,6 +1,6 @@
 import { Knex } from 'nestjs-knex';
 import { MemberNotice, MemberNoticeCreate, MemberNoticeLink, MemberNoticeUpdate } from '../../../schema';
-import { memberNoticeColumns, memberNoticeTable } from '../../entity/memberNotice';
+import { memberNoticeEntity } from '../../entity';
 import { CrudEntityFactory } from '../crud/entity/crud.entity';
 
 export class MemberNoticeStorage extends CrudEntityFactory({
@@ -9,9 +9,7 @@ export class MemberNoticeStorage extends CrudEntityFactory({
   update: MemberNoticeUpdate,
   delete: MemberNoticeLink,
 }) {
-  protected readonly table = memberNoticeTable;
-  protected readonly columns = memberNoticeColumns;
-  protected readonly schema = MemberNotice;
+  protected readonly dbEntity = memberNoticeEntity;
   protected readonly knex;
 
   constructor(knex: Knex) {

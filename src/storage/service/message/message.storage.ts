@@ -1,6 +1,6 @@
 import { Knex } from 'nestjs-knex';
 import { Message, MessageCreate, MessageLink, MessageUpdate } from '../../../schema';
-import { messageColumns, messageTable } from '../../entity/message';
+import { messageEntity } from '../../entity';
 import { CrudEntityFactory } from '../crud/entity/crud.entity';
 
 export class MessageStorage extends CrudEntityFactory({
@@ -9,9 +9,7 @@ export class MessageStorage extends CrudEntityFactory({
   update: MessageUpdate,
   delete: MessageLink,
 }) {
-  protected readonly table = messageTable;
-  protected readonly columns = messageColumns;
-  protected readonly schema = Message;
+  protected readonly dbEntity = messageEntity;
   protected readonly knex;
 
   constructor(knex: Knex) {

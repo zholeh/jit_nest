@@ -1,5 +1,6 @@
 import { ServiceExceptions } from '../../../../exception';
-import { FindAllOptions, FindOneOptions, FindReturn } from '../../../../helper/types';
+import { objectKeys } from '../../../../helper/object';
+import { EntityFields, FindAllOptions, FindOneOptions, FindReturn } from '../../../../helper/types';
 import { buildCursor, buildFilters } from '../../../helper/filter';
 import { buildOrders } from '../../../helper/order';
 import { BaseValueObjectCrud } from './base';
@@ -9,8 +10,9 @@ export abstract class Read<ValueObject extends ValueObjectSchema> extends BaseVa
   async findAll(
     options?: FindAllOptions<ValueObjectType<ValueObject>>,
   ): Promise<readonly FindReturn<ValueObjectType<ValueObject>>[]> {
+    const fields = this.fieldsToArray(options?.fields);
     const result = await this.buildQuery(options);
-    return result.map((valueObject) => this.valueObject(valueObject, options?.fields));
+    return result.map((valueObject) => this.dbEntity.entity(valueObject, fields));
   }
 
   async findValues(
@@ -18,7 +20,8 @@ export abstract class Read<ValueObject extends ValueObjectSchema> extends BaseVa
   ): Promise<FindReturn<ValueObjectType<ValueObject>>[] | undefined> {
     const result = await this.findAll(options);
 
-    if (result.length) return result.map((valueObject) => this.valueObject(valueObject, options?.fields));
+    const fields = this.fieldsToArray(options?.fields);
+    if (result.length) return result.map((valueObject) => this.dbEntity.entity(valueObject, fields));
     return undefined;
   }
 
@@ -34,14 +37,21 @@ export abstract class Read<ValueObject extends ValueObjectSchema> extends BaseVa
   }
 
   private buildQuery(options: FindAllOptions<ValueObjectType<ValueObject>> | undefined) {
-    const query = this.builder.select(this.dbFields(options?.fields));
+    const fields = this.fieldsToArray(options?.fields);
+    const query = this.builder.select(this.dbEntity.dbFields(fields));
 
-    if (options?.filters) buildFilters(options.filters, query, this.columns.db);
+    if (options?.filters) buildFilters(query, options.filters, this.dbEntity.columns.db);
     if (options?.orders) query.orderBy(buildOrders(options.orders));
     if (options?.pagination?.limit) query.limit(options.pagination.limit);
     // TODO: offset should be by code
     // if (options?.pagination?.offset) query.offset(options.pagination.offset);
     if (options?.pagination?.cursor) buildCursor(options.pagination?.cursor, query);
     return query;
+  }
+
+  private fieldsToArray(fields?: EntityFields<ValueObjectType<ValueObject>>): string[] | undefined {
+    if (!fields) return undefined;
+
+    return objectKeys(fields).filter((v) => fields[v]);
   }
 }

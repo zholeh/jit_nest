@@ -1,18 +1,15 @@
 import { Calendar } from '../../schema';
 import { objectToSnakeCaseKeyMap, objectToSnakeCaseValueMap } from '../helper/caseProcessing';
-import { Entity } from './entity.abstract';
+import { DatabaseEntity } from './entity.abstract';
 
-const calendarColumnMap = objectToSnakeCaseKeyMap(Calendar.shape);
-export const calendarColumns = {
-  db: objectToSnakeCaseKeyMap(Calendar.shape),
-  valueObject: objectToSnakeCaseValueMap(Calendar.shape),
-};
-export const calendarTable = 'calendar';
+const shape = Calendar.shape;
 
-export class CalendarEntity extends Entity<typeof Calendar> {
-  protected columns = calendarColumnMap;
+export class CalendarEntity extends DatabaseEntity<typeof Calendar> {
+  readonly columns = {
+    db: objectToSnakeCaseKeyMap(shape),
+    entity: objectToSnakeCaseValueMap(shape),
+  };
+  readonly table = 'calendar' as const;
 
-  constructor(readonly schema: typeof Calendar) {
-    super();
-  }
+  readonly schema = Calendar;
 }

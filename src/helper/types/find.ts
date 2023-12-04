@@ -3,6 +3,8 @@ import { Filter } from './filter';
 import { Order } from './order';
 import { Pagination } from './pagination';
 
+export type EntityFields<T> = { [P in keyof T]?: T[P] extends DictionaryUnknown ? EntityFields<T[P]> : true };
+
 export type FindAllOptions<Entity extends DictionaryUnknown, Fields extends Entity = Entity> = FindOneOptions<
   Entity,
   Fields
@@ -12,7 +14,7 @@ export type FindAllOptions<Entity extends DictionaryUnknown, Fields extends Enti
 };
 
 export type FindOneOptions<Entity extends DictionaryUnknown, Fields extends Entity = Entity> = {
-  fields?: (keyof Fields)[];
+  fields?: EntityFields<Fields>;
   filters?: Filter<Entity>[];
   deleted?: boolean;
 };

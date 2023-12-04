@@ -1,24 +1,15 @@
 import { SupplyCategory } from '../../schema';
 import { objectToSnakeCaseKeyMap, objectToSnakeCaseValueMap } from '../helper/caseProcessing';
-import { Entity } from './entity.abstract';
+import { DatabaseEntity } from './entity.abstract';
 
-const supplyCategoryColumnMap = objectToSnakeCaseKeyMap(SupplyCategory.shape);
-export const supplyCategoryColumns = {
-  db: objectToSnakeCaseKeyMap(SupplyCategory.shape),
-  entity: objectToSnakeCaseValueMap(SupplyCategory.shape),
-};
-export const supplyCategoryTable = 'supplyCategory';
+const shape = SupplyCategory.shape;
 
-export class SupplyCategoryEntity extends Entity<typeof SupplyCategory> {
-  protected columns = supplyCategoryColumnMap;
+export class SupplyCategoryEntity extends DatabaseEntity<typeof SupplyCategory> {
+  readonly columns = {
+    db: objectToSnakeCaseKeyMap(shape),
+    entity: objectToSnakeCaseValueMap(shape),
+  };
+  readonly table = 'supply_category' as const;
 
-  constructor(readonly schema: typeof SupplyCategory) {
-    super();
-
-    this.describeField('id', {
-      name: 'id',
-      type: 'uuid',
-      primary: true,
-    });
-  }
+  readonly schema = SupplyCategory;
 }

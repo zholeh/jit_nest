@@ -1,6 +1,6 @@
 import { Knex } from 'nestjs-knex';
 import { SupplyCategory, SupplyCategoryCreate, SupplyCategoryLink, SupplyCategoryUpdate } from '../../../schema';
-import { supplyCategoryColumns, supplyCategoryTable } from '../../entity/supplyCategory.entity';
+import { supplyCategoryEntity } from '../../entity';
 import { CrudEntityFactory } from '../crud/entity/crud.entity';
 
 export class SupplyCategoryStorage extends CrudEntityFactory({
@@ -9,9 +9,7 @@ export class SupplyCategoryStorage extends CrudEntityFactory({
   update: SupplyCategoryUpdate,
   delete: SupplyCategoryLink,
 }) {
-  protected readonly table = supplyCategoryTable;
-  protected readonly columns = supplyCategoryColumns;
-  protected readonly schema = SupplyCategory;
+  protected readonly dbEntity = supplyCategoryEntity;
   protected readonly knex;
 
   constructor(knex: Knex) {

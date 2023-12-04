@@ -1,24 +1,14 @@
 import { Channel } from '../../schema';
 import { objectToSnakeCaseKeyMap, objectToSnakeCaseValueMap } from '../helper/caseProcessing';
-import { Entity } from './entity.abstract';
+import { DatabaseEntity } from './entity.abstract';
 
-const channelColumnMap = objectToSnakeCaseKeyMap(Channel.shape);
-export const channelColumns = {
-  db: objectToSnakeCaseKeyMap(Channel.shape),
-  entity: objectToSnakeCaseValueMap(Channel.shape),
-};
-export const channelTable = 'channel';
+const shape = Channel.shape;
 
-export class ChannelEntity extends Entity<typeof Channel> {
-  protected columns = channelColumnMap;
-
-  constructor(readonly schema: typeof Channel) {
-    super();
-
-    this.describeField('id', {
-      name: 'id',
-      type: 'uuid',
-      primary: true,
-    });
-  }
+export class ChannelEntity extends DatabaseEntity<typeof Channel> {
+  readonly columns = {
+    db: objectToSnakeCaseKeyMap(shape),
+    entity: objectToSnakeCaseValueMap(shape),
+  };
+  readonly table = 'channel' as const;
+  readonly schema = Channel;
 }

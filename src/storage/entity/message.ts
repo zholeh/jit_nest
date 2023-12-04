@@ -1,24 +1,15 @@
 import { Message } from '../../schema';
 import { objectToSnakeCaseKeyMap, objectToSnakeCaseValueMap } from '../helper/caseProcessing';
-import { Entity } from './entity.abstract';
+import { DatabaseEntity } from './entity.abstract';
 
-const messageColumnMap = objectToSnakeCaseKeyMap(Message.shape);
-export const messageColumns = {
-  db: objectToSnakeCaseKeyMap(Message.shape),
-  entity: objectToSnakeCaseValueMap(Message.shape),
-};
-export const messageTable = 'message';
+const shape = Message.shape;
 
-export class MessageEntity extends Entity<typeof Message> {
-  protected columns = messageColumnMap;
+export class MessageEntity extends DatabaseEntity<typeof Message> {
+  readonly columns = {
+    db: objectToSnakeCaseKeyMap(shape),
+    entity: objectToSnakeCaseValueMap(shape),
+  };
+  readonly table = 'message' as const;
 
-  constructor(readonly schema: typeof Message) {
-    super();
-
-    this.describeField('id', {
-      name: 'id',
-      type: 'uuid',
-      primary: true,
-    });
-  }
+  readonly schema = Message;
 }

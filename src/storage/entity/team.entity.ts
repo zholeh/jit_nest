@@ -1,24 +1,15 @@
 import { Team } from '../../schema';
 import { objectToSnakeCaseKeyMap, objectToSnakeCaseValueMap } from '../helper/caseProcessing';
-import { Entity } from './entity.abstract';
+import { DatabaseEntity } from './entity.abstract';
 
-const teamColumnMap = objectToSnakeCaseKeyMap(Team.shape);
-export const teamColumns = {
-  db: objectToSnakeCaseKeyMap(Team.shape),
-  entity: objectToSnakeCaseValueMap(Team.shape),
-};
-export const teamTable = 'team';
+const shape = Team.shape;
 
-export class TeamEntity extends Entity<typeof Team> {
-  protected columns = teamColumnMap;
+export class TeamEntity extends DatabaseEntity<typeof Team> {
+  readonly columns = {
+    db: objectToSnakeCaseKeyMap(shape),
+    entity: objectToSnakeCaseValueMap(shape),
+  };
+  readonly table = 'team' as const;
 
-  constructor(readonly schema: typeof Team) {
-    super();
-
-    this.describeField('id', {
-      name: 'id',
-      type: 'uuid',
-      primary: true,
-    });
-  }
+  readonly schema = Team;
 }

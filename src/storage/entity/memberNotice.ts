@@ -1,24 +1,15 @@
 import { MemberNotice } from '../../schema';
 import { objectToSnakeCaseKeyMap, objectToSnakeCaseValueMap } from '../helper/caseProcessing';
-import { Entity } from './entity.abstract';
+import { DatabaseEntity } from './entity.abstract';
 
-const memberNoticeColumnMap = objectToSnakeCaseKeyMap(MemberNotice.shape);
-export const memberNoticeColumns = {
-  db: objectToSnakeCaseKeyMap(MemberNotice.shape),
-  entity: objectToSnakeCaseValueMap(MemberNotice.shape),
-};
-export const memberNoticeTable = 'member_notice';
+const shape = MemberNotice.shape;
 
-export class MemberNoticeEntity extends Entity<typeof MemberNotice> {
-  protected columns = memberNoticeColumnMap;
+export class MemberNoticeEntity extends DatabaseEntity<typeof MemberNotice> {
+  readonly columns = {
+    db: objectToSnakeCaseKeyMap(shape),
+    entity: objectToSnakeCaseValueMap(shape),
+  };
+  readonly table = 'member_notice' as const;
 
-  constructor(readonly schema: typeof MemberNotice) {
-    super();
-
-    this.describeField('id', {
-      name: 'id',
-      type: 'uuid',
-      primary: true,
-    });
-  }
+  readonly schema = MemberNotice;
 }

@@ -1,6 +1,6 @@
 import { Knex } from 'nestjs-knex';
 import { Channel, ChannelCreate, ChannelLink, ChannelUpdate } from '../../../schema';
-import { channelColumns, channelTable } from '../../entity/channel.entity';
+import { channelEntity } from '../../entity';
 import { CrudEntityFactory } from '../crud/entity/crud.entity';
 
 export class ChannelStorage extends CrudEntityFactory({
@@ -9,9 +9,7 @@ export class ChannelStorage extends CrudEntityFactory({
   update: ChannelUpdate,
   delete: ChannelLink,
 }) {
-  protected readonly table = channelTable;
-  protected readonly columns = channelColumns;
-  protected readonly schema = Channel;
+  protected dbEntity = channelEntity;
   protected readonly knex;
 
   constructor(knex: Knex) {
