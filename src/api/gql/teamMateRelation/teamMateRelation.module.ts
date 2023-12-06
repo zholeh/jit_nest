@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
-import { TeamCombineQueryResolver } from './resolver/teamCombine.query';
+import { TeamMateRelationQueryResolver } from './resolver/teamMateRelation.query';
 import { StorageModule } from '../../../storage/storage.module';
 
-const providers = [TeamCombineQueryResolver] as const;
+const providers = [TeamMateRelationQueryResolver] as const;
 const imports = [StorageModule] as const;
 @Module({
   imports: [...imports],
   providers: [...providers],
 })
-export class TeamCombineModule {}
+export class TeamMateRelationModule {}

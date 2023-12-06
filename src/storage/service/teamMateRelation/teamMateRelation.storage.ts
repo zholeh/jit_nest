@@ -1,9 +1,10 @@
 import { Knex as KnexNext } from 'nestjs-knex';
-import { TeamCombine, TeamMate } from '../../../schema';
+import { TeamMate } from '../../../schema';
+import { TeamMateRelation } from '../../../schema/teamMateRelation';
 import { currencyEntity, teamEntity, teamMateEntity } from '../../entity';
-import { CrudCombineFactory } from '../crud/combine/crud.entity';
+import { CrudRelationFactory } from '../crud/combine/crud.entity';
 
-export class TeamMateRelationStorage extends CrudCombineFactory<typeof TeamCombine, typeof TeamMate>() {
+export class TeamMateRelationStorage extends CrudRelationFactory<typeof TeamMateRelation, typeof TeamMate>() {
   readonly mainEntity = teamMateEntity;
   protected readonly knex;
   protected joinedTables = [];
@@ -22,27 +23,6 @@ export class TeamMateRelationStorage extends CrudCombineFactory<typeof TeamCombi
             entity: currencyEntity,
             left: 'currencyId',
             right: 'id',
-            subs: [
-              {
-                entity: teamEntity,
-                left: 'shortName',
-                right: 'name',
-                subs: [
-                  {
-                    entity: teamMateEntity,
-                    left: 'id',
-                    right: 'role',
-                    subs: [
-                      {
-                        entity: teamMateEntity,
-                        left: 'role',
-                        right: 'description',
-                      },
-                    ],
-                  },
-                ],
-              },
-            ],
           },
         ],
       },

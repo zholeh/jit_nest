@@ -7,7 +7,7 @@ type GConstructor<T = object> = new (knex: Knex) => T;
 
 type FactoryType<Entity extends EntitySchema, MainEntity extends EntitySchema> = GConstructor<Read<Entity, MainEntity>>;
 
-export function CrudCombineFactory<Entity extends EntitySchema, MainEntity extends EntitySchema>() {
+export function CrudRelationFactory<Entity extends EntitySchema, MainEntity extends EntitySchema>() {
   class Empty {}
   const arr: unknown[] = [BaseEntityCrud, Read];
   applyMixins(Empty, arr);

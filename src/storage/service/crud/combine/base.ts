@@ -20,7 +20,7 @@ type RuleOptionalProperty = {
   method?: JoinMethod;
 };
 
-type SubRelation<
+export type SubRelation<
   Entity extends DatabaseEntity<AnySchema> = DatabaseEntity<AnySchema>,
   S0 extends DatabaseEntity<AnySchema> = DatabaseEntity<AnySchema>,
   S1 extends DatabaseEntity<AnySchema> = DatabaseEntity<AnySchema>,
@@ -130,16 +130,6 @@ export abstract class BaseEntityCrud<MainEntity extends EntitySchema> {
 
       return undefined;
     }
-    // return loop.find((relation) => {
-    //   const name = relation.incomingName || relation.entity.conventionalTableName || relation.entity.table;
-    //   const result = name === field;
-
-    //   if (!result && relation.subs?.length) {
-    //     return this.getRelation(field, relation.subs);
-    //   }
-
-    //   return result;
-    // });
   }
 
   // protected relation<Entity extends EntitySchema, Left extends DatabaseEntity<AnySchema>>(

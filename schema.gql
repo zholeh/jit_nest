@@ -108,7 +108,7 @@ enum UserOrderInput_ColumnEnum_0 {
 }
 
 """
-Enum values for TeamCombinePaginationInput_Cursor_StartFrom_Currency.order
+Enum values for TeamMateRelationPaginationInput_Cursor_StartFrom_Team.order
 """
 enum Order {
   ASC
@@ -544,7 +544,7 @@ type TeamMateModel {
   deletedAt: DateTime
 }
 
-"""Enum values for TeamMateModel.role"""
+"""Enum values for TeamMateRelationModel.role"""
 enum Role {
   superMate
   mate
@@ -1894,7 +1894,7 @@ input UserViewLayerCreateInput {
   setting: JSONObject!
 }
 
-type TeamCombineModel_Currency {
+type TeamRelationModel_Currency {
   id: String!
   name: String!
   description: String!
@@ -1905,7 +1905,7 @@ type TeamCombineModel_Currency {
   deletedAt: DateTime
 }
 
-type TeamCombineModel {
+type TeamRelationModel {
   id: String!
   name: String!
   description: String!
@@ -1914,21 +1914,21 @@ type TeamCombineModel {
   createdAt: DateTime!
   updatedAt: DateTime
   deletedAt: DateTime
-  currency: TeamCombineModel_Currency!
+  currency: TeamRelationModel_Currency!
 }
 
-type TeamCombineQuery {
-  findAll(options: TeamCombineFindAll): [TeamCombineModel!]!
-  findOne(options: TeamCombineFindOne): TeamCombineModel
+type TeamRelationQuery {
+  findAll(options: TeamRelationFindAll): [TeamRelationModel!]!
+  findOne(options: TeamRelationFindOne): TeamRelationModel
 }
 
-input TeamCombineFindAll {
-  filters: [TeamCombineFilterInput!]
-  orders: [TeamCombineOrderInput!]
-  pagination: TeamCombinePaginationInput
+input TeamRelationFindAll {
+  filters: [TeamRelationFilterInput!]
+  orders: [TeamRelationOrderInput!]
+  pagination: TeamRelationPaginationInput
 }
 
-input TeamCombineFilterInput {
+input TeamRelationFilterInput {
   id: UserFilterInput_Id
   name: UserFilterInput_Id
   description: UserFilterInput_Id
@@ -1937,11 +1937,11 @@ input TeamCombineFilterInput {
   createdAt: UserFilterInput_CreatedAt
   updatedAt: UserFilterInput_CreatedAt
   deletedAt: UserFilterInput_CreatedAt
-  currency: TeamCombineFilterInput_Currency
-  or: [TeamCombineFilterInput_Or!]
+  currency: TeamRelationFilterInput_Currency
+  or: [TeamRelationFilterInput_Or!]
 }
 
-input TeamCombineFilterInput_Currency {
+input TeamRelationFilterInput_Currency {
   id: UserFilterInput_Id
   name: UserFilterInput_Id
   description: UserFilterInput_Id
@@ -1950,10 +1950,10 @@ input TeamCombineFilterInput_Currency {
   createdAt: UserFilterInput_CreatedAt
   updatedAt: UserFilterInput_CreatedAt
   deletedAt: UserFilterInput_CreatedAt
-  or: [TeamCombineFilterInput_Currency_Or!]
+  or: [TeamRelationFilterInput_Currency_Or!]
 }
 
-input TeamCombineFilterInput_Currency_Or {
+input TeamRelationFilterInput_Currency_Or {
   id: UserFilterInput_Id
   name: UserFilterInput_Id
   description: UserFilterInput_Id
@@ -1964,7 +1964,7 @@ input TeamCombineFilterInput_Currency_Or {
   deletedAt: UserFilterInput_CreatedAt
 }
 
-input TeamCombineFilterInput_Or {
+input TeamRelationFilterInput_Or {
   id: UserFilterInput_Id
   name: UserFilterInput_Id
   description: UserFilterInput_Id
@@ -1973,93 +1973,93 @@ input TeamCombineFilterInput_Or {
   createdAt: UserFilterInput_CreatedAt
   updatedAt: UserFilterInput_CreatedAt
   deletedAt: UserFilterInput_CreatedAt
-  currency: TeamCombineFilterInput_Currency
+  currency: TeamRelationFilterInput_Currency
 }
 
-input TeamCombineOrderInput {
-  column: TeamCombineOrderInput_ColumnEnum_0!
+input TeamRelationOrderInput {
+  column: TeamRelationOrderInput_ColumnEnum_0!
 
   """Order"""
   order: Order!
 }
 
-"""Enum values for TeamCombineOrderInput.column"""
-enum TeamCombineOrderInput_ColumnEnum_0 {
+"""Enum values for TeamRelationOrderInput.column"""
+enum TeamRelationOrderInput_ColumnEnum_0 {
   createdAt
   description
   id
   name
 }
 
-input TeamCombinePaginationInput {
+input TeamRelationPaginationInput {
   limit: Float!
   offset: Float
-  cursor: TeamCombinePaginationInput_Cursor
+  cursor: TeamRelationPaginationInput_Cursor
 }
 
-input TeamCombinePaginationInput_Cursor {
+input TeamRelationPaginationInput_Cursor {
   id: String!
-  startFrom: TeamCombinePaginationInput_Cursor_StartFrom!
+  startFrom: TeamRelationPaginationInput_Cursor_StartFrom!
 }
 
-input TeamCombinePaginationInput_Cursor_StartFrom {
-  id: TeamCombinePaginationInput_Cursor_StartFrom_Id!
-  name: TeamCombinePaginationInput_Cursor_StartFrom_Name!
-  description: TeamCombinePaginationInput_Cursor_StartFrom_Description!
-  referralId: TeamCombinePaginationInput_Cursor_StartFrom_ReferralId!
-  currencyId: TeamCombinePaginationInput_Cursor_StartFrom_CurrencyId!
-  createdAt: TeamCombinePaginationInput_Cursor_StartFrom_CreatedAt!
-  updatedAt: TeamCombinePaginationInput_Cursor_StartFrom_UpdatedAt!
-  deletedAt: TeamCombinePaginationInput_Cursor_StartFrom_DeletedAt!
-  currency: TeamCombinePaginationInput_Cursor_StartFrom_Currency!
+input TeamRelationPaginationInput_Cursor_StartFrom {
+  id: TeamRelationPaginationInput_Cursor_StartFrom_Id!
+  name: TeamRelationPaginationInput_Cursor_StartFrom_Name!
+  description: TeamRelationPaginationInput_Cursor_StartFrom_Description!
+  referralId: TeamRelationPaginationInput_Cursor_StartFrom_ReferralId!
+  currencyId: TeamRelationPaginationInput_Cursor_StartFrom_CurrencyId!
+  createdAt: TeamRelationPaginationInput_Cursor_StartFrom_CreatedAt!
+  updatedAt: TeamRelationPaginationInput_Cursor_StartFrom_UpdatedAt!
+  deletedAt: TeamRelationPaginationInput_Cursor_StartFrom_DeletedAt!
+  currency: TeamRelationPaginationInput_Cursor_StartFrom_Currency!
 }
 
-input TeamCombinePaginationInput_Cursor_StartFrom_Id {
+input TeamRelationPaginationInput_Cursor_StartFrom_Id {
   value: String!
   order: Order!
 }
 
-input TeamCombinePaginationInput_Cursor_StartFrom_Name {
+input TeamRelationPaginationInput_Cursor_StartFrom_Name {
   value: String!
   order: Order!
 }
 
-input TeamCombinePaginationInput_Cursor_StartFrom_Description {
+input TeamRelationPaginationInput_Cursor_StartFrom_Description {
   value: String!
   order: Order!
 }
 
-input TeamCombinePaginationInput_Cursor_StartFrom_ReferralId {
+input TeamRelationPaginationInput_Cursor_StartFrom_ReferralId {
   value: String!
   order: Order!
 }
 
-input TeamCombinePaginationInput_Cursor_StartFrom_CurrencyId {
+input TeamRelationPaginationInput_Cursor_StartFrom_CurrencyId {
   value: String!
   order: Order!
 }
 
-input TeamCombinePaginationInput_Cursor_StartFrom_CreatedAt {
+input TeamRelationPaginationInput_Cursor_StartFrom_CreatedAt {
   value: DateTime!
   order: Order!
 }
 
-input TeamCombinePaginationInput_Cursor_StartFrom_UpdatedAt {
+input TeamRelationPaginationInput_Cursor_StartFrom_UpdatedAt {
   value: DateTime
   order: Order!
 }
 
-input TeamCombinePaginationInput_Cursor_StartFrom_DeletedAt {
+input TeamRelationPaginationInput_Cursor_StartFrom_DeletedAt {
   value: DateTime
   order: Order!
 }
 
-input TeamCombinePaginationInput_Cursor_StartFrom_Currency {
-  value: TeamCombinePaginationInput_Cursor_StartFrom_Currency_Value!
+input TeamRelationPaginationInput_Cursor_StartFrom_Currency {
+  value: TeamRelationPaginationInput_Cursor_StartFrom_Currency_Value!
   order: Order!
 }
 
-input TeamCombinePaginationInput_Cursor_StartFrom_Currency_Value {
+input TeamRelationPaginationInput_Cursor_StartFrom_Currency_Value {
   id: String!
   name: String!
   description: String!
@@ -2070,8 +2070,255 @@ input TeamCombinePaginationInput_Cursor_StartFrom_Currency_Value {
   deletedAt: DateTime
 }
 
-input TeamCombineFindOne {
-  filters: [TeamCombineFilterInput!]
+input TeamRelationFindOne {
+  filters: [TeamRelationFilterInput!]
+}
+
+type TeamMateRelationModel_Team {
+  id: String!
+  name: String!
+  description: String!
+  referralId: String!
+  currencyId: String!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  deletedAt: DateTime
+  currency: TeamMateRelationModel_Team_Currency!
+}
+
+type TeamMateRelationModel_Team_Currency {
+  id: String!
+  name: String!
+  description: String!
+  code: Int!
+  shortName: String!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  deletedAt: DateTime
+}
+
+type TeamMateRelationModel {
+  id: String!
+  name: String!
+  description: String!
+  userId: String!
+  teamId: String!
+  role: Role!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  deletedAt: DateTime
+  team: TeamMateRelationModel_Team!
+}
+
+type TeamMateRelationQuery {
+  findAll(options: TeamMateRelationFindAll): [TeamMateRelationModel!]!
+  findOne(options: TeamMateRelationFindOne): TeamMateRelationModel
+}
+
+input TeamMateRelationFindAll {
+  filters: [TeamMateRelationFilterInput!]
+  orders: [TeamMateRelationOrderInput!]
+  pagination: TeamMateRelationPaginationInput
+}
+
+input TeamMateRelationFilterInput {
+  id: UserFilterInput_Id
+  name: UserFilterInput_Id
+  description: UserFilterInput_Id
+  userId: UserFilterInput_Id
+  teamId: UserFilterInput_Id
+  role: TeamMateRelationFilterInput_Role
+  createdAt: UserFilterInput_CreatedAt
+  updatedAt: UserFilterInput_CreatedAt
+  deletedAt: UserFilterInput_CreatedAt
+  team: TeamMateRelationFilterInput_Team
+  or: [TeamMateRelationFilterInput_Or!]
+}
+
+input TeamMateRelationFilterInput_Role {
+  eq: Role
+  notEq: Role
+  in: [Role!]
+  notIn: [Role!]
+  isNull: Boolean
+  isNotNull: Boolean
+}
+
+input TeamMateRelationFilterInput_Team {
+  id: UserFilterInput_Id
+  name: UserFilterInput_Id
+  description: UserFilterInput_Id
+  referralId: UserFilterInput_Id
+  currencyId: UserFilterInput_Id
+  createdAt: UserFilterInput_CreatedAt
+  updatedAt: UserFilterInput_CreatedAt
+  deletedAt: UserFilterInput_CreatedAt
+  currency: TeamMateRelationFilterInput_Team_Currency
+  or: [TeamMateRelationFilterInput_Team_Or!]
+}
+
+input TeamMateRelationFilterInput_Team_Currency {
+  id: UserFilterInput_Id
+  name: UserFilterInput_Id
+  description: UserFilterInput_Id
+  code: CurrencyFilterInput_Code
+  shortName: UserFilterInput_Id
+  createdAt: UserFilterInput_CreatedAt
+  updatedAt: UserFilterInput_CreatedAt
+  deletedAt: UserFilterInput_CreatedAt
+  or: [TeamMateRelationFilterInput_Team_Currency_Or!]
+}
+
+input TeamMateRelationFilterInput_Team_Currency_Or {
+  id: UserFilterInput_Id
+  name: UserFilterInput_Id
+  description: UserFilterInput_Id
+  code: CurrencyFilterInput_Code
+  shortName: UserFilterInput_Id
+  createdAt: UserFilterInput_CreatedAt
+  updatedAt: UserFilterInput_CreatedAt
+  deletedAt: UserFilterInput_CreatedAt
+}
+
+input TeamMateRelationFilterInput_Team_Or {
+  id: UserFilterInput_Id
+  name: UserFilterInput_Id
+  description: UserFilterInput_Id
+  referralId: UserFilterInput_Id
+  currencyId: UserFilterInput_Id
+  createdAt: UserFilterInput_CreatedAt
+  updatedAt: UserFilterInput_CreatedAt
+  deletedAt: UserFilterInput_CreatedAt
+  currency: TeamMateRelationFilterInput_Team_Currency
+}
+
+input TeamMateRelationFilterInput_Or {
+  id: UserFilterInput_Id
+  name: UserFilterInput_Id
+  description: UserFilterInput_Id
+  userId: UserFilterInput_Id
+  teamId: UserFilterInput_Id
+  role: TeamMateRelationFilterInput_Role
+  createdAt: UserFilterInput_CreatedAt
+  updatedAt: UserFilterInput_CreatedAt
+  deletedAt: UserFilterInput_CreatedAt
+  team: TeamMateRelationFilterInput_Team
+}
+
+input TeamMateRelationOrderInput {
+  column: TeamMateRelationOrderInput_ColumnEnum_0!
+
+  """Order"""
+  order: Order!
+}
+
+"""Enum values for TeamMateRelationOrderInput.column"""
+enum TeamMateRelationOrderInput_ColumnEnum_0 {
+  createdAt
+  description
+  id
+  name
+}
+
+input TeamMateRelationPaginationInput {
+  limit: Float!
+  offset: Float
+  cursor: TeamMateRelationPaginationInput_Cursor
+}
+
+input TeamMateRelationPaginationInput_Cursor {
+  id: String!
+  startFrom: TeamMateRelationPaginationInput_Cursor_StartFrom!
+}
+
+input TeamMateRelationPaginationInput_Cursor_StartFrom {
+  id: TeamMateRelationPaginationInput_Cursor_StartFrom_Id!
+  name: TeamMateRelationPaginationInput_Cursor_StartFrom_Name!
+  description: TeamMateRelationPaginationInput_Cursor_StartFrom_Description!
+  userId: TeamMateRelationPaginationInput_Cursor_StartFrom_UserId!
+  teamId: TeamMateRelationPaginationInput_Cursor_StartFrom_TeamId!
+  role: TeamMateRelationPaginationInput_Cursor_StartFrom_Role!
+  createdAt: TeamMateRelationPaginationInput_Cursor_StartFrom_CreatedAt!
+  updatedAt: TeamMateRelationPaginationInput_Cursor_StartFrom_UpdatedAt!
+  deletedAt: TeamMateRelationPaginationInput_Cursor_StartFrom_DeletedAt!
+  team: TeamMateRelationPaginationInput_Cursor_StartFrom_Team!
+}
+
+input TeamMateRelationPaginationInput_Cursor_StartFrom_Id {
+  value: String!
+  order: Order!
+}
+
+input TeamMateRelationPaginationInput_Cursor_StartFrom_Name {
+  value: String!
+  order: Order!
+}
+
+input TeamMateRelationPaginationInput_Cursor_StartFrom_Description {
+  value: String!
+  order: Order!
+}
+
+input TeamMateRelationPaginationInput_Cursor_StartFrom_UserId {
+  value: String!
+  order: Order!
+}
+
+input TeamMateRelationPaginationInput_Cursor_StartFrom_TeamId {
+  value: String!
+  order: Order!
+}
+
+input TeamMateRelationPaginationInput_Cursor_StartFrom_Role {
+  value: Role!
+  order: Order!
+}
+
+input TeamMateRelationPaginationInput_Cursor_StartFrom_CreatedAt {
+  value: DateTime!
+  order: Order!
+}
+
+input TeamMateRelationPaginationInput_Cursor_StartFrom_UpdatedAt {
+  value: DateTime
+  order: Order!
+}
+
+input TeamMateRelationPaginationInput_Cursor_StartFrom_DeletedAt {
+  value: DateTime
+  order: Order!
+}
+
+input TeamMateRelationPaginationInput_Cursor_StartFrom_Team {
+  value: TeamMateRelationPaginationInput_Cursor_StartFrom_Team_Value!
+  order: Order!
+}
+
+input TeamMateRelationPaginationInput_Cursor_StartFrom_Team_Value {
+  id: String!
+  name: String!
+  description: String!
+  referralId: String!
+  currencyId: String!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  deletedAt: DateTime
+  currency: TeamMateRelationPaginationInput_Cursor_StartFrom_Team_Value_Currency!
+}
+
+input TeamMateRelationPaginationInput_Cursor_StartFrom_Team_Value_Currency {
+  id: String!
+  name: String!
+  description: String!
+  code: Int!
+  shortName: String!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  deletedAt: DateTime
+}
+
+input TeamMateRelationFindOne {
+  filters: [TeamMateRelationFilterInput!]
 }
 
 type Query {
@@ -2087,7 +2334,8 @@ type Query {
   supply: SupplyQuery!
   order: OrderQuery!
   userViewLayer: UserViewLayerQuery!
-  teamCombine: TeamCombineQuery!
+  teamRelation: TeamRelationQuery!
+  teamMateRelation: TeamMateRelationQuery!
 }
 
 type Mutation {

@@ -2,7 +2,6 @@ import { Knex } from 'knex';
 import { ServiceExceptions } from '../../../../exception';
 import { UnprocessableEntityServiceError } from '../../../../exception/service/unprocessableEntity';
 import { objectKeys } from '../../../../helper/object';
-import { assertNever } from '../../../../helper/predicates';
 import {
   DictionaryUnknown,
   EntityFields,
@@ -14,8 +13,8 @@ import {
 } from '../../../../helper/types';
 import { DatabaseEntity } from '../../../entity/entity.abstract';
 import { buildFilters } from '../../../helper/filter';
-import { BaseEntityCrud } from './base';
-import { EntitySchema, EntityType, JoinRule, Rule } from './types';
+import { BaseEntityCrud, SubRelation } from './base';
+import { EntitySchema, EntityType, JoinRule } from './types';
 
 export abstract class Read<
   Entity extends EntitySchema,
@@ -58,14 +57,14 @@ export abstract class Read<
     const result: string[] = [];
     if (!fields) {
       Array.from(this.mainEntity.columns.db).forEach(([, field]) => {
-        const prepared = this.prepareDbFieldAndAlias1(field);
+        const prepared = this.prepareDbFieldAndAlias(field);
         result.push(prepared);
       });
     } else {
       objectKeys(fields).forEach((field) => {
         const value = fields[field];
         if (typeof value === 'boolean') {
-          const prepared = this.prepareDbFieldAndAlias1(field, joinTable);
+          const prepared = this.prepareDbFieldAndAlias(field, joinTable);
           result.push(prepared);
         } else {
           const joinedTable = this.getJoinedTable(field);
@@ -73,6 +72,36 @@ export abstract class Read<
           const subfields = this.prepareFields(value as EntityFields<EntityType<Entity>>, joinedTable);
           subfields[0].forEach((v) => joins.push(v));
           subfields[1].forEach((v) => result.push(v));
+        }
+      });
+    }
+
+    return [joins, result] as const;
+  }
+
+  private prepareFields1(fields?: EntityFields<EntityType<Entity>>, relation?: SubRelation, alias = '') {
+    const joins: SubRelation[] = [];
+    const result: string[] = [];
+    if (!fields) {
+      Array.from(this.mainEntity.columns.db).forEach(([, field]) => {
+        const prepared = this.prepareDbFieldAndAlias1(field, this.mainEntity.table);
+        result.push(prepared);
+      });
+    } else {
+      objectKeys(fields).forEach((field) => {
+        const value = fields[field];
+        if (typeof value === 'boolean') {
+          const prepared = this.prepareDbFieldAndAlias1(field, alias, relation);
+          result.push(prepared);
+        } else {
+          const relation = this.getRelation(field);
+          if (relation) {
+            const currentAlias = `${alias}${alias ? '_' : ''}${relation.entity.table}_`;
+            joins.push(relation);
+            const subfields = this.prepareFields1(value as EntityFields<EntityType<Entity>>, relation, currentAlias);
+            subfields[0].forEach((v) => joins.push(v));
+            subfields[1].forEach((v) => result.push(v));
+          }
         }
       });
     }
@@ -91,9 +120,16 @@ export abstract class Read<
     throw new UnprocessableEntityServiceError(`getJoinedTable: unrecognized table ${field}`);
   }
 
-  private prepareDbFieldAndAlias1(field: string, joinTable?: JoinRule<MainEntity>) {
+  private prepareDbFieldAndAlias(field: string, joinTable?: JoinRule<MainEntity>) {
     const table = joinTable?.entity ? joinTable?.entity.table : this.mainEntity.table;
     const alias = joinTable?.entity ? `${joinTable?.entity.table}_` : '';
+    const fieldName = joinTable?.entity ? joinTable?.entity.dbField(field) : this.mainEntity.dbField(field);
+    return `${table}.${fieldName} as ${alias}${fieldName}` as const;
+  }
+
+  private prepareDbFieldAndAlias1(field: string, alias: string, joinTable?: SubRelation) {
+    const table = joinTable?.entity ? joinTable?.entity.table : this.mainEntity.table;
+    // const alias = joinTable?.entity ? `${joinTable?.entity.table}_` : '';
     const fieldName = joinTable?.entity ? joinTable?.entity.dbField(field) : this.mainEntity.dbField(field);
     return `${table}.${fieldName} as ${alias}${fieldName}` as const;
   }
@@ -173,7 +209,11 @@ export abstract class Read<
     withoutDeleted = true,
   ): Knex.QueryBuilder<DictionaryUnknown, DictionaryUnknown[]> {
     const query = this.knex.from(this.mainEntity.table);
-    const [joinsByFields, dbFields] = this.prepareFields(options?.fields);
+    const [joinsByFields, dbFields] = this.prepareFields1(options?.fields);
+
+    console.log(dbFields);
+    console.log(joinsByFields.length);
+
     query.select(dbFields);
 
     // const hasDeletedAtColumn = this.mainEntity.columns.db.get('deletedAt');
@@ -189,37 +229,37 @@ export abstract class Read<
     if (joins.size) {
       const mainEntity = this.mainEntity;
       for (const join of joins) {
-        const rules = join.rules;
-        if (rules && rules.length) {
-          query.leftJoin(join.entity.table, function () {
-            function recursive(rules: Rule[], or = true) {
-              return rules;
-            }
-            for (const rule of rules) {
-              if ('left' in rule) {
-                this.andOn(
-                  `${mainEntity.table}.${rule.left}`,
-                  rule.condition ?? '=',
-                  `${join.entity.table}.${rule.right}`,
-                );
-              } else if ('or' in rule) {
-                // TODO: make recursive
-                recursive.call(this, rule.or);
-              } else if ('and' in rule) {
-                // TODO: make recursive
-                recursive.call(this, rule.and, false);
-              } else {
-                return assertNever(rule, `Build query -> Unprocessable conditional type`);
-              }
-            }
-          });
-        } else {
-          query.leftJoin(
-            join.entity.table,
-            `${this.mainEntity.table}.${this.mainEntity.dbField('id')}`,
-            `${join.entity.table}.${join.entity.table}_id`,
-          );
-        }
+        // const rules = join.rules;
+        // if (rules && rules.length) {
+        //   query.leftJoin(join.entity.table, function () {
+        //     function recursive(rules: Rule[], or = true) {
+        //       return rules;
+        //     }
+        //     for (const rule of rules) {
+        //       if ('left' in rule) {
+        //         this.andOn(
+        //           `${mainEntity.table}.${rule.left}`,
+        //           rule.condition ?? '=',
+        //           `${join.entity.table}.${rule.right}`,
+        //         );
+        //       } else if ('or' in rule) {
+        //         // TODO: make recursive
+        //         recursive.call(this, rule.or);
+        //       } else if ('and' in rule) {
+        //         // TODO: make recursive
+        //         recursive.call(this, rule.and, false);
+        //       } else {
+        //         return assertNever(rule, `Build query -> Unprocessable conditional type`);
+        //       }
+        //     }
+        //   });
+        // } else {
+        //   query.leftJoin(
+        //     join.entity.table,
+        //     `${this.mainEntity.table}.${this.mainEntity.dbField('id')}`,
+        //     `${join.entity.table}.${join.entity.table}_id`,
+        //   );
+        // }
       }
     }
 

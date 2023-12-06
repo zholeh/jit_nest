@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectKnex, Knex } from 'nestjs-knex';
 import { TeamMateRelationStorage } from './teamMateRelation.storage';
-import { TeamCombineType } from '../../../schema';
+import { TeamRelationType } from '../../../schema';
 import { FindAllOptions, FindOneOptions } from '../../../helper/types';
+import { TeamMateRelationType } from '../../../schema/teamMateRelation';
 
 @Injectable()
 export class TeamMateRelationService {
@@ -11,11 +12,11 @@ export class TeamMateRelationService {
     this.storage = new TeamMateRelationStorage(this.knex);
   }
 
-  async findAll(input: FindAllOptions<TeamCombineType>) {
+  async findAll(input: FindAllOptions<TeamMateRelationType>) {
     return this.storage.findAll(input);
   }
 
-  async findOne(input: FindOneOptions<TeamCombineType>) {
+  async findOne(input: FindOneOptions<TeamRelationType>) {
     return this.storage.findOne(input);
   }
 }
