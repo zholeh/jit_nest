@@ -13,7 +13,7 @@ const joins: [JoinRule<typeof Currency>] = [joinCurrency];
 export class TeamCombineStorage extends CrudCombineFactory<typeof TeamCombine, typeof Team>() {
   readonly mainEntity = teamEntity;
   protected readonly knex;
-  protected joinedTables = joins;
+  // protected joinedTables = joins;
 
   constructor(knex: KnexNext) {
     super(knex);

@@ -12,4 +12,6 @@ export class OrderEntity extends DatabaseEntity<typeof Order> {
   readonly table = 'order' as const;
 
   readonly schema = Order;
+
+  readonly conventionalTableName = undefined;
 }

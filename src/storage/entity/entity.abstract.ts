@@ -1,8 +1,8 @@
-import { ZodObject, ZodRawShape, TypeOf } from 'zod';
+import { TypeOf } from 'zod';
 import { objectKeys } from '../../helper/object';
 import { DictionaryUnknown } from '../../helper/types';
+import { AnySchema } from '../helper/zod';
 
-type AnySchema = ZodObject<ZodRawShape>;
 type EntityShapeDescription = string;
 type ColumnMap<T extends AnySchema> = {
   db: Map<keyof TypeOf<T>, EntityShapeDescription>;
@@ -16,6 +16,7 @@ export abstract class DatabaseEntity<Entity extends AnySchema> {
   abstract readonly schema: Entity;
   abstract readonly columns: ColumnMap<Entity>;
   abstract readonly table: string;
+  abstract readonly conventionalTableName?: string;
 
   entity(entity: DictionaryUnknown, fields?: KeyofEntity<Entity>[]): EntityType<Entity> {
     const obj = Object.fromEntries(

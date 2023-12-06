@@ -28,6 +28,7 @@ export type ColumnsType<Entity extends EntitySchema> = {
 };
 
 export type Condition = '=' | '>' | '<' | '>=' | '<=';
+export type JoinMethod = 'leftJoin';
 export type Rule<Left = string, Right = string> = Readonly<
   { left: Left; right: Right; condition?: Condition } | { or: Rule[] } | { and: Rule[] }
 >;

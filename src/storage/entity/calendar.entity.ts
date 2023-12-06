@@ -12,4 +12,6 @@ export class CalendarEntity extends DatabaseEntity<typeof Calendar> {
   readonly table = 'calendar' as const;
 
   readonly schema = Calendar;
+
+  readonly conventionalTableName = undefined;
 }

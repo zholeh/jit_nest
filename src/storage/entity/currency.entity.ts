@@ -12,4 +12,6 @@ export class CurrencyEntity extends DatabaseEntity<typeof Currency> {
   readonly table = 'currency' as const;
 
   readonly schema = Currency;
+
+  readonly conventionalTableName = undefined;
 }

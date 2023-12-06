@@ -13,6 +13,7 @@ import { SupplyService } from './service/supply/supply.service';
 import { OrderService } from './service/order/order.service';
 import { UserViewLayerService } from './service/userViewLayer/userViewLayer.service';
 import { TeamCombineService } from './service/teamCombine/teamCombine.service';
+import { TeamMateRelationService } from './service/teamMateCombine/teamMateRelation.service';
 
 const providers = [
   UserService,
@@ -28,6 +29,7 @@ const providers = [
   OrderService,
   UserViewLayerService,
   TeamCombineService,
+  TeamMateRelationService,
 ] as const;
 
 @Module({

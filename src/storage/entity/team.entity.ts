@@ -12,4 +12,6 @@ export class TeamEntity extends DatabaseEntity<typeof Team> {
   readonly table = 'team' as const;
 
   readonly schema = Team;
+
+  readonly conventionalTableName = undefined;
 }

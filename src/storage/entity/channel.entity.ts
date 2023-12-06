@@ -10,5 +10,8 @@ export class ChannelEntity extends DatabaseEntity<typeof Channel> {
     entity: objectToSnakeCaseValueMap(shape),
   };
   readonly table = 'channel' as const;
+
   readonly schema = Channel;
+
+  readonly conventionalTableName = undefined;
 }

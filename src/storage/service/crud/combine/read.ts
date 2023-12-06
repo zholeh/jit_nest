@@ -17,7 +17,10 @@ import { buildFilters } from '../../../helper/filter';
 import { BaseEntityCrud } from './base';
 import { EntitySchema, EntityType, JoinRule, Rule } from './types';
 
-export abstract class Read<Entity extends EntitySchema, ME extends EntitySchema> extends BaseEntityCrud<ME> {
+export abstract class Read<
+  Entity extends EntitySchema,
+  MainEntity extends EntitySchema,
+> extends BaseEntityCrud<MainEntity> {
   private fieldsCache: Record<string, any> = {};
   async findAll(options?: FindAllOptions<EntityType<Entity>>): Promise<readonly FindReturn<EntityType<Entity>>[]> {
     const result = await this.buildQuery(options);
@@ -50,19 +53,19 @@ export abstract class Read<Entity extends EntitySchema, ME extends EntitySchema>
     return result;
   }
 
-  private prepareFields(fields?: EntityFields<EntityType<Entity>>, joinTable?: JoinRule<ME>) {
-    const joins: JoinRule<ME>[] = [];
+  private prepareFields(fields?: EntityFields<EntityType<Entity>>, joinTable?: JoinRule<MainEntity>) {
+    const joins: JoinRule<MainEntity>[] = [];
     const result: string[] = [];
     if (!fields) {
       Array.from(this.mainEntity.columns.db).forEach(([, field]) => {
-        const prepared = this.prepareDbFieldAndAlias(field);
+        const prepared = this.prepareDbFieldAndAlias1(field);
         result.push(prepared);
       });
     } else {
       objectKeys(fields).forEach((field) => {
         const value = fields[field];
         if (typeof value === 'boolean') {
-          const prepared = this.prepareDbFieldAndAlias(field, joinTable);
+          const prepared = this.prepareDbFieldAndAlias1(field, joinTable);
           result.push(prepared);
         } else {
           const joinedTable = this.getJoinedTable(field);
@@ -88,7 +91,7 @@ export abstract class Read<Entity extends EntitySchema, ME extends EntitySchema>
     throw new UnprocessableEntityServiceError(`getJoinedTable: unrecognized table ${field}`);
   }
 
-  private prepareDbFieldAndAlias(field: string, joinTable?: JoinRule<ME>) {
+  private prepareDbFieldAndAlias1(field: string, joinTable?: JoinRule<MainEntity>) {
     const table = joinTable?.entity ? joinTable?.entity.table : this.mainEntity.table;
     const alias = joinTable?.entity ? `${joinTable?.entity.table}_` : '';
     const fieldName = joinTable?.entity ? joinTable?.entity.dbField(field) : this.mainEntity.dbField(field);

@@ -5,13 +5,13 @@ import { EntitySchema } from './types';
 
 type GConstructor<T = object> = new (knex: Knex) => T;
 
-type FactoryType<Entity extends EntitySchema, ME extends EntitySchema> = GConstructor<Read<Entity, ME>>;
+type FactoryType<Entity extends EntitySchema, MainEntity extends EntitySchema> = GConstructor<Read<Entity, MainEntity>>;
 
-export function CrudCombineFactory<Entity extends EntitySchema, ME extends EntitySchema>() {
+export function CrudCombineFactory<Entity extends EntitySchema, MainEntity extends EntitySchema>() {
   class Empty {}
   const arr: unknown[] = [BaseEntityCrud, Read];
   applyMixins(Empty, arr);
-  return Empty as unknown as FactoryType<Entity, ME>;
+  return Empty as unknown as FactoryType<Entity, MainEntity>;
 }
 
 function applyMixins(derivedCtor: { prototype: unknown }, constructors: any[]) {
