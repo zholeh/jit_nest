@@ -14,4 +14,5 @@ export class MessageEntity extends DatabaseEntity<typeof Message> {
   readonly schema = Message;
 
   readonly conventionalTableName = undefined;
+  readonly alias = undefined;
 }

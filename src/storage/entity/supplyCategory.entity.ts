@@ -14,4 +14,5 @@ export class SupplyCategoryEntity extends DatabaseEntity<typeof SupplyCategory> 
   readonly schema = SupplyCategory;
 
   readonly conventionalTableName = 'supplyCategory' as const;
+  readonly alias = undefined;
 }

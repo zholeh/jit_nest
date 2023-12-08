@@ -14,4 +14,5 @@ export class MemberNoticeEntity extends DatabaseEntity<typeof MemberNotice> {
   readonly schema = MemberNotice;
 
   readonly conventionalTableName = 'memberNotice' as const;
+  readonly alias = undefined;
 }

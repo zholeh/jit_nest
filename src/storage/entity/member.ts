@@ -14,4 +14,5 @@ export class MemberEntity extends DatabaseEntity<typeof Member> {
   readonly schema = Member;
 
   readonly conventionalTableName = undefined;
+  readonly alias = undefined;
 }

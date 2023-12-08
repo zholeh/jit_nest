@@ -14,4 +14,5 @@ export class TeamMateEntity extends DatabaseEntity<typeof TeamMate> {
   readonly schema = TeamMate;
 
   readonly conventionalTableName = 'teamMate' as const;
+  readonly alias = undefined;
 }

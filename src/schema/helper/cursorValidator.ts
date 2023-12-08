@@ -1,4 +1,5 @@
 import { ZodObject, ZodRawShape, ZodType, object, z } from 'zod';
+import { objectEntries } from '../../helper/object';
 import { OrderDirection } from '../../helper/types';
 
 type CursorValueType<Value> = ZodObject<{
@@ -11,7 +12,7 @@ type CursorType<Entity extends ZodRawShape> = ZodObject<{
 }>;
 
 export function buildCursorZodSchema<Entity extends ZodObject<ZodRawShape>>(zod: Entity): CursorType<z.infer<Entity>> {
-  const obj = Object.entries(zod.shape).reduce((acc, [key, value]) => {
+  const obj = objectEntries(zod.shape).reduce((acc, [key, value]) => {
     const property = object({
       [key]: z.object({
         value: value,

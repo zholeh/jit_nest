@@ -4,6 +4,7 @@ import { Knex } from 'knex';
 import { ServiceExceptions } from '../../exception';
 import { isArray, isBetweenObject, isBoolean, isNumber, isString } from '../../helper/predicates';
 import { isDate } from 'util/types';
+import { objectEntries } from '../../helper/object';
 
 type DbValue = string | number | boolean | Date;
 
@@ -62,12 +63,12 @@ export function buildFilters<Entity extends ZodObject<ZodRawShape>>(
   query.andWhere((builderAnd) => {
     filters.forEach((filter) => {
       builderAnd.orWhere((builder) => {
-        Object.entries(filter).forEach(([filterKey, filterOperator]) => {
+        objectEntries(filter).forEach(([filterKey, filterOperator]) => {
           if (filterKey === 'or') {
             builder = buildFilters(builder, filterOperator as Filter<TypeOf<Entity>>[], mapping);
           } else {
             if (!filterOperator) return;
-            Object.entries(filterOperator).forEach(([operatorKey, operatorValue]) => {
+            objectEntries(filterOperator).forEach(([operatorKey, operatorValue]) => {
               builder = addWhere(builder, {
                 key: mapping.get(filterKey) || filterKey,
                 value: operatorValue,
@@ -101,8 +102,8 @@ export function buildCursor<Entity extends ZodObject<ZodRawShape>>(
   const startFrom = cursor.startFrom;
   query.andWhere((builderCursor) => {
     builderCursor.orWhere((builderEqualGroup) => {
-      Object.entries(startFrom).forEach(([key, pointer]) => {
-        builderEqualGroup.andWhere(key, '=', getDbValue(pointer.value));
+      objectEntries(startFrom).forEach(([key, pointer]) => {
+        builderEqualGroup.andWhere(key, '=', getDbValue(pointer?.value));
       });
       builderEqualGroup.andWhere('id', '>', getDbValue(cursor.id));
       return builderEqualGroup;

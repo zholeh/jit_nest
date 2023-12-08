@@ -9,7 +9,6 @@ import {
   ZodRawShape,
   ZodString,
 } from 'zod';
-import { DatabaseEntity } from '../../../entity/entity.abstract';
 
 export type EntityIdSchema = { id: ZodBranded<ZodString, string> };
 export type EntityCommonFields = {
@@ -28,13 +27,7 @@ export type ColumnsType<Entity extends EntitySchema> = {
 };
 
 export type Condition = '=' | '>' | '<' | '>=' | '<=';
-export type JoinMethod = 'leftJoin';
+export type JoinMethod = 'leftJoin' | 'rightJoin';
 export type Rule<Left = string, Right = string> = Readonly<
   { left: Left; right: Right; condition?: Condition } | { or: Rule[] } | { and: Rule[] }
 >;
-export type JoinRule<E extends ZodObject<ZodRawShape>> = {
-  entity: DatabaseEntity<E>;
-  incomingName?: string;
-  rules?: ReadonlyArray<Rule>;
-  parent?: JoinRule<EntitySchema>;
-};

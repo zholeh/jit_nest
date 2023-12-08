@@ -14,4 +14,5 @@ export class ChannelEntity extends DatabaseEntity<typeof Channel> {
   readonly schema = Channel;
 
   readonly conventionalTableName = undefined;
+  readonly alias = undefined;
 }

@@ -14,4 +14,5 @@ export class UserEntity extends DatabaseEntity<typeof User> {
   readonly schema = User;
 
   readonly conventionalTableName = undefined;
+  readonly alias = undefined;
 }

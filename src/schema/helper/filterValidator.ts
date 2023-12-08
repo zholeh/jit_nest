@@ -18,6 +18,7 @@ import {
   ZodRecord,
   ZodNever,
 } from 'zod';
+import { objectEntries } from '../../helper/object';
 import { ExcludeNullish } from '../../helper/types/excludeNullish';
 import {
   BooleanInput,
@@ -102,7 +103,7 @@ export function buildFilterZodSchema<Entity extends ZodObject<ZodRawShape>>(
   zod: Entity,
   force?: Record<string, InputTypes>,
 ): FilterType<Entity> {
-  const obj = Object.entries(zod.shape).reduce((acc, [key, value]) => {
+  const obj = objectEntries(zod.shape).reduce((acc, [key, value]) => {
     if (value instanceof ZodObject) {
       const filter = buildFilterZodSchema(value);
       const property = object({

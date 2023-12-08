@@ -14,4 +14,5 @@ export class SupplyEntity extends DatabaseEntity<typeof Supply> {
   readonly schema = Supply;
 
   readonly conventionalTableName = undefined;
+  readonly alias = undefined;
 }

@@ -2,12 +2,15 @@ import { Knex } from 'knex';
 import { TypeOf } from 'zod';
 import { DatabaseEntity } from '../../../entity/entity.abstract';
 import { AnySchema } from '../../../helper/zod';
-import { Condition, EntitySchema, JoinRule, JoinMethod } from './types';
+import { Condition, EntitySchema, JoinMethod } from './types';
 
 type InferSchema<E> = E extends DatabaseEntity<infer U> ? U : never;
 type InferTypeofSchema<E> = TypeOf<InferSchema<E>>;
 
-type Rule<Left extends DatabaseEntity<AnySchema>, Right extends DatabaseEntity<AnySchema>> = {
+export type Rule<
+  Left extends DatabaseEntity<AnySchema> = DatabaseEntity<AnySchema>,
+  Right extends DatabaseEntity<AnySchema> = DatabaseEntity<AnySchema>,
+> = {
   entity: Right;
   left: Exclude<keyof InferTypeofSchema<Left>, symbol>;
   right: Exclude<keyof InferTypeofSchema<Right>, symbol>;
@@ -99,7 +102,6 @@ type Relation<
 
 export abstract class BaseEntityCrud<MainEntity extends EntitySchema> {
   abstract readonly mainEntity: DatabaseEntity<MainEntity>;
-  protected readonly joinedTables: JoinRule<MainEntity>[] = [];
   private relations: ReadonlyArray<Relation<MainEntity>> = [];
 
   protected abstract readonly knex: Knex;

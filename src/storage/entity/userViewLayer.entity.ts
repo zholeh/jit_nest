@@ -14,4 +14,5 @@ export class UserLayerEntity extends DatabaseEntity<typeof UserViewLayer> {
   readonly schema = UserViewLayer;
 
   readonly conventionalTableName = 'userViewLayer' as const;
+  readonly alias = undefined;
 }

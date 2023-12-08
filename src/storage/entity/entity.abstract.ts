@@ -1,5 +1,5 @@
 import { TypeOf } from 'zod';
-import { objectKeys } from '../../helper/object';
+import { objectEntries, objectKeys } from '../../helper/object';
 import { DictionaryUnknown } from '../../helper/types';
 import { AnySchema } from '../helper/zod';
 
@@ -17,10 +17,11 @@ export abstract class DatabaseEntity<Entity extends AnySchema> {
   abstract readonly columns: ColumnMap<Entity>;
   abstract readonly table: string;
   abstract readonly conventionalTableName?: string;
+  abstract readonly alias?: string;
 
   entity(entity: DictionaryUnknown, fields?: KeyofEntity<Entity>[]): EntityType<Entity> {
     const obj = Object.fromEntries(
-      Object.entries(entity).map(([key, value]) => {
+      objectEntries(entity).map(([key, value]) => {
         const field = this.entityField(key);
         return [field, value];
       }),

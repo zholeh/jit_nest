@@ -14,4 +14,5 @@ export class TeamEntity extends DatabaseEntity<typeof Team> {
   readonly schema = Team;
 
   readonly conventionalTableName = undefined;
+  readonly alias = undefined;
 }

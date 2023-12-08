@@ -14,4 +14,5 @@ export class OrderEntity extends DatabaseEntity<typeof Order> {
   readonly schema = Order;
 
   readonly conventionalTableName = undefined;
+  readonly alias = undefined;
 }
